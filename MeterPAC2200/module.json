@@ -1,11 +1,11 @@
 {
-  "id": "{9A5D6E30-2000-0000-0000-PAC2200001}",
+  "id": "{416F5F49-DAE6-45B7-3626-E5B339F3012D}",
   "name": "PAC2200 Meter",
   "type": 3,
   "vendor": "EnergyBilling",
   "aliases": ["Stromzähler"],
   "parentRequirements": [
-    "{9A5D6E30-1000-0000-0000-TENANT0001}"
+    "{8EF9FC78-699F-9FDF-4DE5-BECD724F5CE9}"
   ],
   "childRequirements": [],
   "implemented": [],
