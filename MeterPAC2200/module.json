@@ -1,0 +1,9 @@
+{
+  "id": "{68D499E8-7389-FB22-D78A-D6F132ACE05C}",
+  "name": "Siemens PAC2200",
+  "type": 3,
+  "vendor": "Siemens",
+  "aliases": ["PAC2200 Zähler"],
+  "parentRequirements": ["{A5F663AB-C400-4FE5-B207-4D67CC030564}"],
+  "prefix": "PAC"
+}
