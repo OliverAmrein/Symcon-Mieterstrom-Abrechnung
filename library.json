@@ -5,6 +5,5 @@
     "url": "https://github.com/OliverAmrein/Symcon-Mieterstrom-Abrechnung.git",
     "version": "0.3",
     "build": 1,
-    "date": 20260127,
-	"childRequirements": ["{FC92A0E2-5086-C52C-EAA2-7CAC16F365F1}"],
+    "date": 20260127
 }
