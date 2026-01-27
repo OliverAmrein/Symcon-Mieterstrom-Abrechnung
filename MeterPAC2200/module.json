@@ -1,6 +1,6 @@
 {
   "id": "{416F5F49-DAE6-45B7-3626-E5B339F3012D}",
-  "name": "PAC2200 Meter",
+  "name": "MeterPAC2200",
   "type": 3,
   "vendor": "EnergyBilling",
   "aliases": ["Stromzähler"],

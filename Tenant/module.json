@@ -1,6 +1,6 @@
 {
   "id": "{8EF9FC78-699F-9FDF-4DE5-BECD724F5CE9}",
-  "name": "Energy Tenant",
+  "name": "Tenant",
   "type": 3,
   "vendor": "EnergyBilling",
   "aliases": ["Mieter"],
