@@ -35,8 +35,8 @@ class BillingEngine extends IPSModule
 
     public function RunBilling()
     {
-        $tenants = IPS_GetInstanceListByModuleID("{C9D8F3B0-1000-0000-0000-TENANT0001}");
-        $meters  = IPS_GetInstanceListByModuleID("{C9D8F3B0-2000-0000-0000-PAC2200001}");
+        $tenants = IPS_GetInstanceListByModuleID("{8EF9FC78-699F-9FDF-4DE5-BECD724F5CE9}");
+        $meters  = IPS_GetInstanceListByModuleID("{416F5F49-DAE6-45B7-3626-E5B339F3012D}");
 
         foreach ($tenants as $tenantID) {
 
