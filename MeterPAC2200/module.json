@@ -4,6 +4,6 @@
   "type": 3,
   "vendor": "Siemens",
   "aliases": ["PAC2200 Zähler"],
-  "parentRequirements": ["{A5F663AB-C400-4FE5-B207-4D67CC030564}"],
+  "parentRequirements": ["{DBAFB36C-2403-8FF5-5769-67CD984F6415}"],
   "prefix": "PAC"
 }

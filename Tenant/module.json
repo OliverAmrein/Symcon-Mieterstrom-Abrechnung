@@ -4,5 +4,6 @@
   "type": 3,
   "vendor": "Energy Billing",
   "aliases": ["Mieter"],
+  "parentRequirements": ["{DBAFB36C-2403-8FF5-5769-67CD984F6415}"],
   "prefix": "TEN"
 }
