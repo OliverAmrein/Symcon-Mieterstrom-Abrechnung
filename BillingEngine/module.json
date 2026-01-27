@@ -1,6 +1,6 @@
 {
   "id": "{86F43F91-281C-E70E-E903-16B1BBDD18A7}",
-  "name": "Billing Engine",
+  "name": "BillingEngine",
   "type": 3,
   "vendor": "EnergyBilling",
   "aliases": ["Abrechnung"],

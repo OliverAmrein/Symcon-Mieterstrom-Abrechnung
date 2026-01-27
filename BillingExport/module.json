@@ -1,6 +1,6 @@
 {
   "id": "{286C7C28-9199-79E4-290D-203BDE8429E4}",
-  "name": "Billing Export",
+  "name": "BillingExport",
   "type": 3,
   "vendor": "Energy Billing",
   "aliases": ["Export"],
