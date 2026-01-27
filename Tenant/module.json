@@ -1,9 +1,13 @@
 {
-  "id": "{FC92A0E2-5086-C52C-EAA2-7CAC16F365F1}",
-  "name": "Tenant",
+  "id": "{9A5D6E30-1000-0000-0000-TENANT0001}",
+  "name": "Energy Tenant",
   "type": 3,
-  "vendor": "Energy Billing",
+  "vendor": "EnergyBilling",
   "aliases": ["Mieter"],
-  "parentRequirements": ["{DBAFB36C-2403-8FF5-5769-67CD984F6415}"],
-  "prefix": "TEN"
+  "parentRequirements": [],
+  "childRequirements": [
+    "{9A5D6E30-2000-0000-0000-PAC2200001}"
+  ],
+  "implemented": [],
+  "prefix": "TENANT"
 }

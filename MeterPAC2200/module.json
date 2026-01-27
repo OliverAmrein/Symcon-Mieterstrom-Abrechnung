@@ -1,9 +1,13 @@
 {
-  "id": "{68D499E8-7389-FB22-D78A-D6F132ACE05C}",
-  "name": "Siemens PAC2200",
+  "id": "{9A5D6E30-2000-0000-0000-PAC2200001}",
+  "name": "PAC2200 Meter",
   "type": 3,
-  "vendor": "Siemens",
-  "aliases": ["PAC2200 Zähler"],
-  "parentRequirements": ["{DBAFB36C-2403-8FF5-5769-67CD984F6415}"],
+  "vendor": "EnergyBilling",
+  "aliases": ["Stromzähler"],
+  "parentRequirements": [
+    "{9A5D6E30-1000-0000-0000-TENANT0001}"
+  ],
+  "childRequirements": [],
+  "implemented": [],
   "prefix": "PAC"
 }

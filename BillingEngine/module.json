@@ -1,9 +1,11 @@
 {
-  "id": "{A7FB71B8-28AF-6C8F-47F5-48F0CDFC79E6}",
+  "id": "{9A5D6E30-3000-0000-0000-BILLING001}",
   "name": "Billing Engine",
   "type": 3,
-  "vendor": "Energy Billing",
+  "vendor": "EnergyBilling",
   "aliases": ["Abrechnung"],
-  "parentRequirements": ["{DBAFB36C-2403-8FF5-5769-67CD984F6415}"],
+  "parentRequirements": [],
+  "childRequirements": [],
+  "implemented": [],
   "prefix": "BILL"
 }
