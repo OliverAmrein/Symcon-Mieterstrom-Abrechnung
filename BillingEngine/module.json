@@ -1,0 +1,8 @@
+{
+  "id": "{9A5D6E30-3000-0000-0000-BILLING001}",
+  "name": "Billing Engine",
+  "type": 3,
+  "vendor": "Energy Billing",
+  "aliases": ["Abrechnung"],
+  "prefix": "BILL"
+}
