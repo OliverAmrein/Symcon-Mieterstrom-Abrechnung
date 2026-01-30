@@ -4,9 +4,7 @@
   "type": 3,
   "vendor": "EnergyBilling",
   "aliases": ["Stromzähler"],
-  "parentRequirements": [
-    "{8EF9FC78-699F-9FDF-4DE5-BECD724F5CE9}"
-  ],
+  "parentRequirements": ["{8EF9FC78-699F-9FDF-4DE5-BECD724F5CE9}"],
   "childRequirements": [],
   "implemented": [],
   "prefix": "PAC"
