@@ -22,7 +22,27 @@
             "add": false,
             "caption": "Zählerliste",
             "changeOrder": false,
-            "columns": ["Zähler", "Prozent", "X"],
+            
+            
+            "columns": [{
+            "caption": "Zähler",
+            "name": "Zähler", 
+            "width": "75px",
+            "add": 0,
+            "edit": {
+                "type": "SelectInstance"
+            }
+        }, {
+            "caption": "Anteil %",
+            "name": "AnteilProzent",
+            "width": "auto",
+            "add": ""
+        }],
+        "values": [{
+            "Zähler": "Zähler XY",
+            "AnteilProzent": "100"
+        }],
+            
             "delete": false,
             "download": "",
             "enabled": true,
