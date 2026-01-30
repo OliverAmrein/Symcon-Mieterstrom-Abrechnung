@@ -25,7 +25,7 @@ class Tenant extends IPSModule
         parent::ApplyChanges();
 
         
-        $this->SetValue("Adresse", "Adresseingabe");
+        $this->SetValue("Adresse", $this->ReadPropertyString("Adresseingabe"));
     
     }
 
