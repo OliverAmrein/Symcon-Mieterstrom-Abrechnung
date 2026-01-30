@@ -6,10 +6,6 @@ class MeterPAC2200 extends IPSModule
     {
         parent::Create();
 
-        // Zuordnung
-        $this->RegisterPropertyInteger("TenantID", 0);
-        $this->RegisterPropertyFloat("SharePercent", 100);
-
         // Messwerte
         $this->RegisterVariableFloat("EnergyWh", "Energie gesamt (Wh)");
         $this->RegisterVariableFloat("EnergykWh", "Energie gesamt (kWh)");
@@ -29,13 +25,14 @@ class MeterPAC2200 extends IPSModule
 
         // Periodenverbrauch (vereinfachtes Beispiel)
         SetValue($this->GetIDForIdent("PeriodConsumptionkWh"), rand(5, 30));
-        
+  
     }
-
-    public function ApplyChanges()
+    
+    // Überschreibt die interne IPS_ApplyChanges($id) Funktion
+    public function ApplyChanges(): void
     {
-        //parent:ApplyChanges();
-
-
+        // Diese Zeile nicht löschen
+        parent::ApplyChanges();
+    
     }
 }

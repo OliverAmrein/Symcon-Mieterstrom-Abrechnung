@@ -13,5 +13,11 @@ class Tenant extends IPSModule
         $this->RegisterPropertyString("Currency", "CHF");
         $this->RegisterPropertyInteger("LogoID", 0);
 
+
+            // Zuordnung
+        //$this->RegisterPropertyInteger("TenantID", 0);
+        //$this->RegisterPropertyFloat("SharePercent", 100);
+
+
     }
 }

@@ -1,0 +1,42 @@
+
+{
+    "elements": [
+        {
+            "type": "NumberSpinner",
+            "caption": "Anteil Prozent",
+            "digits": 3,
+            "enabled": true,
+            "hex": false,
+            "maximum": null,
+            "minimum": null,
+            "moreDigits": false,
+            "name": "AnteilProzent",
+            "onChange": "",
+            "suffix": "%",
+            "value": 100,
+            "visible": true,
+            "width": "300px"
+        },
+        {
+            "type": "List",
+            "add": false,
+            "caption": "Zählerliste",
+            "changeOrder": false,
+            "columns": ["Zähler", "Prozent", "X"],
+            "delete": false,
+            "download": "",
+            "enabled": true,
+            "form": "",
+            "link": false,
+            "loadValuesFromConfiguration": true,
+            "name": "Zählerliste",
+            "onAdd": "",
+            "onChangeOrder": "",
+            "onDelete": "",
+            "onEdit": "",
+            "rowCount": 0,
+            "visible": true
+        }
+    ]
+
+}
