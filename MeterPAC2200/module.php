@@ -34,8 +34,8 @@ class MeterPAC2200 extends IPSModule
 
     public function ApplyChanges()
     {
-        parent:ApplyChanges();
-        
+        //parent:ApplyChanges();
+
 
     }
 }
