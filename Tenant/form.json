@@ -21,7 +21,7 @@
             "add": false,
             "caption": "Zählerliste",
             "changeOrder": false,
-            "width": "300px"
+            "width": "300px",
             "columns": [
                 {
                     "caption": "Zähler",
