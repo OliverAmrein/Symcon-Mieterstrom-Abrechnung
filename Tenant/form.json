@@ -14,8 +14,7 @@
             "onChange": "",
             "suffix": "%",
             "value": 100,
-            "visible": true,
-
+            "visible": true
         },
         {
             "type": "List",
