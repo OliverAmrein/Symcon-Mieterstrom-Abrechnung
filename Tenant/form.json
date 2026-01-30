@@ -62,7 +62,7 @@
     
 	"actions":
 	[
-		{ "type": "Button", "label": "Update", "onClick": "EL_RequestInfo($id);" }
+		{ "type": "Button", "label": "Update", "onClick": "RequestInfo($id);" }
 	]	
 
 }
