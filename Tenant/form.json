@@ -23,8 +23,8 @@
                     "add": "",
                     "edit": {
                         "type": "NumberSpinner",
-                        "maximum": 1,
-                        "minimum": 100
+                        "maximum": 100,
+                        "minimum": 1
                     }
                 }
             ],
