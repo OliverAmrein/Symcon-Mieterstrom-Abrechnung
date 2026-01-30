@@ -22,22 +22,25 @@
             "add": false,
             "caption": "Zählerliste",
             "changeOrder": false,
-            
-            
-            "columns": [{
-            "caption": "Zähler",
-            "name": "Zähler", 
-            "width": "75px",
-            "add": 0,
-            "edit": {
-                "type": "SelectInstance"
-            }
-        }, {
-            "caption": "Anteil %",
-            "name": "AnteilProzent",
-            "width": "auto",
-            "add": ""
-        }],
+            "columns": [
+                {
+                    "caption": "Zähler",
+                    "name": "Zähler", 
+                    "width": "150px",
+                    "add": 0,
+                    "edit": {
+                        "type": "SelectInstance"
+                    }
+                }, {
+                    "caption": "Anteil %",
+                    "name": "AnteilProzent",
+                    "width": "50px",
+                    "add": "",
+                    "edit": {
+                        "type": "SelectInstance"
+                    }
+                }
+            ],
         "values": [{
             "Zähler": "Zähler XY",
             "AnteilProzent": "100"
