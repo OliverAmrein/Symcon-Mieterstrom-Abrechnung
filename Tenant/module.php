@@ -6,7 +6,7 @@ class Tenant extends IPSModule
     {
         parent::Create();
 
-        $this->RegisterVariableString("Adresse", "Adresse");
+        $this->RegisterPropertyString("Adresse");
 
 //        $this->RegisterPropertyString("CustomerName", "");
 
@@ -24,9 +24,28 @@ class Tenant extends IPSModule
         // Diese Zeile nicht löschen
         parent::ApplyChanges();
 
-        
-        $this->SetValue("Adresse", $this->ReadPropertyString("Adresseingabe"));
+        $this->RegisterVariableString("Adresse", "Adresse", "");
+        //$this->SetValue("Adresse", $this->ReadPropertyString("Adresseingabe"));
     
     }
+
+    /**
+		* This function will be available automatically after the module is imported with the module control.
+		* Using the custom prefix this function will be callable from PHP and JSON-RPC through:
+		*
+		* EL_RequestInfo($id);
+		*
+		*/
+		public function RequestInfo()
+		{
+		
+			
+			$ad = $this->ReadPropertyString("Adresse");
+			
+			SetValue($this->GetIDForIdent("Adresse"), $ad);
+			
+		}
+	
+	}
 
 }
