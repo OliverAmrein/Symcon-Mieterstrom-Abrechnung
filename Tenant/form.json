@@ -1,15 +1,15 @@
 
 {
     "elements": [
-         
-         { 
-            "type": "TextBox",
-            "name": "Adresse", 
+   
+        {
+            "type": "ValidationTextBox",
+            "name": "Adresse",
             "width": "40px",
             "height": "400px",
-            "caption": "Adresse" 
-         },
-         {
+            "caption": "Adresse"
+        },
+        {
             "type": "List",
             "add": false,
             "caption": "Zählerliste",
@@ -18,13 +18,14 @@
             "columns": [
                 {
                     "caption": "Zähler",
-                    "name": "Zähler", 
+                    "name": "Zähler",
                     "width": "400px",
                     "add": 0,
                     "edit": {
                         "type": "SelectInstance"
                     }
-                }, {
+                },
+                {
                     "caption": "Anteil %",
                     "name": "AnteilProzent",
                     "width": "150px",
@@ -36,11 +37,12 @@
                     }
                 }
             ],
-        "values": [{
-            "Zähler": "Zähler XY",
-            "AnteilProzent": "100"
-        }],
-            
+            "values": [
+                {
+                    "Zähler": "Zähler XY",
+                    "AnteilProzent": "100"
+                }
+            ],
             "delete": false,
             "download": "",
             "enabled": true,
