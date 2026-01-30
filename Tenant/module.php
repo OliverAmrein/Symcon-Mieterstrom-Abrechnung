@@ -6,7 +6,7 @@ class Tenant extends IPSModule
     {
         parent::Create();
 
-        $this->RegisterVariableString("Adresse", "");
+        $this->RegisterVariableString("Adresse", "Adresse");
 
 //        $this->RegisterPropertyString("CustomerName", "");
 
@@ -17,4 +17,18 @@ class Tenant extends IPSModule
 
 
     }
+
+
+    
+    // Überschreibt die interne IPS_ApplyChanges($id) Funktion
+    public function ApplyChanges(): void
+    {
+        // Diese Zeile nicht löschen
+        parent::ApplyChanges();
+
+
+        SetValue(IPS_GetVariableIDByName("Adresse"), "Adresse");
+    
+    }
+
 }
