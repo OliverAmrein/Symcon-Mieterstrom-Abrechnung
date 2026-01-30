@@ -17,8 +17,6 @@ class Tenant extends IPSModule
 
 
     }
-
-
     
     // Überschreibt die interne IPS_ApplyChanges($id) Funktion
     public function ApplyChanges(): void
@@ -27,7 +25,7 @@ class Tenant extends IPSModule
         parent::ApplyChanges();
 
 
-        SetValue(IPS_GetVariableIDByName("Adresse"), "Adresse");
+        this->SetValue("Adresse", IPS_GetVariableIDByName("Adresse"));
     
     }
 
