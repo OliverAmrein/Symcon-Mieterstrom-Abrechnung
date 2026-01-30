@@ -15,18 +15,19 @@
             "suffix": "%",
             "value": 100,
             "visible": true,
-            "width": "300px"
+
         },
         {
             "type": "List",
             "add": false,
             "caption": "Zählerliste",
             "changeOrder": false,
+            "width": "300px"
             "columns": [
                 {
                     "caption": "Zähler",
                     "name": "Zähler", 
-                    "width": "150px",
+                    "width": "250px",
                     "add": 0,
                     "edit": {
                         "type": "SelectInstance"
