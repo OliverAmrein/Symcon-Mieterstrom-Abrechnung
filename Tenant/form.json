@@ -5,8 +5,9 @@
         {
             "type": "ValidationTextBox",
             "name": "Adresse",
-            "width": "40px",
+            "width": "400px",
             "height": "400px",
+            "multiline":"true",
             "caption": "Adresse"
         },
         {
