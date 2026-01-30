@@ -1,32 +1,17 @@
 
 {
     "elements": [
-        {
-            "type": "NumberSpinner",
-            "caption": "Anteil Prozent",
-            "digits": 3,
-            "enabled": true,
-            "hex": false,
-            "maximum": null,
-            "minimum": null,
-            "moreDigits": false,
-            "name": "AnteilProzent",
-            "onChange": "",
-            "suffix": "%",
-            "value": 100,
-            "visible": true
-        },
-        {
+         {
             "type": "List",
             "add": false,
             "caption": "Zählerliste",
             "changeOrder": false,
-            "width": "300px",
+            "width": "350px",
             "columns": [
                 {
                     "caption": "Zähler",
                     "name": "Zähler", 
-                    "width": "250px",
+                    "width": "300px",
                     "add": 0,
                     "edit": {
                         "type": "SelectInstance"
@@ -37,7 +22,9 @@
                     "width": "50px",
                     "add": "",
                     "edit": {
-                        "type": "NumberSpinner"
+                        "type": "NumberSpinner",
+                        "maximum": 1,
+                        "minimum": 100
                     }
                 }
             ],
