@@ -12,5 +12,6 @@ class Tenant extends IPSModule
         $this->RegisterPropertyFloat("VAT", 7.7);
         $this->RegisterPropertyString("Currency", "CHF");
         $this->RegisterPropertyInteger("LogoID", 0);
+
     }
 }

@@ -29,5 +29,13 @@ class MeterPAC2200 extends IPSModule
 
         // Periodenverbrauch (vereinfachtes Beispiel)
         SetValue($this->GetIDForIdent("PeriodConsumptionkWh"), rand(5, 30));
+        
+    }
+
+    public function ApplyChanges()
+    {
+        parent:ApplyChanges();
+        
+
     }
 }

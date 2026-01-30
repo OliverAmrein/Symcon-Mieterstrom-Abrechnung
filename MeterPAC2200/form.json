@@ -1,0 +1,22 @@
+
+{
+    "elements": [
+        {
+            "type": "NumberSpinner",
+            "caption": "Anteil Prozent",
+            "digits": 3,
+            "enabled": true,
+            "hex": false,
+            "maximum": null,
+            "minimum": null,
+            "moreDigits": false,
+            "name": "AnteilProzent",
+            "onChange": "",
+            "suffix": "%",
+            "value": 100,
+            "visible": true,
+            "width": "300px"
+        }
+    ]
+
+}
