@@ -25,7 +25,7 @@ class Tenant extends IPSModule
         parent::ApplyChanges();
 
         
-        $this->SetValue("Adresse", IPS_GetVariableIDByName("Adresse", $$_IPS['SELF']));
+        $this->SetValue("Adresse", "Adresseingabe");
     
     }
 
