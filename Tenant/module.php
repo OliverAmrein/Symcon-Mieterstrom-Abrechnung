@@ -2,12 +2,12 @@
 
 class Tenant extends IPSModule
 {
-    
+
     public function Create()
     {
         parent::Create();
 
-        $this->RegisterPropertyString("Adresse");
+        $this->RegisterPropertyString("Adresse","XXXX");
 
 //        $this->RegisterPropertyString("CustomerName", "");
 
