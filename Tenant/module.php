@@ -2,6 +2,7 @@
 
 class Tenant extends IPSModule
 {
+    
     public function Create()
     {
         parent::Create();
@@ -35,17 +36,17 @@ class Tenant extends IPSModule
 		*
 		* EL_RequestInfo($id);
 		*
-		*/
-		public function RequestInfo()
-		{
-		
-			
-			$ad = $this->ReadPropertyString("Adresse");
-			
-			SetValue($this->GetIDForIdent("Adresse"), $ad);
-			
-		}
+		*/ 
+    public function RequestInfo()
+    {
+    
+        
+        $ad = $this->ReadPropertyString("Adresse");
+        
+        SetValue($this->GetIDForIdent("Adresse"), $ad);
+        
+    }
 	
-	}
+	
 
 }
