@@ -37,7 +37,7 @@
                     "width": "50px",
                     "add": "",
                     "edit": {
-                        "type": "SelectInstance"
+                        "type": "NumberSpinner"
                     }
                 }
             ],
