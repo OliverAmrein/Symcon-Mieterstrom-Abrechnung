@@ -19,7 +19,7 @@
         },
         
         {
-            "type": "SelectTime",
+            "type": "SelectDate",
             "caption": "Startdatum",
             "enabled": true,
             "name": "StartDatum",
@@ -30,7 +30,7 @@
         },
         
         {
-            "type": "SelectTime",
+            "type": "SelectDate",
             "caption": "Enddatum",
             "enabled": true,
             "name": "EndDatum",
