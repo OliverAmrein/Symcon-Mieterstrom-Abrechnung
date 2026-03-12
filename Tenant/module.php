@@ -25,7 +25,7 @@ class Tenant extends IPSModule
         // Diese Zeile nicht löschen
         parent::ApplyChanges();
 
-        $this->RegisterVariableString("Adresse", "Adresse", "");
+        //$this->RegisterVariableString("Adresse", "Adresse", "");
         //$this->SetValue("Adresse", $this->ReadPropertyString("Adresseingabe"));
     
     }
@@ -37,15 +37,15 @@ class Tenant extends IPSModule
 		* EL_RequestInfo($id);
 		*
 		*/ 
-    public function RequestInfo()
-    {
+    // public function RequestInfo()
+    // {
     
         
-        $ad = $this->ReadPropertyString("Adresse");
+    //     $ad = $this->ReadPropertyString("Adresse");
         
-        SetValue($this->GetIDForIdent("Adresse"), $ad);
+    //     SetValue($this->GetIDForIdent("Adresse"), $ad);
         
-    }
+    // }
 	
 	
 
