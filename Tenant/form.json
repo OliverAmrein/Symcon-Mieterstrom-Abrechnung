@@ -12,7 +12,7 @@
         },
         {
             "type": "List",
-            "add": false,
+            "add": true,
             "caption": "Zählerliste",
             "changeOrder": false,
             "width": "350px",
@@ -60,9 +60,9 @@
         }
     ],
     
-	"actions":
-	[
-		{ "type": "Button", "label": "Update", "onClick": "RequestInfo($id);" }
-	]	
+	//"actions":
+	//[
+	//	{ "type": "Button", "label": "Update", "onClick": "RequestInfo($id);" }
+	//]	
 
 }
