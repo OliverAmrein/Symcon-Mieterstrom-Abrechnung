@@ -7,12 +7,18 @@ class Tenant extends IPSModule
     {
         parent::Create();
 
-        $this->RegisterPropertyString("Adresse","(hier Adresse refassen)");
+        $this->RegisterPropertyString("Adresse","XXXX");
+    
 
-       
+//        $this->RegisterPropertyString("CustomerName", "");
+
+
+            // Zuordnung
+        //$this->RegisterPropertyInteger("TenantID", 0);
+        //$this->RegisterPropertyFloat("SharePercent", 100);
         $this->RegisterPropertyString("Zählerliste", "[]");
 
-        $this->RegisterPropertyString("Tarif", "[]");
+
     }
     
     // Überschreibt die interne IPS_ApplyChanges($id) Funktion
@@ -21,6 +27,8 @@ class Tenant extends IPSModule
         // Diese Zeile nicht löschen
         parent::ApplyChanges();
 
+        //$this->RegisterVariableString("Adresse", "Adresse", "");
+        //$this->SetValue("Adresse", $this->ReadPropertyString("Adresseingabe"));
     
     }
 

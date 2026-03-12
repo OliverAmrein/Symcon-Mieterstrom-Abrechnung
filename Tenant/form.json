@@ -1,14 +1,29 @@
 
 {
     "elements": [
-   
         {
             "type": "ValidationTextBox",
             "name": "Adresse",
             "width": "400px",
             "height": "400px",
-            "multiline":"true",
+            "multiline": "true",
             "caption": "Adresse"
+        },
+        {
+            "type": "NumberSpinner",
+            "caption": "Rabatt",
+            "digits": 0,
+            "enabled": true,
+            "hex": false,
+            "maximum": 0,
+            "minimum": 100,
+            "moreDigits": false,
+            "name": "Rabatt",
+            "onChange": "",
+            "suffix": "",
+            "value": 0,
+            "visible": true,
+            "width": "300px"
         },
         {
             "type": "List",
@@ -30,12 +45,11 @@
                     "caption": "Anteil %",
                     "name": "AnteilProzent",
                     "width": "150px",
-                    "add": "",
+                    "add": "100",
                     "edit": {
                         "type": "NumberSpinner",
                         "maximum": 100,
-                        "minimum": 1,
-                        "default": 100
+                        "minimum": 1
                     }
                 }
             ],

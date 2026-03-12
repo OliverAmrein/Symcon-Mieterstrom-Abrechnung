@@ -1,0 +1,33 @@
+
+{
+    "elements": [
+        {
+            "type": "ValidationTextBox",
+            "name": "Bezeichnung",
+            "width": "400px",
+            "height": "400px",
+            "multiline": "false",
+            "caption": "Bezeichnung"
+        },
+        {
+            "type": "NumberSpinner",
+            "caption": "Tarif",
+            "digits": 3,
+            "enabled": true,
+            "hex": false,
+            "maximum": 2.000,
+            "minimum": 0.000,
+            "moreDigits": false,
+            "name": "Tariff",
+            "onChange": "",
+            "suffix": "",
+            "value": 0.0,
+            "visible": true,
+            "width": "300px"
+        }
+
+    ]
+    
+	
+
+}

@@ -1,0 +1,11 @@
+{
+  "id": "{8EF9FC78-699F-9FDF-4DE5-BECD12324CE9}",
+  "name": "Tenant",
+  "type": 3,
+  "vendor": "EnergyBilling",
+  "aliases": ["Tariff"],
+  "parentRequirements": [],
+  "childRequirements": [],
+  "implemented": [],
+  "prefix": "TARIFF"
+}
