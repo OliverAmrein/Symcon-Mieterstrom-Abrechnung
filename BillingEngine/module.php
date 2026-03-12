@@ -18,23 +18,22 @@ class BillingEngine extends IPSModule
     {
         $file = 'C:/Users/AMREIN Projekt GmbH\Desktop/Beispielxxx.xlsx';
 
-if (file_exists($file)) {
-    // Header für Download erzwingen
-    header('Content-Description: File Transfer');
-    header('Content-Type: application/octet-stream'); // Typ für binäre Daten
-    header('Content-Disposition: attachment; filename="'.basename($file).'"');
-    header('Expires: 0');
-    header('Cache-Control: must-revalidate');
-    header('Pragma: public');
-    header('Content-Length: ' . filesize($file));
-    
-    // Datei auslesen und an den Browser senden
-    readfile($file);
-    exit;
-} else {
-    echo "Datei nicht gefunden.";
-}4
-
+        if (file_exists($file)) {
+            // Header für Download erzwingen
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream'); // Typ für binäre Daten
+            header('Content-Disposition: attachment; filename="'.basename($file).'"');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($file));
+            
+            // Datei auslesen und an den Browser senden
+            readfile($file);
+            exit;
+        } else {
+            echo "Datei nicht gefunden.";
+        }
     }
 
     public function RunBilling()
