@@ -44,9 +44,9 @@
     "actions": [
     {
       "type": "Button",
-      "name": "AlleMieterBerechnen",
-      "caption": "Alle Mieter berechnen",
-      "onClick": "IPS_RequestAction($id, 'AlleMieterBerechnen', true);"
+      "name": "AlleMieterAbrechnen",
+      "caption": "Alle Mieter abrechnen",
+      "onClick": "IPS_RequestAction($id, 'AlleMieterAbrechnen', true);"
     }
 
   ]
