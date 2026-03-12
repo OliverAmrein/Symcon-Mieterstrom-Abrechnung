@@ -40,14 +40,14 @@
             "format": "dd.mm.YYYY"
         }
     ],
-    
+
     "actions": [
     {
       "type": "Button",
       "name": "AlleMieterBerechnen",
       "caption": "Alle Mieter berechnen",
       "onClick": "IPS_RequestAction($id, 'AlleMieterBerechnen', true);"
-    },
+    }
 
   ]
 }
