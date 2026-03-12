@@ -10,7 +10,8 @@
   ],
   "implemented": [],
   "prefix": "TENANT"
-
+}
+{
   "type": "List",
   "name": "Zählerliste",
   "caption": "Instanzen",
