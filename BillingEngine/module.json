@@ -4,8 +4,6 @@
   "type": 3,
   "vendor": "EnergyBilling",
   "aliases": ["Abrechnung"],
-  "parentRequirements": [],
-  "childRequirements": [],
   "implemented": [],
   "prefix": "BILL"
 }
