@@ -10,4 +10,19 @@
   ],
   "implemented": [],
   "prefix": "TENANT"
+
+    "type": "List",
+  "name": "Zählerliste",
+  "caption": "Instanzen",
+  "columns": [
+    {
+      "name": "InstanceID",
+      "caption": "Instanz",
+      "add": 0,
+      "edit": {
+        "type": "SelectInstance"
+      }
+    }
+  ]
+
 }

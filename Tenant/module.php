@@ -8,6 +8,8 @@ class Tenant extends IPSModule
         parent::Create();
 
         $this->RegisterPropertyString("Adresse","XXXX");
+        $this->RegisterProp
+        $this->RegisterProperty("Zählerliste","XXXX");
 
 //        $this->RegisterPropertyString("CustomerName", "");
 
@@ -15,6 +17,7 @@ class Tenant extends IPSModule
             // Zuordnung
         //$this->RegisterPropertyInteger("TenantID", 0);
         //$this->RegisterPropertyFloat("SharePercent", 100);
+        $this->RegisterPropertyString("Zählerliste", "[]");
 
 
     }
