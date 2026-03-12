@@ -14,6 +14,11 @@ class BillingEngine extends IPSModule
         //$this->RegisterVariableString("LastInvoiceNumber", "Letzte Rechnungsnummer");
     }
 
+    public function AlleMieterBerechnen()
+    {
+        echo "Hallo";
+
+    }
 
     public function RunBilling()
     {
