@@ -8,8 +8,8 @@ class BillingEngine extends IPSModule
 
         $this->RegisterPropertyFloat("Tariff", 0.25);
 
-        $this->RegisterVariableInteger("InvoiceCounter", "Rechnungszähler");
-        $this->RegisterVariableString("LastInvoiceNumber", "Letzte Rechnungsnummer");
+        //$this->RegisterVariableInteger("InvoiceCounter", "Rechnungszähler");
+        //$this->RegisterVariableString("LastInvoiceNumber", "Letzte Rechnungsnummer");
     }
 
     public function GetConfigurationForm()
@@ -27,7 +27,7 @@ class BillingEngine extends IPSModule
                 [
                     "type" => "Button",
                     "caption" => "Alle Mieter abrechnen",
-                    "onClick" => "BILL_RunBilling($id);"
+                    "onClick" => "RunBilling();"
                 ]
             ]
         ]);
@@ -75,14 +75,14 @@ class BillingEngine extends IPSModule
         }
     }
 
-    private function GenerateInvoiceNumber(int $tenantID): string
-    {
-        $counter = GetValue($this->GetIDForIdent("InvoiceCounter")) + 1;
-        SetValue($this->GetIDForIdent("InvoiceCounter"), $counter);
+    // private function GenerateInvoiceNumber(int $tenantID): string
+    // {
+    //     $counter = GetValue($this->GetIDForIdent("InvoiceCounter")) + 1;
+    //     SetValue($this->GetIDForIdent("InvoiceCounter"), $counter);
 
-        $number = date("Y-m") . "-$tenantID-" . str_pad($counter, 4, "0", STR_PAD_LEFT);
-        SetValue($this->GetIDForIdent("LastInvoiceNumber"), $number);
+    //     $number = date("Y-m") . "-$tenantID-" . str_pad($counter, 4, "0", STR_PAD_LEFT);
+    //     SetValue($this->GetIDForIdent("LastInvoiceNumber"), $number);
 
-        return $number;
-    }
+    //     return $number;
+    // }
 }
