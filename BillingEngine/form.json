@@ -42,12 +42,19 @@
     ],
 
     "actions": [
-    {
-      "type": "Button",
-      "name": "AlleMieterAbrechnen",
-      "caption": "Alle Mieter abrechnen",
-      "onClick": "IPS_RequestAction($id, 'AlleMieterAbrechnen', true);"
-    }
+        
+        {
+            "type": "Button",
+            "caption": "AlleMieterAbrechnen",
+            "confirm": "",
+            "download": "",
+            "enabled": true,
+            "link": false,
+            "name": "AAA",
+            "onClick": "AlleMieterAbrechnen",
+            "visible": true,
+            "width": ""
+        }
+    ],
 
-  ]
 }
