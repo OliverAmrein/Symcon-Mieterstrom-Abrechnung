@@ -12,7 +12,7 @@ class Tenant extends IPSModule
        
         $this->RegisterPropertyString("Zählerliste", "[]");
 
-        $this->RegisterPropertyInteger("Rabatt", "[]");
+        $this->RegisterPropertyFloat("Rabatt", "[]");
     }
     
     // Überschreibt die interne IPS_ApplyChanges($id) Funktion
