@@ -44,7 +44,7 @@
                     "AnteilProzent": "100"
                 }
             ],
-            "delete": false,
+            "delete": true,
             "download": "",
             "enabled": true,
             "form": "",
@@ -55,7 +55,7 @@
             "onChangeOrder": "",
             "onDelete": "",
             "onEdit": "",
-            "rowCount": 1,
+            "rowCount": 8,
             "visible": true
         }
     ]
