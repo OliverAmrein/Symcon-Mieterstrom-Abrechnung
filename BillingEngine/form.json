@@ -38,8 +38,9 @@
             "visible": true,
             "width": "300px",
             "format": "dd.mm.YYYY"
-        },
+        }
     ],
+    
     "actions": [
     {
       "type": "Button",
