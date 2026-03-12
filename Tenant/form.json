@@ -58,11 +58,8 @@
             "rowCount": 1,
             "visible": true
         }
-    ],
+    ]
     
-	//"actions":
-	//[
-	//	{ "type": "Button", "label": "Update", "onClick": "RequestInfo($id);" }
-	//]	
+	
 
 }
