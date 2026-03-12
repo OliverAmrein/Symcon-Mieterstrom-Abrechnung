@@ -6,32 +6,14 @@ class BillingEngine extends IPSModule
     {
         parent::Create();
 
-        $this->RegisterPropertyFloat("Tariff", 0.25);
+        $this->RegisterPropertyFloat("Tariff", 0.250);
+        $this->RegisterPropertyString("StartDatum", "01.01.2026");
+        $this->RegisterPropertyString("EndDatum", "01.01.2026");
 
         //$this->RegisterVariableInteger("InvoiceCounter", "Rechnungszähler");
         //$this->RegisterVariableString("LastInvoiceNumber", "Letzte Rechnungsnummer");
     }
 
-    public function GetConfigurationForm()
-    {
-        return json_encode([
-            "elements" => [
-                [
-                    "type" => "NumberSpinner",
-                    "name" => "Tariff",
-                    "caption" => "Tarif (Preis pro kWh)",
-                    "digits" => 4
-                ]
-            ],
-            "actions" => [
-                [
-                    "type" => "Button",
-                    "caption" => "Alle Mieter abrechnen",
-                    "onClick" => "RunBilling();"
-                ]
-            ]
-        ]);
-    }
 
     public function RunBilling()
     {

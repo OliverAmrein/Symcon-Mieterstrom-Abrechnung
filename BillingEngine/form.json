@@ -1,0 +1,34 @@
+
+{
+    "elements": [
+        {
+            "type": "NumberSpinner",
+            "caption": "Tarif",
+            "digits": 3,
+            "enabled": true,
+            "hex": false,
+            "maximum": 2.000,
+            "minimum": 0.000,
+            "moreDigits": false,
+            "name": "Tariff",
+            "onChange": "",
+            "suffix": "",
+            "value": 0.000,
+            "visible": true,
+            "width": "300px"
+        },
+        {
+            "type": "DateTimePicker",
+            "name": "StartDatum",
+            "caption": "Startdatum",
+            "format": "dd.mm.YYYY"
+        },
+        {
+            "type": "DateTimePicker",
+            "name": "EndDatum",
+            "caption": "Enddatum",
+            "format": "dd.mm.YYYY"
+        }
+
+    ]
+}
