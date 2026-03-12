@@ -11,7 +11,7 @@
   "implemented": [],
   "prefix": "TENANT"
 
-    "type": "List",
+  "type": "List",
   "name": "Zählerliste",
   "caption": "Instanzen",
   "columns": [
