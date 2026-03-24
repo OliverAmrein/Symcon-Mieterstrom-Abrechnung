@@ -39,7 +39,7 @@ class MeterPAC extends IPSModule
         IPS_SetName($this->InstanceID, "Zähler ".$json['DEVICE_INFO']['AKZ']." ".$json['DEVICE_INFO']['OKZ'])
         // Beispielwert (für Test / Skalierung)
         //$wh = GetValue($this->GetIDForIdent("EnergyWh")) + rand(100, 500);
-
+ 
         //SetValue($this->GetIDForIdent("EnergyWh"), $wh);
         //SetValue($this->GetIDForIdent("EnergykWh"), round($wh / 1000, 3));
 
