@@ -30,7 +30,7 @@ class MeterPAC extends IPSModule
         echo $json['DEVICE_INFO']['AKZ'].PHP_EOL;
         echo $json['DEVICE_INFO']['OKZ'].PHP_EOL;
 
-        $ID1 = $this->GetIDForIdent("Anlagenkennzeichen");
+        $ID1 = $this->Anlagenkennzeichen = "lkjlkj";
         echo ID1.PHP_EOL;
 
 
