@@ -33,7 +33,10 @@ class MeterPAC extends IPSModule
         IPS_SetProperty($this->InstanceID, 'Anlagenkennzeichen', $json['DEVICE_INFO']['AKZ']);
         IPS_SetProperty($this->InstanceID,'Ortskennzeichen', $json['DEVICE_INFO']['OKZ']);
         
-        PAC_ApplyChanges();
+        $this->UpdateFormField('Anlagenkennzeichen', 'value', $json['DEVICE_INFO']['AKZ']);
+        $this->UpdateFormField('Ortskennzeichen', 'value', $json['DEVICE_INFO']['OKZ']);
+
+        PAC_ApplyChanges($id);
 
         //SetValue($this->GetIDForIdent("Anlagenkennzeichen"), $json['DEVICE_INFO']['AKZ']);
         //SetValue($this->GetIDForIdent("Ortskennzeichen"), $json['DEVICE_INFO']['OKZ']);
