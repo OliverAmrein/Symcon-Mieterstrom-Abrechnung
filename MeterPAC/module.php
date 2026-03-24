@@ -6,6 +6,9 @@ class MeterPAC extends IPSModule
     {
         parent::Create();
 
+
+        $this->RegisterPropertyString("IPAdresse","(hier IP-Adresse erfassen)");
+
         // Messwerte
         //$this->RegisterVariableFloat("EnergyWh", "Energie gesamt (Wh)");
         //$this->RegisterVariableFloat("EnergykWh", "Energie gesamt (kWh)");
@@ -15,8 +18,8 @@ class MeterPAC extends IPSModule
         //$this->RegisterTimer("Update", 300000, 'PAC_Update($_IPS["TARGET"]);');
     }
 
-    public function Update()
-    {
+    //public function Update()
+    //{
         // Beispielwert (für Test / Skalierung)
         //$wh = GetValue($this->GetIDForIdent("EnergyWh")) + rand(100, 500);
 
@@ -26,7 +29,7 @@ class MeterPAC extends IPSModule
         // Periodenverbrauch (vereinfachtes Beispiel)
         //SetValue($this->GetIDForIdent("PeriodConsumptionkWh"), rand(5, 30));
   
-    }
+    //}
     
     // Überschreibt die interne IPS_ApplyChanges($id) Funktion
     public function ApplyChanges(): void
