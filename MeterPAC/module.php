@@ -23,9 +23,11 @@ class MeterPAC extends IPSModule
     public function Aktualisieren(): void
     {
         echo "Start Aktualisieren";
-        $IP = GetValue($this->ReadPropertyString("IPAdresse"));
+        $IP = $this->ReadPropertyString('IPAdresse');
+        echo $IP;
         $response = file_get_contents('http://'.$IP.'/data.json?type=DEVICE_INFO');
         $json = json_decode($response, true);
+
 
         SetValue($this->GetIDForIdent("Anlagenkennzeichen"), $json['DEVICE_INFO']['AKZ']);
         SetValue($this->GetIDForIdent("Ortskennzeichen"), $json['DEVICE_INFO']['OKZ']);
