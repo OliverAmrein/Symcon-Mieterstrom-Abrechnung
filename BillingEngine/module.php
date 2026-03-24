@@ -23,6 +23,25 @@ class BillingEngine extends IPSModule
 
     }
 
+
+    private function RegisterMediaDocument($Ident, $Name, $Extension, $Position = 0)
+    {
+        $this->RegisterMedia(5, $Ident, $Name, $Extension, $Position);
+    }
+
+    private function RegisterMedia($Type, $Ident, $Name, $Extension, $Position)
+    {
+        $mediaId = @IPS_GetObjectIDByIdent($Ident, $this->InstanceID);
+        if ($mediaId === false) {
+            $mediaId = IPS_CreateMedia(5 /* Document */);
+            IPS_SetParent($mediaId, $this->InstanceID);
+            IPS_SetIdent($mediaId, $Ident);
+            IPS_SetName($mediaId, $Name);
+            IPS_SetPosition($mediaId, $Position);
+            IPS_SetMediaFile($mediaId, 'media/' . $mediaId . '.' . $Extension, false);
+        }
+    }
+
     public function AlleMieterAbrechnen()
     {
 
