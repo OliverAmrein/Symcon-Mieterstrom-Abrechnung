@@ -31,7 +31,7 @@ class BillingEngine extends IPSModule
 
     private function RegisterMedia($Type, $Ident, $Name, $Extension, $Position)
     {
-        $mediaId = @IPS_GetObjectIDByIdent('ReportPDF', $this->InstanceID);
+        $mediaId = @IPS_GetObjectIDByIdent($Ident, $this->InstanceID);
         if ($mediaId === false) {
             $mediaId = IPS_CreateMedia(5 /* Document */);
             IPS_SetParent($mediaId, $this->InstanceID);
@@ -44,7 +44,7 @@ class BillingEngine extends IPSModule
 
     public function AlleMieterAbrechnen()
     {
-        $mediaId = @IPS_GetObjectIDByIdent($Ident, $this->InstanceID);
+        $mediaId = @IPS_GetObjectIDByIdent('ReportPDF', $this->InstanceID);
        IPS_SetMediaFile($mediaId, 'media/meinfilename.pdf', false);
 
         $pdfContent = $this->GeneratePDF('AAA ' . IPS_GetKernelVersion(), 'report.pdf');
