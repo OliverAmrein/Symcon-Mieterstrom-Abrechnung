@@ -8,6 +8,23 @@
             "multiline": "false",
             "caption": "IP-Adresse"
         }
+    ],
+    
+    "actions": [
+        
+        {
+            "type": "Button",
+            "caption": "Aktualisieren",
+            "confirm": "",
+            "download": "",
+            "enabled": true,
+            "link": false,
+            "name": "AAA",
+            "onClick": "Aktualisieren",
+            "visible": true,
+            "width": ""
+        }
     ]
+
 
 }
