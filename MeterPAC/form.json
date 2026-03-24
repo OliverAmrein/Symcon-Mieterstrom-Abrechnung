@@ -30,7 +30,7 @@
         {
             "type": "Button",
             "caption": "Aktualisieren",
-            "onClick": "PAC_Aktualisieren()"
+            "onClick": "PAC_Aktualisieren();"
         }
     ]
 
