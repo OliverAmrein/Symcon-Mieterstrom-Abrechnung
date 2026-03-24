@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+include_once __DIR__ . '/../libs/vendor/autoload.php';
+
 class BillingEngine extends IPSModule
 {
     public function Create()
@@ -9,31 +13,31 @@ class BillingEngine extends IPSModule
         $this->RegisterPropertyFloat("Tariff", 0.250);
         $this->RegisterPropertyString("StartDatum", "01.01.2026");
         $this->RegisterPropertyString("EndDatum", "01.01.2026");
-
+        $this->RegisterPropertyString('LogoData', '');
+        
         //$this->RegisterVariableInteger("InvoiceCounter", "Rechnungszähler");
         //$this->RegisterVariableString("LastInvoiceNumber", "Letzte Rechnungsnummer");
+
+
+        $this->RegisterMediaDocument('ReportPDF', $this->Translate('Report (PDF)'), 'pdf');
+
     }
 
     public function AlleMieterAbrechnen()
     {
-        $file = 'pfad/zu/ihrer/datei.pdf';
 
-if (file_exists($file)) {
-    // Header für Download erzwingen
-    header('Content-Description: File Transfer');
-    header('Content-Type: application/octet-stream'); // Typ für binäre Daten
-    header('Content-Disposition: attachment; filename="'.basename($file).'"');
-    header('Expires: 0');
-    header('Cache-Control: must-revalidate');
-    header('Pragma: public');
-    header('Content-Length: ' . filesize($file));
-    
-    // Datei auslesen und an den Browser senden
-    readfile($file);
-    exit;
-} else {
-    echo "Datei nicht gefunden.";
-}
+        $pdfContent = $this->GeneratePDF('AAA ' . IPS_GetKernelVersion(), 'report.pdf');
+
+        if ($this->GetStatus() >= IS_EBASE) {
+            return false;
+        }
+
+        $mediaID = $this->GetIDForIdent('ReportPDF');
+        IPS_SetMediaContent($mediaID, base64_encode($pdfContent));
+
+        return true;
+
+
 
     }
 
@@ -79,14 +83,147 @@ if (file_exists($file)) {
         }
     }
 
-    // private function GenerateInvoiceNumber(int $tenantID): string
-    // {
-    //     $counter = GetValue($this->GetIDForIdent("InvoiceCounter")) + 1;
-    //     SetValue($this->GetIDForIdent("InvoiceCounter"), $counter);
+    private function GeneratePDF($author, $filename)
+    {
+        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor($author);
+        $pdf->SetTitle('');
+        $pdf->SetSubject('');
 
-    //     $number = date("Y-m") . "-$tenantID-" . str_pad($counter, 4, "0", STR_PAD_LEFT);
-    //     SetValue($this->GetIDForIdent("LastInvoiceNumber"), $number);
+        $pdf->setPrintHeader(false);
 
-    //     return $number;
-    // }
+        $pdf->setFooterFont([PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA]);
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP - 5, PDF_MARGIN_RIGHT);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+
+        $pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf->setPrintFooter(false);
+
+        $pdf->SetFont('dejavusans');
+
+        $pdf->AddPage();
+
+        //PDF Content
+        //Header
+        $logo = $this->ReadPropertyString('LogoData');
+        //echo($logo);
+        if (strpos(base64_decode($logo), '<svg') !== false) {
+            $logo = base64_decode($logo);
+            $pdf->ImageSVG('@' . $logo, $x = 150, $y = 0, $w = 50, $h = 50, $border = 1);
+            $logo = '';
+        } elseif ($logo != '') {
+            $logo = '<img src="@' . $logo . '">';
+        }
+
+        $pdf->writeHTML($this->GenerateHTMLHeader($logo), true, false, true, false, '');
+
+        //Charts
+        //if (IPS_VariableExists($this->ReadPropertyInteger('TemperatureID'))) {
+        //    $svg = $this->GenerateCharts($this->ReadPropertyInteger('TemperatureID'));
+        //    $pdf->ImageSVG('@' . $svg, $x = 105, $y = '', $w = 90, $h = '', $link = '', $align = 5, $palign = 5, $border = 0, $fitonpage = true);
+        //}
+        //$svg = $this->GenerateCharts($this->ReadPropertyInteger('CounterID'));
+        //$pdf->ImageSVG('@' . $svg, $x = 10, $pdf->GetY(), $w = 90, $h = '', $link = '', $align = '', $palign = '', $border = 0, $fitonpage = true);
+
+        //reset Y
+        $pdf->setY($pdf->getY() + 62);
+
+        //text
+        $pdf->writeHTML($this->GenerateHTMLText(), true, false, true, false, '');
+
+        //Save the pdf
+        return $pdf->Output($filename, 'S');
+    }
+
+    private function GenerateHTMLHeader(string $logo)
+    {
+        $date = strtoupper($this->Translate(date('F', strtotime('-1 month'))) . ' ' . date('Y'));
+        $title = strtoupper($this->Translate('Consumption'));
+
+        return <<<EOT
+        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td>
+                <br/><br/><br/>
+                $date<br/>
+                <h1 style="font-weight: normal; font-size: 25px">$title </h1>
+            </td>
+            <td width="50%" align="right"><br>$logo</td>
+        </tr>
+        </table>
+        EOT;
+    }
+
+
+    private function GenerateHTMLText()
+    {
+        $data = $this->FetchData();
+        if ($data == []) {
+            return;
+        }
+
+        // $title = strtoupper($this->Translate('Behave'));
+        // $consumption = sprintf($this->Translate('In %s you used up %s.'), $data['month'], $data['consumption']) . ' ';
+        // if ($data['consumptionLastYear'] !== false) {
+        //     $consumption .= $data['consumptionLastYear'];
+        // }
+
+        // if ($data['prediction'] != '') {
+        //     $predictionText = $this->Translate('Expected usage based on your behavior') . ': ' . $data['prediction'] . ' <br> ';
+        // } else {
+        //     $predictionText = '';
+        // }
+
+        // $valueText = $this->Translate('Actual usage') . ': ' . $data['consumption'] . ' <br><br> ';
+
+        // if ($data['percent']) {
+        //     $consumptionText = $this->Translate("You could $data[percentText] your consumption by %s in the period");
+        //     $consumptionText2 = sprintf($consumptionText, $data['percent']);
+        // } else {
+        //     $consumptionText = '';
+        //     $consumptionText2 = '';
+        // }
+
+        $text =
+        <<<EOT
+        <br> </br>
+        <h3>$data[data1]</h3>
+            <p>
+            $data[data2] <br>
+            $predictionText 
+            $valueText 
+            $consumptionText2
+            </p>
+        EOT;
+
+        // $comparison = $this->Translate('For Comparison');
+        // $co2text = $this->Translate('A tree bind each month ca. 1 kg CO².<br>In order to achieve the 2030 climate targets, the total energy consumption for heating and hot water must be reduced by <br>5.5% per year.<br>Your personal footprint can be found <a href = "uba.co2-rechner.de" >here </a> calculate.');
+
+        // if ($data['co2'] > 0) {
+        //     $text .=
+        //     <<<EOT
+        //     <h3>CO² Emmisionen</h3> 
+        //     <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        //         <tr>
+        //             <td width="20%"><p>    $data[co2] kg</p></td>
+        //             <td width="80%"><h4>$comparison</h4><p>$co2text</p></td>
+        //         </tr>
+        //     </table>
+        //     EOT;
+        // }
+        return $text;
+    }
+
+    private function FetchData()
+    {
+        $data = [
+            'data1'               => "11111",
+            'data2'             => "2222"
+        ];
+    }
 }

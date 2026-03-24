@@ -2,6 +2,13 @@
 {
     "elements": [
         {
+            "type": "SelectFile",
+            "caption": "Logo",
+            "extensions": ".png, .svg",
+            "name": "LogoData"
+        },
+
+        {
             "type": "NumberSpinner",
             "caption": "Tarif",
             "digits": 3,
@@ -51,7 +58,7 @@
             "enabled": true,
             "link": false,
             "name": "AAA",
-            "onClick": "AlleMieterAbrechnen",
+            "onClick": "BILL_AlleMieterAbrechnen($id);",
             "visible": true,
             "width": ""
         }
