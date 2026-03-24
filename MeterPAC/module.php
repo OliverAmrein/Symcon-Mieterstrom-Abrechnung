@@ -20,9 +20,9 @@ class MeterPAC extends IPSModule
         //$this->RegisterTimer("Update", 300000, 'PAC_Update($_IPS["TARGET"]);');
     }
 
-    public function Aktualisieren()
+    public function Aktualisieren(): void
     {
-
+        echo "Start Aktualisieren";
         $IP = GetValue($this->ReadPropertyString("IPAdresse"));
         $response = file_get_contents('http://'.$IP.'/data.json?type=DEVICE_INFO');
         $json = json_decode($response, true);
