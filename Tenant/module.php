@@ -7,7 +7,7 @@ class Tenant extends IPSModule
     {
         parent::Create();
 
-        $this->RegisterPropertyString("Adresse","(hier Adresse refassen)");
+        $this->RegisterPropertyString("Adresse","(hier Adresse erfassen)");
 
        
         $this->RegisterPropertyString("Zählerliste", "[]");
