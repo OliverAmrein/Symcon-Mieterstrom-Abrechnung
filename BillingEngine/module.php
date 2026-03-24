@@ -45,6 +45,8 @@ class BillingEngine extends IPSModule
     public function AlleMieterAbrechnen()
     {
 
+       IPS_SetMediaFile($mediaId, 'media/meinfilename'. '.' . $Extension, false);
+
         $pdfContent = $this->GeneratePDF('AAA ' . IPS_GetKernelVersion(), 'report.pdf');
 
         if ($this->GetStatus() >= IS_EBASE) {
