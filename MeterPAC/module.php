@@ -54,7 +54,7 @@ class MeterPAC extends IPSModule
     {
         // Diese Zeile nicht löschen
         parent::ApplyChanges();
-        echo "xxx";
+       
     
     }
 }
