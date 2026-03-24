@@ -52,7 +52,7 @@ class MeterPAC extends IPSModule
         // Diese Zeile nicht löschen
         parent::ApplyChanges();
 
-        PAC_Aktualisieren($id);
+        PAC_Aktualisieren($this);
        
     
     }
