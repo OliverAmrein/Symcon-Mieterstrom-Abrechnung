@@ -38,7 +38,7 @@ class BillingEngine extends IPSModule
             IPS_SetIdent($mediaId, $Ident);
             IPS_SetName($mediaId, $Name);
             IPS_SetPosition($mediaId, $Position);
-            IPS_SetMediaFile($mediaId, 'media/' . $mediaId . '.' . $Extension, false);
+            IPS_SetMediaFile($mediaId, 'media/' . $mediaId . '.pdf', false);
         }
     }
 
