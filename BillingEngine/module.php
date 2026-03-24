@@ -45,7 +45,7 @@ class BillingEngine extends IPSModule
     public function AlleMieterAbrechnen()
     {
         $mediaId = @IPS_GetObjectIDByIdent($Ident, $this->InstanceID);
-       IPS_SetMediaFile($mediaId, 'media/meinfilename'. '.' . $Extension, false);
+       IPS_SetMediaFile($mediaId, 'media/meinfilename.pdf', false);
 
         $pdfContent = $this->GeneratePDF('AAA ' . IPS_GetKernelVersion(), 'report.pdf');
 
