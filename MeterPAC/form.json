@@ -7,7 +7,22 @@
             "width": "400px",
             "multiline": "false",
             "caption": "IP-Adresse"
+        },
+               {
+             "type": "ValidationTextBox",
+            "name": "Anlagenkennzeichen",
+            "width": "600px",
+            "multiline": "false",
+            "caption": "Anlagenkennzeichen"
+        },
+               {
+             "type": "ValidationTextBox",
+            "name": "Ortskennzeichen",
+            "width": "600px",
+            "multiline": "false",
+            "caption": "Ortskennzeichen"
         }
+
     ],
     
     "actions": [
