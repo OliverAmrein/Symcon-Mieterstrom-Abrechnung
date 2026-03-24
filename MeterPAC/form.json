@@ -1,0 +1,14 @@
+
+{
+    "elements": [
+        {
+             "type": "ValidationTextBox",
+            "name": "IPAdresse",
+            "width": "400px",
+            "height": "400px",
+            "multiline": "false",
+            "caption": "IP-Adresse"
+        }
+    ]
+
+}
