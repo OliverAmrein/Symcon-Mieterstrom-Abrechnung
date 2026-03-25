@@ -341,8 +341,8 @@ class BillingEngine extends IPSModule
         $response = file_get_contents('http://'.$IPAdr.'/data.json?type=MONTHLYPROFILE');
         $json = json_decode($response, true);
         $sum = 0;
-        $start = strtotime($startstr);
-        $end = strtotime($endstr);
+        $start = strtotime($Startdatum);
+        $end = strtotime($Enddatum);
 
         $dat = strtotime($json['MONTHLYPROFILE']['INST']['TS']);
         //echo 'xxx'.$dat.PHP_EOL;
