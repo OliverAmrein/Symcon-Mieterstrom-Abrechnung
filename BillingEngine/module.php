@@ -34,7 +34,7 @@ class BillingEngine extends IPSModule
         $mediaId = @IPS_GetObjectIDByIdent($Ident, $this->InstanceID);
         if (true) { //$mediaId === false) {
             //echo 'RegisterMedia ident not found, create'.PHP_EOL;
-            echo 'RegisterMedia new media Ident='.$Ident.PHP_EOL;
+        //    echo 'RegisterMedia new media Ident='.$Ident.PHP_EOL;
             $mediaId = IPS_CreateMedia(5 /* Document */);
             IPS_SetParent($mediaId, $this->InstanceID);
             IPS_SetIdent($mediaId, $Ident);
@@ -50,14 +50,14 @@ class BillingEngine extends IPSModule
     public function EinenMieterAbrechnen($MieterID, $Startdatum, $Enddatum)
     {
         
-
         $Mietername = IPS_GetProperty($MieterID, "Mietername");
 
-        echo $Mietername.'_'.$Startdatum.'_'.$Enddatum.PHP_EOL;
+        //echo $Mietername.'_'.$Startdatum.'_'.$Enddatum.PHP_EOL;
 
         $filename = $Mietername.'_'.$Startdatum.'_'.$Enddatum.'.pdf';
         $filepath = 'media/'.$filename;
 
+        error_reporting(E_ALL ^ E_WARNING);
         // delete old media with same name
         try {
             $mediaID = @IPS_GetObjectIDByName($filename, $this->InstanceID);
@@ -66,16 +66,17 @@ class BillingEngine extends IPSModule
         catch(Exception $e) {
             
         }
+        error_reporting(E_ALL);
 
         $pdfidx = GetValue($this->GetIDForIdent("PdfIdx"));
         $pdfidx++;
         $this->SetValue('PdfIdx', $pdfidx) ;
         
         $newIdent = 'ReportPDF'.$pdfidx;
-        echo 'new media Ident='.$newIdent.PHP_EOL;
+        //echo 'new media Ident='.$newIdent.PHP_EOL;
 
         $mediaID = $this->RegisterMediaDocument($newIdent, $filename, 'pdf');
-        echo 'new media ID='.$mediaID.PHP_EOL;
+        //echo 'new media ID='.$mediaID.PHP_EOL;
 
        // $mediaID = @IPS_GetObjectIDByIdent('ReportPDF', $this->InstanceID);
          $mediaID = @IPS_GetObjectIDByName($filename, $this->InstanceID);
@@ -105,8 +106,8 @@ class BillingEngine extends IPSModule
         $datestart = strtotime(date('Y-m-01', $datestart));
         $dateend = strtotime(date('Y-m-t', $datestart));
 
-        echo date('Y-m-d', $datestart);
-        echo date('Y-m-d', $dateend);
+        //echo date('Y-m-d', $datestart);
+        //echo date('Y-m-d', $dateend);
 
         $mediaId = @IPS_GetObjectIDByIdent('ReportPDF', $this->InstanceID);
        IPS_SetMediaFile($mediaId, 'media/meinfilename.pdf', false);
