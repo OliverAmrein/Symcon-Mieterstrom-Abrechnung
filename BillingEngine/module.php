@@ -299,7 +299,7 @@ class BillingEngine extends IPSModule
             $netstr = strval($net);
             //$this->SendDebug('Consumption', $consumption, 0);
             //$this->SendDebug('percentage', $percentage, 0);
-
+ 
             // $dataText .= <<<EOT
             // <br> </br>
             //     <tr>
