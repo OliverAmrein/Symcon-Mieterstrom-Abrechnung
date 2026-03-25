@@ -259,9 +259,8 @@ class BillingEngine extends IPSModule
 
         $start = date_create($Startdatum);
         $start = date_modify($start, '-1 month');
-        $mon = strval($start->format('m'));
-        echo 'xxxxx'.$mon.PHP_EOL;
-
+        $mon = intval($start->format('m'));
+        
         $monstr = $this->getDeutscherMonat($mon);
 
 
