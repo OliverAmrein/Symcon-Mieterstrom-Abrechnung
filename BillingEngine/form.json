@@ -24,28 +24,6 @@
             "visible": true,
             "width": "300px"
         }
-        
-        // {
-        //     "type": "SelectDate",
-        //     "caption": "Startdatum",
-        //     "enabled": true,
-        //     "name": "StartDatum",
-        //     "value": "01.01.2026",
-        //     "visible": true,
-        //     "width": "300px",
-        //     "format": "dd.mm.YYYY"
-        // },
-        
-        // {
-        //     "type": "SelectDate",
-        //     "caption": "Enddatum",
-        //     "enabled": true,
-        //     "name": "EndDatum",
-        //     "value": "01.01.2026",
-        //     "visible": true,
-        //     "width": "300px",
-        //     "format": "dd.mm.YYYY"
-        // }
     ],
 
     "actions": [

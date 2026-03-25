@@ -14,7 +14,8 @@ class BillingEngine extends IPSModule
         //$this->RegisterPropertyString("StartDatum", "01.01.2026");
         //$this->RegisterPropertyString("EndDatum", "01.01.2026");
         $this->RegisterPropertyString('LogoData', '');
-        $this->RegisterVariableInteger("PdfIdx", 1);
+        $this->RegisterVariableInteger("PdfIdx", 'PdfIdx');
+        $this->SetValue('PdfIdx', 1); 
         
         //$this->RegisterVariableInteger("InvoiceCounter", "Rechnungszähler");
         //$this->RegisterVariableString("LastInvoiceNumber", "Letzte Rechnungsnummer");
@@ -57,7 +58,7 @@ class BillingEngine extends IPSModule
         $filename = $Mietername.'_'.$Startdatum.'_'.$Enddatum.'.pdf';
         $filepath = 'media/'.$filename;
 
-        error_reporting(E_ALL ^ E_WARNING);
+        error_reporting(0);
         // delete old media with same name
         try {
             $mediaID = @IPS_GetObjectIDByName($filename, $this->InstanceID);
@@ -66,7 +67,7 @@ class BillingEngine extends IPSModule
         catch(Exception $e) {
             
         }
-        error_reporting(E_ALL);
+        error_reporting(E_ERROR | E_WARNING);
 
         $pdfidx = GetValue($this->GetIDForIdent("PdfIdx"));
         $pdfidx++;
