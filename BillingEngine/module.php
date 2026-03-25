@@ -305,16 +305,13 @@ class BillingEngine extends IPSModule
             //     </tr>
             // EOT;
 
-            $text +=
-                <<<EOT
-                <br> </br>
-                <p>
-                $name <br>
-                </p>
-                <p>
-                $consumption <br>
-                </p>
-                EOT;
+            $text .= <<<EOT
+                <tr>
+                    <td><p>$name</p></td>
+                    <td><p>$consumption kWh</p></td>
+                    <td><p>$percentage %</p></td>
+                </tr>
+            EOT;
         }
 
  
