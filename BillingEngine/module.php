@@ -279,9 +279,6 @@ class BillingEngine extends IPSModule
         <h3>$data[data1]</h3>
             <p>
             $data[data2] <br>
-            $predictionText 
-            $valueText 
-            $consumptionText2
             </p>
         EOT;
 
