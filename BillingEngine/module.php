@@ -45,7 +45,7 @@ class BillingEngine extends IPSModule
             echo 'RegisterMedia ident found, no create'.PHP_EOL;
         }
     }
-
+ 
 
     public function EinenMieterAbrechnen($MieterID, $Startdatum, $Enddatum)
     {
