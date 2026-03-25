@@ -337,8 +337,7 @@ class BillingEngine extends IPSModule
             $Name = IPS_GetName($zähler->Zähler);
 
             $sum = $this->ReadZähler($IPadr, $Startdatum, $Enddatum);
-            $sum = ($sum * 100) / $zähler->AnteilProzent;
-
+            $sum = ($sum * $zähler->AnteilProzent) / 100;
             array_push($data, ['Zählername' =>  $Name, 'kWh' => $sum, 'AnteilProzent' => $zähler->AnteilProzent] );
 
         }
