@@ -64,7 +64,7 @@ class BillingEngine extends IPSModule
         IPS_SetMediaContent($mediaID, base64_encode($pdfContent));
 
         // ID der zu kopierenden Instanz (Quell-Instanz)
-        $sourceInstanceID = mediaID; 
+        $sourceInstanceID = $mediaID; 
         echo 'source '.$sourceInstanceID.PHP_EOL;
         // 1. Informationen der Quell-Instanz abrufen
         $instance = IPS_GetInstance($sourceInstanceID);
