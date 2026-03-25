@@ -230,7 +230,7 @@ class BillingEngine extends IPSModule
 
     private function GenerateHTMLHeader(string $logo, $Startdatum, $Enddatum, $MieterID)
     {
-        $date = strtoupper(date('dd.mm.YYYY', strtotime($Startdatum))) . ' bis ' . date('dd.mm.YYYY', strtotime($Enddatum));
+        $date = strtoupper(date('d.m.Y', strtotime($Startdatum))) . ' bis ' . date('dd.mm.YYYY', strtotime($Enddatum));
         
         $Mietername = IPS_GetProperty($MieterID, "Mietername");
         $title =  $Mietername;
@@ -296,6 +296,7 @@ class BillingEngine extends IPSModule
             $this->SendDebug('percentage', $percentage, 0);
 
             $dataText .= <<<EOT
+            <br> </br>
                 <tr>
                     <td><p>$name</p></td>
                     <td><p>$consumption kWh</p></td>
