@@ -69,7 +69,7 @@ class BillingEngine extends IPSModule
 
         $pdfidx = GetValue($this->GetIDForIdent("PdfIdx"));
         $pdfidx++;
-        SetValue($this->GetIDForIdent("PdfIdx"), $pdfidx);
+        $this->$PdfIdx = $pdfidx;
         
         $newIdent = 'ReportPDF'.$pdfidx;
         echo 'new media Ident='.$newIdent.PHP_EOL;
