@@ -18,8 +18,6 @@ class BillingEngine extends IPSModule
         //$this->RegisterVariableInteger("InvoiceCounter", "Rechnungszähler");
         //$this->RegisterVariableString("LastInvoiceNumber", "Letzte Rechnungsnummer");
 
-        this->RegisterScript
-
         $mediaID = $this->RegisterMediaDocument('ReportPDF', $this->Translate('Report (PDF)'), 'pdf');
 
     }
