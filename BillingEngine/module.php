@@ -21,7 +21,7 @@ class BillingEngine extends IPSModule
         //$mediaID = $this->RegisterMediaDocument('ReportPDF', $this->Translate('Report (PDF)'), 'pdf');
 
     }
-
+ 
 
     private function RegisterMediaDocument($Ident, $Name, $Extension, $Position = 0)
     {
