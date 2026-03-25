@@ -287,8 +287,8 @@ class BillingEngine extends IPSModule
 
         foreach ($data as $key => $variable) {
             $name = $variable['Zählername'];
-            $consumption = $variable['kWh'];
-            $percentage = $variable['AnteilProzent'];
+            $consumption = strval($variable['kWh']);
+            $percentage = strval($variable['AnteilProzent']);
 
             //replace the decimal separator
             $consumption = str_replace('.', ',', strval($consumption));
@@ -304,14 +304,14 @@ class BillingEngine extends IPSModule
             //         <td><p>$percentage %</p></td>
             //     </tr>
             // EOT;
-
             $text .= <<<EOT
-                <tr>
-                    <td><p>$name</p></td>
-                    <td><p>$consumption kWh</p></td>
-                    <td><p>$percentage %</p></td>
-                </tr>
+            <p>
+            $name <br>
+            $consumption <br>
+            $percentage<br>
+            </p>
             EOT;
+
         }
 
  
