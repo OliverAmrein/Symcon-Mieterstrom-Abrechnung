@@ -294,7 +294,7 @@ class BillingEngine extends IPSModule
             $consumption = str_replace('.', ',', strval($consumption));
             $percentage = str_replace('.', ',', strval($percentage));
 
-            $net = round($consumption * $this->ReadPropertyFloat("Tariff"), 2);
+            $net = strval(round($variable['kWh'] * $this->ReadPropertyFloat("Tariff"), 2));
             //$this->SendDebug('Consumption', $consumption, 0);
             //$this->SendDebug('percentage', $percentage, 0);
 
