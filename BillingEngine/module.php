@@ -305,7 +305,7 @@ class BillingEngine extends IPSModule
             //     </tr>
             // EOT;
 
-                   $text +=
+            $text +=
                 <<<EOT
                 <br> </br>
                     <p>
@@ -315,10 +315,10 @@ class BillingEngine extends IPSModule
                     $consumption <br>
                     </p>
                     <p>
-                   $percentage <br>
+                    $percentage <br>
                     </p>
                 EOT;
-                }
+        }
 
  
 
