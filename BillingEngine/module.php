@@ -351,6 +351,10 @@ class BillingEngine extends IPSModule
         $response = file_get_contents('http://'.$IPAdr.'/data.json?type=MONTHLYPROFILE');
         $json = json_decode($response, true);
         $sum = 0;
+
+        echo 'aaaaa '.$Startdatum.' aaaaa '.PHP.EOL;
+        echo 'bbbbb '.$Enddatum.' bbbbb '.PHP.EOL;
+
         $start = strtotime($Startdatum);
         $end = strtotime($Enddatum);
 
@@ -376,6 +380,7 @@ class BillingEngine extends IPSModule
             //break;
         }
         }
+        echo 'xxxxx '.$sum.' xxxx '.PHP.EOL;
         return $sum;
     }
 }
