@@ -43,7 +43,7 @@ class BillingEngine extends IPSModule
     }
 
 
-    public function EinenMieterAbrechnen($MieterID, $Startdatum, $Startdatum)
+    public function EinenMieterAbrechnen($MieterID, $Startdatum, $Enddatum)
     {
         $Mietername = IPS_GetProperty($MieterID, "Mietername");
 
