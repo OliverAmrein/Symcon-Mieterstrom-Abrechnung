@@ -352,8 +352,8 @@ class BillingEngine extends IPSModule
         $json = json_decode($response, true);
         $sum = 0;
 
-        echo 'aaaaa '.$Startdatum.' aaaaa '.PHP.EOL;
-        echo 'bbbbb '.$Enddatum.' bbbbb '.PHP.EOL;
+        echo 'aaaaa '.$Startdatum.' aaaaa '.PHP_EOL;
+        echo 'bbbbb '.$Enddatum.' bbbbb '.PHP_EOL;
 
         $start = strtotime($Startdatum);
         $end = strtotime($Enddatum);
