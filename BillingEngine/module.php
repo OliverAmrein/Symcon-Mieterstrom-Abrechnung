@@ -293,6 +293,8 @@ class BillingEngine extends IPSModule
             //replace the decimal separator
             $consumption = str_replace('.', ',', strval($consumption));
             $percentage = str_replace('.', ',', strval($percentage));
+
+            $net = round($consumption * $this->ReadPropertyFloat("Tariff"), 2);
             //$this->SendDebug('Consumption', $consumption, 0);
             //$this->SendDebug('percentage', $percentage, 0);
 
@@ -306,9 +308,10 @@ class BillingEngine extends IPSModule
             // EOT;
             $text .= <<<EOT
             <p>
-            $name <br>
-            $consumption <br>
-            $percentage<br>
+            'Zähler: '.$name <br>
+            '('.$percentage.'%)'<br>
+            $consumption.' kWh' <br>
+            $net.' CHF' <br>
             </p>
             EOT;
 
