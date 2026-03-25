@@ -63,12 +63,22 @@ class BillingEngine extends IPSModule
         $mediaID = $this->GetIDForIdent('ReportPDF');
         IPS_SetMediaContent($mediaID, base64_encode($pdfContent));
 
-        $downloadpath = "%UserProfile%\\Downloads\\" . $filename;
-        file_put_contents($filepath, base64_encode($pdfContent));
 
+        $file = IPS_GetKernelDir() . $filepath;
 
-
-
+        if (file_exists($file)) {
+            echo "file exists ".IPS_GetKernelDir() . $filepath.PHP_EOL;
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename="'.basename($file).'"');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($file));
+            readfile($file);
+            exit;
+        }
+        
         return true;
     }
 
