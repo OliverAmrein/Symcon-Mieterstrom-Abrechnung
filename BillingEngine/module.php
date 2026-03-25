@@ -279,6 +279,8 @@ class BillingEngine extends IPSModule
         //     $consumptionText2 = '';
         // }
         $text = '';
+        
+        print_r ($data);
 
         $text +=
         <<<EOT
