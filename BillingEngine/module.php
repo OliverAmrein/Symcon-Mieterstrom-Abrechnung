@@ -312,7 +312,7 @@ class BillingEngine extends IPSModule
         
         $zählerliste = IPS_GetProperty($MieterID, "Zählerliste")
         
-        foeach($zählerliste as $zähler) {
+        foreach($zählerliste as $zähler) {
             echo 'Zähler: '.IPS_GetName($zähler).PHP_EOL;
         }
 
