@@ -14,7 +14,7 @@ class BillingEngine extends IPSModule
         $this->RegisterPropertyString("StartDatum", "01.01.2026");
         $this->RegisterPropertyString("EndDatum", "01.01.2026");
         $this->RegisterPropertyString('LogoData', '');
-        $this->RegisterPropertyFloat("PdfIdx", 1);
+        $this->RegisterVariableInteger("PdfIdx", 1);
         
         //$this->RegisterVariableInteger("InvoiceCounter", "Rechnungszähler");
         //$this->RegisterVariableString("LastInvoiceNumber", "Letzte Rechnungsnummer");
@@ -67,9 +67,10 @@ class BillingEngine extends IPSModule
             
         }
 
-        $pdfidx = $this->ReadPropertyFloat("PdfIdx");
+        $pdfidx = GetValue($this->GetIDForIdent("PdfIdx"));
         $pdfidx++;
-        IPS_SetProperty($this->InstanceID, 'PdfIdx', $pdfidx);
+        SetValue($this->GetIDForIdent("PdfIdx"), $pdfidx);
+        
         $newIdent = 'ReportPDF'.$pdfidx;
         echo 'new media Ident='.$newIdent.PHP_EOL;
 
