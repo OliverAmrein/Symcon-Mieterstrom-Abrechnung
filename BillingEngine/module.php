@@ -296,26 +296,31 @@ class BillingEngine extends IPSModule
             //$this->SendDebug('Consumption', $consumption, 0);
             //$this->SendDebug('percentage', $percentage, 0);
 
-            $dataText .= <<<EOT
-            <br> </br>
-                <tr>
-                    <td><p>$name</p></td>
-                    <td><p>$consumption kWh</p></td>
-                    <td><p>$percentage %</p></td>
-                </tr>
-            EOT;
-        }
+            // $dataText .= <<<EOT
+            // <br> </br>
+            //     <tr>
+            //         <td><p>$name</p></td>
+            //         <td><p>$consumption kWh</p></td>
+            //         <td><p>$percentage %</p></td>
+            //     </tr>
+            // EOT;
 
-        // $text +=
-        // <<<EOT
-        // <br> </br>
-        //     <p>
-        //     $data[0]['Zählername'] <br>
-        //     </p>
-        //     <p>
-        //     $data[0]['kWh'] <br>
-        //     </p>
-        // EOT;
+                   $text +=
+                <<<EOT
+                <br> </br>
+                    <p>
+                    'Name'.$name <br>
+                    </p>
+                    <p>
+                    $consumption <br>
+                    </p>
+                    <p>
+                   $percentage <br>
+                    </p>
+                EOT;
+                }
+
+ 
 
         return $dataText;
     }
