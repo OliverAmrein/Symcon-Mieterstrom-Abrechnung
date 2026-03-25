@@ -11,8 +11,8 @@ class BillingEngine extends IPSModule
         parent::Create();
 
         $this->RegisterPropertyFloat("Tariff", 0.250);
-        $this->RegisterPropertyString("StartDatum", "01.01.2026");
-        $this->RegisterPropertyString("EndDatum", "01.01.2026");
+        //$this->RegisterPropertyString("StartDatum", "01.01.2026");
+        //$this->RegisterPropertyString("EndDatum", "01.01.2026");
         $this->RegisterPropertyString('LogoData', '');
         $this->RegisterVariableInteger("PdfIdx", 1);
         
@@ -90,7 +90,7 @@ class BillingEngine extends IPSModule
             return false;
         }
 
-        $mediaID = $this->GetIDForIdent('ReportPDF');
+        $mediaID = $this->GetIDForIdent($newIdent);
         IPS_SetMediaContent($mediaID, base64_encode($pdfContent));
 
         
