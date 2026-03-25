@@ -309,5 +309,6 @@ class BillingEngine extends IPSModule
             'data1'               => "11111",
             'data2'             => "2222"
         ];
+        return $data;
     }
 }
