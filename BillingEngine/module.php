@@ -278,13 +278,16 @@ class BillingEngine extends IPSModule
         //     $consumptionText = '';
         //     $consumptionText2 = '';
         // }
+        $text = '';
 
-        $text =
+        $text +=
         <<<EOT
         <br> </br>
-        <h3>$data[data1]</h3>
             <p>
-            $data[data2] <br>
+            $data[0]['Zähler'] <br>
+            </p>
+            <p>
+            $data[0]['kWh'] <br>
             </p>
         EOT;
 
@@ -310,18 +313,59 @@ class BillingEngine extends IPSModule
     {
         // alle zähler für diesen mieter
         
-        $zählerliste = IPS_GetProperty($MieterID, "Zählerliste");
-        
+        $data = [];
+                
+        $zählerliste = json_decode(IPS_GetProperty($MieterID, "Zählerliste"));
+        print_r ($zählerliste[0]).PHP_EOL;
         foreach($zählerliste as $zähler) {
-            echo 'Zähler: '.IPS_GetName($zähler).PHP_EOL;
+            //echo 'Zähler: '.$zähler->Zähler.PHP_EOL;
+            //echo 'Prozent: '.$zähler->AnteilProzent.PHP_EOL;
+
+            $IPadr = IPS_GetProperty($zähler->Zähler, 'IPAdresse');
+            //echo 'IP: '.$IPadr.PHP_EOL;
+
+            $Name = IPS_GetName($zähler->Zähler);
+
+            $sum = ReadZähler($IPAdr, $Startdatum, $Enddatum);
+            $sum = ($sum * 100) / $zähler->AnteilProzent;
+
+            array_push($data, ['Zählername' =>  $Name, 'kWh' => $sum] );
+
         }
-
-
-
-        $data = [
-            'data1'               => "11111",
-            'data2'             => "2222"
-        ];
         return $data;
+    }
+
+    private function $this->ReadZähler($IPAdr, $Startdatum, $Enddatum)
+    {
+
+        $response = file_get_contents('http://'.$ipadress.'/data.json?type=MONTHLYPROFILE');
+        $json = json_decode($response, true);
+        $sum = 0;
+        $start = strtotime($startstr);
+        $end = strtotime($endstr);
+
+        $dat = strtotime($json['MONTHLYPROFILE']['INST']['TS']);
+        //echo 'xxx'.$dat.PHP_EOL;
+        if ($dat >= $start && $dat < $end) {
+        //echo $json['MONTHLYPROFILE']['INST']['TS'].PHP_EOL;
+        //echo $json['MONTHLYPROFILE']['INST']['import'].PHP_EOL;
+        $sum += $json['MONTHLYPROFILE']['INST']['import'];
+        }
+        for ($i = 0; $i<1000; $i++) {
+
+        if (isset($json['MONTHLYPROFILE']['data'][strval($i)])) 
+        {
+            $dat = strtotime($json['MONTHLYPROFILE']['data'][strval($i)]['TS']);
+            if ($dat >= $start && $dat < $end) {
+            //echo 'xxx'.$dat.PHP_EOL;
+            //echo $json['MONTHLYPROFILE']['data'][strval($i)]['TS'].PHP_EOL;
+            //echo $json['MONTHLYPROFILE']['data'][strval($i)]['import'].PHP_EOL;
+            $sum += $json['MONTHLYPROFILE']['data'][strval($i)]['import'];
+            }
+        } else {
+            //break;
+        }
+        }
+        return $sum;
     }
 }
