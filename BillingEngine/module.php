@@ -33,8 +33,8 @@ class BillingEngine extends IPSModule
     {
         $mediaId = @IPS_GetObjectIDByIdent($Ident, $this->InstanceID);
         if (true) { //$mediaId === false) {
-            echo 'RegisterMedia ident not found, create'.PHP_EOL;
-
+            //echo 'RegisterMedia ident not found, create'.PHP_EOL;
+            echo 'RegisterMedia new media Ident='.$Ident.PHP_EOL;
             $mediaId = IPS_CreateMedia(5 /* Document */);
             IPS_SetParent($mediaId, $this->InstanceID);
             IPS_SetIdent($mediaId, $Ident);
@@ -74,7 +74,7 @@ class BillingEngine extends IPSModule
         $newIdent = 'ReportPDF'.$pdfidx;
         echo 'new media Ident='.$newIdent.PHP_EOL;
 
-        $mediaID = $this->RegisterMediaDocument('ReportPDF'.$pdfidx, $filename, 'pdf');
+        $mediaID = $this->RegisterMediaDocument($newIdent, $filename, 'pdf');
         echo 'new media ID='.$mediaID.PHP_EOL;
 
        // $mediaID = @IPS_GetObjectIDByIdent('ReportPDF', $this->InstanceID);
