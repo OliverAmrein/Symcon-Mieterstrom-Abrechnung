@@ -228,9 +228,42 @@ class BillingEngine extends IPSModule
         return $pdf->Output($filename, 'S');
     }
 
+
+    private function getDeutscherMonat($monatsNummer, $kurz = false) {
+        $monate = [
+            1 => ['Januar', 'Jan'],
+            2 => ['Februar', 'Feb'],
+            3 => ['März', 'Mär'],
+            4 => ['April', 'Apr'],
+            5 => ['Mai', 'Mai'],
+            6 => ['Juni', 'Jun'],
+            7 => ['Juli', 'Jul'],
+            8 => ['August', 'Aug'],
+            9 => ['September', 'Sep'],
+            10 => ['Oktober', 'Okt'],
+            11 => ['November', 'Nov'],
+            12 => ['Dezember', 'Dez']
+        ];
+
+        // Überprüfen, ob die Nummer gültig ist
+        if (!isset($monate[$monatsNummer])) {
+            return "Ungültiger Monat";
+        }
+
+        // Rückgabe: Index 0 für voll, Index 1 für kurz
+        return $kurz ? $monate[$monatsNummer][1] : $monate[$monatsNummer][0];
+    }
+
     private function GenerateHTMLHeader(string $logo, $Startdatum, $Enddatum, $MieterID)
     {
-        $date = strtoupper(date('d.m.Y', strtotime($Startdatum))) . ' bis ' . date('d.m.Y', strtotime($Enddatum));
+
+        $start = date_create($Startdatum);
+        $start = date_modify($start, '-1 month');
+        $mon = $start->format('m');
+        $monstr = $this->getDeutscherMonat($mon);
+
+
+        $date = $monstr.' '.$start->format('Y');
         
         $Mietername = IPS_GetProperty($MieterID, "Mietername");
         $title =  $Mietername;
@@ -240,8 +273,8 @@ class BillingEngine extends IPSModule
         <tr>
             <td>
                 <br/><br/><br/>
-                $date<br/>
-                <h1 style="font-weight: normal; font-size: 10px">$title </h1>
+                Abrechnungsperiode $date<br/>
+                <h1 style="font-weight: normal; font-size: 15px">$title </h1>
             </td>
             <td width="50%" align="right"><br>$logo</td>
         </tr>
