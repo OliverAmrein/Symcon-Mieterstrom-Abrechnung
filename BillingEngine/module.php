@@ -284,7 +284,7 @@ class BillingEngine extends IPSModule
         <<<EOT
         <br> </br>
             <p>
-            $data[0]['Zähler'] <br>
+            $data[0]['Zählername'] <br>
             </p>
             <p>
             $data[0]['kWh'] <br>
