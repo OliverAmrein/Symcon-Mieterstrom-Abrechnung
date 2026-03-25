@@ -18,8 +18,9 @@ class BillingEngine extends IPSModule
         //$this->RegisterVariableInteger("InvoiceCounter", "Rechnungszähler");
         //$this->RegisterVariableString("LastInvoiceNumber", "Letzte Rechnungsnummer");
 
+        this->RegisterScript
 
-        $this->RegisterMediaDocument('ReportPDF', $this->Translate('Report (PDF)'), 'pdf');
+        $mediaID = $this->RegisterMediaDocument('ReportPDF', $this->Translate('Report (PDF)'), 'pdf');
 
     }
 
@@ -51,7 +52,8 @@ class BillingEngine extends IPSModule
 
         $mediaID = @IPS_GetObjectIDByIdent('ReportPDF', $this->InstanceID);
 
-        $filepath = 'media/'.$Mietername.'_'.$Startdatum.'_'.$Enddatum.'.pdf';
+        $filename = $Mietername.'_'.$Startdatum.'_'.$Enddatum.'.pdf';
+        $filepath = 'media/'.$filename;
         IPS_SetMediaFile($mediaID, $filepath, false);
 
         $pdfContent = $this->GeneratePDF('Amrein-Projekt ' . IPS_GetKernelVersion(), 'report.pdf');
@@ -63,8 +65,8 @@ class BillingEngine extends IPSModule
         $mediaID = $this->GetIDForIdent('ReportPDF');
         IPS_SetMediaContent($mediaID, base64_encode($pdfContent));
 
-        $filepath = IPS_GetKernelDir().$filepath;
-        file_get_contents($filepath);
+        $downloadpath = "%UserProfile%\\Downloads\\" . $filename;
+        file_put_contents($filepath, base64_encode($pdfContent));
 
 
 
