@@ -230,7 +230,7 @@ class BillingEngine extends IPSModule
 
     private function GenerateHTMLHeader(string $logo, $Startdatum, $Enddatum, $MieterID)
     {
-        $date = strtoupper(date('d.m.Y', strtotime($Startdatum))) . ' bis ' . date('dd.mm.YYYY', strtotime($Enddatum));
+        $date = strtoupper(date('d.m.Y', strtotime($Startdatum))) . ' bis ' . date('d.m.Y', strtotime($Enddatum));
         
         $Mietername = IPS_GetProperty($MieterID, "Mietername");
         $title =  $Mietername;
@@ -254,6 +254,7 @@ class BillingEngine extends IPSModule
     {
         $data = $this->FetchData($Startdatum, $Enddatum, $MieterID);
         if ($data == []) {
+            echo 'xxxxxxxxxxxxx empty data xxxxxxxxxxxxxx';
             return;
         }
 
@@ -280,11 +281,11 @@ class BillingEngine extends IPSModule
         // }
         $dataText = '';
         
-        print_r ($data);
+        //print_r ($data);
 
         //echo 'xxxxxx'.$data[0]['Zählername'].'yyyyyy'.PHP_EOL;
 
-        foreach ($data['Variables'] as $key => $variable) {
+        foreach ($data as $key => $variable) {
             $name = $variable['Zählername'];
             $consumption = $variable['kWh'];
             $percentage = $variable['AnteilProzent'];
@@ -292,8 +293,8 @@ class BillingEngine extends IPSModule
             //replace the decimal separator
             $consumption = str_replace('.', ',', strval($consumption));
             $percentage = str_replace('.', ',', strval($percentage));
-            $this->SendDebug('Consumption', $consumption, 0);
-            $this->SendDebug('percentage', $percentage, 0);
+            //$this->SendDebug('Consumption', $consumption, 0);
+            //$this->SendDebug('percentage', $percentage, 0);
 
             $dataText .= <<<EOT
             <br> </br>
