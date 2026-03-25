@@ -75,13 +75,6 @@ class BillingEngine extends IPSModule
         echo date('Y-m-d', $datestart);
         echo date('Y-m-d', $dateend);
 
-        // ====================================================================================
-        // ====================================================================================
-        BILL_EinenMieterAbrechnen($MieterID, $Startdatum, $Enddatum)
-        // ====================================================================================
-        // ====================================================================================
-
-
         $mediaId = @IPS_GetObjectIDByIdent('ReportPDF', $this->InstanceID);
        IPS_SetMediaFile($mediaId, 'media/meinfilename.pdf', false);
 
