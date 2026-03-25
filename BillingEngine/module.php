@@ -229,7 +229,7 @@ class BillingEngine extends IPSModule
     }
 
 
-    private function getDeutscherMonat($monatsNummer, $kurz = false) {
+    private function getDeutscherMonat(int $monatsNummer, bool $kurz = false) {
         $monate = [
             1 => ['Januar', 'Jan'],
             2 => ['Februar', 'Feb'],
@@ -260,6 +260,8 @@ class BillingEngine extends IPSModule
         $start = date_create($Startdatum);
         $start = date_modify($start, '-1 month');
         $mon = strval($start->format('m'));
+        echo 'xxxxx'.$mon.PHP_EOL;
+
         $monstr = $this->getDeutscherMonat($mon);
 
 
