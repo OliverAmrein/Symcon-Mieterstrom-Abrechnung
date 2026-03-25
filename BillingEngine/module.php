@@ -86,7 +86,7 @@ class BillingEngine extends IPSModule
         $filepath = 'media/'.$filename;
         IPS_SetMediaFile($mediaID, $filepath, false);
 
-        $pdfContent = $this->GeneratePDF('Amrein-Projekt ' . IPS_GetKernelVersion(), 'report.pdf', $Startdatum, $Enddatum);
+        $pdfContent = $this->GeneratePDF('Amrein-Projekt ' . IPS_GetKernelVersion(), 'report.pdf', $Startdatum, $Enddatum, $MieterID);
 
         if ($this->GetStatus() >= IS_EBASE) {
             return false;
@@ -122,13 +122,8 @@ class BillingEngine extends IPSModule
                 //echo $modinfoName.PHP_EOL;
                 //echo IPS_GetName($instID).PHP_EOL;
                 BILL_EinenMieterAbrechnen($this->InstanceID, $instID , date('Y-m-d', $datestart), date('Y-m-d', $dateend) );
-
-
-
             }
         }
-
-
 
 
         return true;
@@ -176,7 +171,7 @@ class BillingEngine extends IPSModule
         }
     }
 
-    private function GeneratePDF($author, $filename, $Startdatum, $Enddatum)
+    private function GeneratePDF($author, $filename, $Startdatum, $Enddatum, $MieterID)
     {
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->SetCreator(PDF_CREATOR);
@@ -213,7 +208,7 @@ class BillingEngine extends IPSModule
             $logo = '<img src="@' . $logo . '">';
         }
 
-        $pdf->writeHTML($this->GenerateHTMLHeader($logo), true, false, true, false, '');
+        $pdf->writeHTML($this->GenerateHTMLHeader($logo, $Startdatum, $Enddatum, $MieterID), true, false, true, false, '');
 
         //Charts
         //if (IPS_VariableExists($this->ReadPropertyInteger('TemperatureID'))) {
@@ -227,16 +222,18 @@ class BillingEngine extends IPSModule
         $pdf->setY($pdf->getY() + 62);
 
         //text
-        $pdf->writeHTML($this->GenerateHTMLText(), true, false, true, false, '');
+        $pdf->writeHTML($this->GenerateHTMLText($Startdatum, $Enddatum, $MieterID), true, false, true, false, '');
 
         //Save the pdf
         return $pdf->Output($filename, 'S');
     }
 
-    private function GenerateHTMLHeader(string $logo)
+    private function GenerateHTMLHeader(string $logo, $Startdatum, $Enddatum, $MieterID)
     {
-        $date = strtoupper($this->Translate(date('F', strtotime('-1 month'))) . ' ' . date('Y'));
-        $title = strtoupper($this->Translate('Consumption'));
+        $date = strtoupper(date('dd.mm.YYYY', strtotime($Startdatum))) . ' bis ' . date('dd.mm.YYYY', strtotime($Enddatum));
+        
+        $Mietername = IPS_GetProperty($MieterID, "Mietername");
+        $title =  $Mietername;
 
         return <<<EOT
         <table cellpadding="0" cellspacing="0" border="0" width="100%">
@@ -244,7 +241,7 @@ class BillingEngine extends IPSModule
             <td>
                 <br/><br/><br/>
                 $date<br/>
-                <h1 style="font-weight: normal; font-size: 25px">$title </h1>
+                <h1 style="font-weight: normal; font-size: 10px">$title </h1>
             </td>
             <td width="50%" align="right"><br>$logo</td>
         </tr>
@@ -253,9 +250,9 @@ class BillingEngine extends IPSModule
     }
 
 
-    private function GenerateHTMLText()
+    private function GenerateHTMLText($Startdatum, $Enddatum, $MieterID)
     {
-        $data = $this->FetchData();
+        $data = $this->FetchData($Startdatum, $Enddatum, $MieterID);
         if ($data == []) {
             return;
         }
@@ -309,8 +306,18 @@ class BillingEngine extends IPSModule
         return $text;
     }
 
-    private function FetchData()
+    private function FetchData($Startdatum, $Enddatum, $MieterID)
     {
+        // alle zähler für diesen mieter
+        
+        $zählerliste = IPS_GetProperty($MieterID, "Zählerliste")
+        
+        foeach($zählerliste as $zähler) {
+            echo 'Zähler: '.IPS_GetName($zähler).PHP_EOL;
+        }
+
+
+
         $data = [
             'data1'               => "11111",
             'data2'             => "2222"
