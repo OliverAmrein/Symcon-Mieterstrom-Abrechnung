@@ -63,21 +63,30 @@ class BillingEngine extends IPSModule
         $mediaID = $this->GetIDForIdent('ReportPDF');
         IPS_SetMediaContent($mediaID, base64_encode($pdfContent));
 
+        // ID der zu kopierenden Instanz (Quell-Instanz)
+        $sourceInstanceID = mediaID; 
 
-        $file = IPS_GetKernelDir() . $filepath;
+        // 1. Informationen der Quell-Instanz abrufen
+        $instance = IPS_GetInstance($sourceInstanceID);
+        $moduleID = $instance['ModuleInfo']['ModuleID']; // Die GUID des Moduls
+        $parentID = IPS_GetParent($sourceInstanceID);     // Den aktuellen Ort im Baum beibehalten
 
-        if (file_exists($file)) {
-            echo "file exists ".IPS_GetKernelDir() . $filepath.PHP_EOL;
-            header('Content-Description: File Transfer');
-            header('Content-Type: application/octet-stream');
-            header('Content-Disposition: attachment; filename="'.basename($file).'"');
-            header('Expires: 0');
-            header('Cache-Control: must-revalidate');
-            header('Pragma: public');
-            header('Content-Length: ' . filesize($file));
-            readfile($file);
-            exit;
-        }
+        // 2. Neue Instanz vom selben Typ (ModuleID) erstellen
+        $newInstanceID = IPS_CreateInstance($moduleID);
+
+        // 3. Namen und Position der neuen Instanz setzen
+        IPS_SetName($newInstanceID, $filename);
+        IPS_SetParent($newInstanceID, $parentID);
+
+        // 4. Konfiguration der Quell-Instanz auslesen
+        $config = IPS_GetConfiguration($sourceInstanceID);
+
+        // 5. Konfiguration auf die neue Instanz übertragen
+        IPS_SetConfiguration($newInstanceID, $config);
+
+        // 6. Änderungen übernehmen (wichtig!)
+        IPS_ApplyChanges($newInstanceID);
+
         
         return true;
     }
