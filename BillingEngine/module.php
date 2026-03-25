@@ -50,7 +50,9 @@ class BillingEngine extends IPSModule
         echo $Mietername.'_'.$Startdatum.'_'.$Enddatum.PHP_EOL;
 
         $mediaID = @IPS_GetObjectIDByIdent('ReportPDF', $this->InstanceID);
-        IPS_SetMediaFile($mediaID, 'media/'.$Mietername.'_'.$Startdatum.'_'.$Enddatum.'.pdf', false);
+
+        $filepath = 'media/'.$Mietername.'_'.$Startdatum.'_'.$Enddatum.'.pdf';
+        IPS_SetMediaFile($mediaID, $filepath, false);
 
         $pdfContent = $this->GeneratePDF('Amrein-Projekt ' . IPS_GetKernelVersion(), 'report.pdf');
 
@@ -60,6 +62,9 @@ class BillingEngine extends IPSModule
 
         $mediaID = $this->GetIDForIdent('ReportPDF');
         IPS_SetMediaContent($mediaID, base64_encode($pdfContent));
+
+        file_get_contents($filepath);
+
 
         return true;
     }
