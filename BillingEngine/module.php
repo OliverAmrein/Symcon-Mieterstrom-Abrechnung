@@ -290,7 +290,7 @@ class BillingEngine extends IPSModule
 
         // $comparison = $this->Translate('For Comparison');
         // $co2text = $this->Translate('A tree bind each month ca. 1 kg CO².<br>In order to achieve the 2030 climate targets, the total energy consumption for heating and hot water must be reduced by <br>5.5% per year.<br>Your personal footprint can be found <a href = "uba.co2-rechner.de" >here </a> calculate.');
-
+ 
         // if ($data['co2'] > 0) {
         //     $text .=
         //     <<<EOT
