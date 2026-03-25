@@ -31,7 +31,7 @@ class BillingEngine extends IPSModule
     private function RegisterMedia($Type, $Ident, $Name, $Extension, $Position)
     {
         $mediaId = @IPS_GetObjectIDByIdent($Ident, $this->InstanceID);
-        if (true)//$mediaId === false) {
+        if (true) { //$mediaId === false) {
             echo 'RegisterMedia ident not found, create'.PHP_EOL;
 
             $mediaId = IPS_CreateMedia(5 /* Document */);
