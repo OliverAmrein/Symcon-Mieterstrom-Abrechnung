@@ -285,6 +285,7 @@ class BillingEngine extends IPSModule
 
         //echo 'xxxxxx'.$data[0]['Zählername'].'yyyyyy'.PHP_EOL;
 
+        $total = 0;
         foreach ($data as $key => $variable) {
             $name = $variable['Zählername'];
             $consumption = strval($variable['kWh']);
@@ -294,7 +295,8 @@ class BillingEngine extends IPSModule
             $consumption = str_replace('.', ',', strval($consumption));
             $percentage = str_replace('.', ',', strval($percentage));
 
-            $net = strval(round($variable['kWh'] * $this->ReadPropertyFloat("Tariff"), 2));
+            $net = round($variable['kWh'] * $this->ReadPropertyFloat("Tariff"), 2);
+            $netstr = strval($net);
             //$this->SendDebug('Consumption', $consumption, 0);
             //$this->SendDebug('percentage', $percentage, 0);
 
@@ -308,16 +310,22 @@ class BillingEngine extends IPSModule
             // EOT;
             $text .= <<<EOT
             <p>
-            'Zähler: '.$name <br>
-            '('.$percentage.'%)'<br>
-            $consumption.' kWh' <br>
-            $net.' CHF' <br>
+            Zähler: $name ($percentage%)  $consumption kWh  $netstr CHF <br>
             </p>
             EOT;
 
+            $total += $net;
+            
         }
 
- 
+        $totalstr = strval($total)
+        $text .= <<<EOT
+            <p>
+            <br>
+            Total: $totalstr CHF<br>
+            
+            </p>
+            EOT;
 
         return $text;
     }
