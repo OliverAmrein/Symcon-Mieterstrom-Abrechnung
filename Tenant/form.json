@@ -3,6 +3,13 @@
     "elements": [
         {
             "type": "ValidationTextBox",
+            "name": "Mietername",
+            "width": "400px",
+            "multiline": "false",
+            "caption": "Mietername"
+        },
+        {
+            "type": "ValidationTextBox",
             "name": "Adresse",
             "width": "400px",
             "height": "400px",

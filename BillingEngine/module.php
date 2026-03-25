@@ -42,8 +42,47 @@ class BillingEngine extends IPSModule
         }
     }
 
-    public function AlleMieterAbrechnen()
+
+    public function EinenMieterAbrechnen($MieterID, $Startdatum, $Enddatum)
     {
+        $MieterName = IPS_GetProperty($MieterID, "Mietername");
+
+        echo $Mietername.$Monat.'_'.$Jahr.PHP_EOL;
+
+
+
+
+
+
+
+        $mediaId = @IPS_GetObjectIDByIdent('ReportPDF', $this->InstanceID);
+        IPS_SetMediaFile($mediaId, 'media/'.$Mietername.'_'.$Startdatum.'_'.$Enddatum.'.pdf', false);
+
+        $pdfContent = $this->GeneratePDF('Amrein-Projekt ' . IPS_GetKernelVersion(), 'report.pdf');
+
+        if ($this->GetStatus() >= IS_EBASE) {
+            return false;
+        }
+
+        $mediaID = $this->GetIDForIdent('ReportPDF');
+        IPS_SetMediaContent($mediaID, base64_encode($pdfContent));
+
+        return true;
+    }
+
+
+    public function AlleMieterLetztenMonatAbrechnen()
+    {
+
+        $datestart = strtotime("-1 month");
+        $datestart = strtotime(date('Y-m-01', $datestart));
+        $dateend = strtotime(date('Y-m-t', $datestart));
+
+        echo date('Y-m-d', $datestart);
+        echo date('Y-m-d', $dateend);
+
+
+
         $mediaId = @IPS_GetObjectIDByIdent('ReportPDF', $this->InstanceID);
        IPS_SetMediaFile($mediaId, 'media/meinfilename.pdf', false);
 
@@ -57,9 +96,6 @@ class BillingEngine extends IPSModule
         IPS_SetMediaContent($mediaID, base64_encode($pdfContent));
 
         return true;
-
-
-
     }
 
     public function RunBilling()

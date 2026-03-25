@@ -58,7 +58,7 @@
             "enabled": true,
             "link": false,
             "name": "AAA",
-            "onClick": "BILL_AlleMieterAbrechnen($id);",
+            "onClick": "BILL_AlleMieterLetztenMonatAbrechnen($id);",
             "visible": true,
             "width": ""
         }
