@@ -68,7 +68,11 @@ class BillingEngine extends IPSModule
         }
 
         $pdfidx = $this->ReadPropertyFloat("PdfIdx");
-        IPS_SetProperty($this->InstanceID, 'PdfIdx', $pdfidx + 1);
+        $pdfidx++;
+        IPS_SetProperty($this->InstanceID, 'PdfIdx', $pdfidx);
+        $newIdent = 'ReportPDF'.$pdfidx;
+        echo 'new media Ident='.$newIdent.PHP_EOL;
+
         $mediaID = $this->RegisterMediaDocument('ReportPDF'.$pdfidx, $filename, 'pdf');
         echo 'new media ID='.$mediaID.PHP_EOL;
 
