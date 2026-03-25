@@ -121,7 +121,7 @@ class BillingEngine extends IPSModule
             {
                 //echo $modinfoName.PHP_EOL;
                 //echo IPS_GetName($instID).PHP_EOL;
-                EinenMieterAbrechnen(instID , date('Y-m-d', $datestart), date('Y-m-d', $dateend) );
+                BILL_EinenMieterAbrechnen($id, $instID , date('Y-m-d', $datestart), date('Y-m-d', $dateend) );
 
 
 
