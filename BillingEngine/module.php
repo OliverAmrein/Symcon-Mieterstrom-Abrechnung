@@ -282,6 +282,9 @@ class BillingEngine extends IPSModule
         
         print_r ($data);
 
+        echo 'xxxxxx'.$data[0]['Zählername'].'yyyyyy'.PHP_EOL;
+
+
         $text +=
         <<<EOT
         <br> </br>
