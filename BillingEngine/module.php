@@ -63,7 +63,10 @@ class BillingEngine extends IPSModule
         $mediaID = $this->GetIDForIdent('ReportPDF');
         IPS_SetMediaContent($mediaID, base64_encode($pdfContent));
 
+        $filepath = IPS_GetKernelDir().$filepath;
         file_get_contents($filepath);
+
+
 
 
         return true;
