@@ -309,7 +309,7 @@ class BillingEngine extends IPSModule
                 <<<EOT
                 <br> </br>
                     <p>
-                    'Name'.$name <br>
+                    $name <br>
                     </p>
                     <p>
                     $consumption <br>
@@ -332,7 +332,7 @@ class BillingEngine extends IPSModule
         $data = [];
                 
         $zählerliste = json_decode(IPS_GetProperty($MieterID, "Zählerliste"));
-        print_r ($zählerliste[0]).PHP_EOL;
+        //print_r ($zählerliste[0]).PHP_EOL;
         foreach($zählerliste as $zähler) {
             //echo 'Zähler: '.$zähler->Zähler.PHP_EOL;
             //echo 'Prozent: '.$zähler->AnteilProzent.PHP_EOL;
