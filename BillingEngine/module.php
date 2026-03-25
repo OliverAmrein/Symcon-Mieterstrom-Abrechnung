@@ -18,7 +18,7 @@ class BillingEngine extends IPSModule
         //$this->RegisterVariableInteger("InvoiceCounter", "Rechnungszähler");
         //$this->RegisterVariableString("LastInvoiceNumber", "Letzte Rechnungsnummer");
 
-        $mediaID = $this->RegisterMediaDocument('ReportPDF', $this->Translate('Report (PDF)'), 'pdf');
+        //$mediaID = $this->RegisterMediaDocument('ReportPDF', $this->Translate('Report (PDF)'), 'pdf');
 
     }
 
@@ -44,11 +44,28 @@ class BillingEngine extends IPSModule
 
     public function EinenMieterAbrechnen($MieterID, $Startdatum, $Enddatum)
     {
+        
+
         $Mietername = IPS_GetProperty($MieterID, "Mietername");
 
         echo $Mietername.'_'.$Startdatum.'_'.$Enddatum.PHP_EOL;
 
-        $mediaID = @IPS_GetObjectIDByIdent('ReportPDF', $this->InstanceID);
+        $filename = $Mietername.'_'.$Startdatum.'_'.$Enddatum.'.pdf';
+        $filepath = 'media/'.$filename;
+
+        // delete old media with same name
+        try {
+            $mediaID = @IPS_GetObjectIDByName($filename, $this->InstanceID);
+            IPS_DeleteMedia($mediaID, true);
+        }
+        catch(Exception $e) {
+            
+        }
+
+        $mediaID = $this->RegisterMediaDocument('ReportPDF', $filename, 'pdf');
+
+       // $mediaID = @IPS_GetObjectIDByIdent('ReportPDF', $this->InstanceID);
+         $mediaID = @IPS_GetObjectIDByName($filename, $this->InstanceID);
 
         $filename = $Mietername.'_'.$Startdatum.'_'.$Enddatum.'.pdf';
         $filepath = 'media/'.$filename;
@@ -62,6 +79,9 @@ class BillingEngine extends IPSModule
 
         $mediaID = $this->GetIDForIdent('ReportPDF');
         IPS_SetMediaContent($mediaID, base64_encode($pdfContent));
+
+
+
 
         // ID der zu kopierenden Instanz (Quell-Instanz)
         $sourceInstanceID = $mediaID; 
