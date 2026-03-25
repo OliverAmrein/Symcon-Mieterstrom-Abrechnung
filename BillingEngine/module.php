@@ -380,7 +380,7 @@ class BillingEngine extends IPSModule
             //break;
         }
         }
-        echo 'xxxxx '.$sum.' xxxx '.PHP.EOL;
+        echo 'xxxxx '.$sum.' xxxx '.PHP_EOL;
         return $sum;
     }
 }
