@@ -45,7 +45,7 @@ class BillingEngine extends IPSModule
 
     public function EinenMieterAbrechnen($MieterID, $Startdatum, $Enddatum)
     {
-        $MieterName = IPS_GetProperty($MieterID, "Mietername");
+        $Mietername = IPS_GetProperty($MieterID, "Mietername");
 
         echo $Mietername.$Monat.'_'.$Jahr.PHP_EOL;
 
@@ -81,6 +81,11 @@ class BillingEngine extends IPSModule
         echo date('Y-m-d', $datestart);
         echo date('Y-m-d', $dateend);
 
+        // ====================================================================================
+        // ====================================================================================
+        BILL_EinenMieterAbrechnen($MieterID, $Startdatum, $Enddatum)
+        // ====================================================================================
+        // ====================================================================================
 
 
         $mediaId = @IPS_GetObjectIDByIdent('ReportPDF', $this->InstanceID);
