@@ -66,7 +66,7 @@ class BillingEngine extends IPSModule
             
         }
 
-        $mediaID = $this->RegisterMediaDocument('ReportPDF', $filename, 'pdf');
+        $mediaID = $this->RegisterMediaDocument($filename, $filename, 'pdf');
         echo 'new media ID='.$mediaID.PHP_EOL;
 
        // $mediaID = @IPS_GetObjectIDByIdent('ReportPDF', $this->InstanceID);
