@@ -318,7 +318,7 @@ class BillingEngine extends IPSModule
             
         }
 
-        $totalstr = strval($total)
+        $totalstr = strval($total);
         $text .= <<<EOT
             <p>
             <br>
