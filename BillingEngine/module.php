@@ -278,40 +278,44 @@ class BillingEngine extends IPSModule
         //     $consumptionText = '';
         //     $consumptionText2 = '';
         // }
-        $text = '';
+        $dataText = '';
         
         print_r ($data);
 
-        echo 'xxxxxx'.$data[0]['Zählername'].'yyyyyy'.PHP_EOL;
+        //echo 'xxxxxx'.$data[0]['Zählername'].'yyyyyy'.PHP_EOL;
 
+        foreach ($data['Variables'] as $key => $variable) {
+            $name = $variable['Zählername'];
+            $consumption = $variable['kWh'];
+            $percentage = $variable['AnteilProzent'];
 
-        $text +=
-        <<<EOT
-        <br> </br>
-            <p>
-            $data[0]['Zählername'] <br>
-            </p>
-            <p>
-            $data[0]['kWh'] <br>
-            </p>
-        EOT;
+            //replace the decimal separator
+            $consumption = str_replace('.', ',', strval($consumption));
+            $percentage = str_replace('.', ',', strval($percentage));
+            $this->SendDebug('Consumption', $consumption, 0);
+            $this->SendDebug('percentage', $percentage, 0);
 
-        // $comparison = $this->Translate('For Comparison');
-        // $co2text = $this->Translate('A tree bind each month ca. 1 kg CO².<br>In order to achieve the 2030 climate targets, the total energy consumption for heating and hot water must be reduced by <br>5.5% per year.<br>Your personal footprint can be found <a href = "uba.co2-rechner.de" >here </a> calculate.');
- 
-        // if ($data['co2'] > 0) {
-        //     $text .=
-        //     <<<EOT
-        //     <h3>CO² Emmisionen</h3> 
-        //     <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        //         <tr>
-        //             <td width="20%"><p>    $data[co2] kg</p></td>
-        //             <td width="80%"><h4>$comparison</h4><p>$co2text</p></td>
-        //         </tr>
-        //     </table>
-        //     EOT;
-        // }
-        return $text;
+            $dataText .= <<<EOT
+                <tr>
+                    <td><p>$name</p></td>
+                    <td><p>$consumption kWh</p></td>
+                    <td><p>$percentage %</p></td>
+                </tr>
+            EOT;
+        }
+
+        // $text +=
+        // <<<EOT
+        // <br> </br>
+        //     <p>
+        //     $data[0]['Zählername'] <br>
+        //     </p>
+        //     <p>
+        //     $data[0]['kWh'] <br>
+        //     </p>
+        // EOT;
+
+        return $dataText;
     }
 
     private function FetchData($Startdatum, $Enddatum, $MieterID)
@@ -334,7 +338,7 @@ class BillingEngine extends IPSModule
             $sum = $this->ReadZähler($IPadr, $Startdatum, $Enddatum);
             $sum = ($sum * 100) / $zähler->AnteilProzent;
 
-            array_push($data, ['Zählername' =>  $Name, 'kWh' => $sum] );
+            array_push($data, ['Zählername' =>  $Name, 'kWh' => $sum, 'AnteilProzent' => $zähler->AnteilProzent] );
 
         }
         return $data;
