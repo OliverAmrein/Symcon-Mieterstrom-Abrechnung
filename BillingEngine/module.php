@@ -48,7 +48,7 @@ class BillingEngine extends IPSModule
     }
  
 
-    public function EinenMieterAbrechnen($MieterID, $Startdatum, $Enddatum)
+    public function EinenMieterAbrechnen(int $MieterID, string $Startdatum, string $Enddatum)
     {
         
         $Mietername = IPS_GetProperty($MieterID, "Mietername");
@@ -86,7 +86,7 @@ class BillingEngine extends IPSModule
         $filepath = 'media/'.$filename;
         IPS_SetMediaFile($mediaID, $filepath, false);
 
-        $pdfContent = $this->GeneratePDF('Amrein-Projekt ' . IPS_GetKernelVersion(), 'report.pdf');
+        $pdfContent = $this->GeneratePDF('Amrein-Projekt ' . IPS_GetKernelVersion(), 'report.pdf', $Startdatum, $Enddatum);
 
         if ($this->GetStatus() >= IS_EBASE) {
             return false;
@@ -110,17 +110,26 @@ class BillingEngine extends IPSModule
         //echo date('Y-m-d', $datestart);
         //echo date('Y-m-d', $dateend);
 
-        $mediaId = @IPS_GetObjectIDByIdent('ReportPDF', $this->InstanceID);
-       IPS_SetMediaFile($mediaId, 'media/meinfilename.pdf', false);
+        $instlist = IPS_GetInstanceList();
+        foreach ($instlist as $inst) {
+            $instarr = IPS_GetInstance($inst);
+            $instID = $instarr['InstanceID'];
 
-        $pdfContent = $this->GeneratePDF('AAA ' . IPS_GetKernelVersion(), 'report.pdf');
+            $modinfoName = $instarr['ModuleInfo']['ModuleName'];
+          
+            if ($modinfoName == 'Tenant')
+            {
+                //echo $modinfoName.PHP_EOL;
+                //echo IPS_GetName($instID).PHP_EOL;
+                EinenMieterAbrechnen(instID , date('Y-m-d', $datestart), date('Y-m-d', $dateend) );
 
-        if ($this->GetStatus() >= IS_EBASE) {
-            return false;
+
+
+            }
         }
 
-        $mediaID = $this->GetIDForIdent('ReportPDF');
-        IPS_SetMediaContent($mediaID, base64_encode($pdfContent));
+
+
 
         return true;
     }
@@ -167,7 +176,7 @@ class BillingEngine extends IPSModule
         }
     }
 
-    private function GeneratePDF($author, $filename)
+    private function GeneratePDF($author, $filename, $Startdatum, $Enddatum)
     {
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->SetCreator(PDF_CREATOR);
