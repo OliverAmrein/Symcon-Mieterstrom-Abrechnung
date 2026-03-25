@@ -335,7 +335,7 @@ class BillingEngine extends IPSModule
         return $data;
     }
 
-    private function $this->ReadZähler($IPAdr, $Startdatum, $Enddatum)
+    private function ReadZähler($IPAdr, $Startdatum, $Enddatum)
     {
 
         $response = file_get_contents('http://'.$ipadress.'/data.json?type=MONTHLYPROFILE');
