@@ -30,7 +30,7 @@
         
         {
             "type": "Button",
-            "caption": "AlleMieterAbrechnen",
+            "caption": "Alle Mieter letzten Monat abrechnen",
             "confirm": "",
             "download": "",
             "enabled": true,

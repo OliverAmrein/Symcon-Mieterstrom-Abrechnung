@@ -103,7 +103,7 @@ class BillingEngine extends IPSModule
     public function AlleMieterLetztenMonatAbrechnen()
     {
 
-        $datestart = strtotime("-1 month");
+        $datestart = strtotime("-0 month");
         $datestart = strtotime(date('Y-m-01', $datestart));
         $dateend = strtotime(date('Y-m-t', $datestart));
 
