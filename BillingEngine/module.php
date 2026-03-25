@@ -65,17 +65,20 @@ class BillingEngine extends IPSModule
 
         // ID der zu kopierenden Instanz (Quell-Instanz)
         $sourceInstanceID = mediaID; 
-
+        echo 'source '.$sourceInstanceID.PHP_EOL;
         // 1. Informationen der Quell-Instanz abrufen
         $instance = IPS_GetInstance($sourceInstanceID);
         $moduleID = $instance['ModuleInfo']['ModuleID']; // Die GUID des Moduls
         $parentID = IPS_GetParent($sourceInstanceID);     // Den aktuellen Ort im Baum beibehalten
-
+        echo 'parent id '.$parentID.PHP_EOL;
+        
         // 2. Neue Instanz vom selben Typ (ModuleID) erstellen
         $newInstanceID = IPS_CreateInstance($moduleID);
-
+        echo 'new id '.$newInstanceID.PHP_EOL;
+        
         // 3. Namen und Position der neuen Instanz setzen
         IPS_SetName($newInstanceID, $filename);
+        echo 'new name '.$filename.PHP_EOL;
         IPS_SetParent($newInstanceID, $parentID);
 
         // 4. Konfiguration der Quell-Instanz auslesen
@@ -86,7 +89,8 @@ class BillingEngine extends IPSModule
 
         // 6. Änderungen übernehmen (wichtig!)
         IPS_ApplyChanges($newInstanceID);
-
+        echo 'done copy'.PHP_EOL;
+        
         
         return true;
     }
