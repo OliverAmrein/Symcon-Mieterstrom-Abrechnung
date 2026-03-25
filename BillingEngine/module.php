@@ -316,7 +316,7 @@ class BillingEngine extends IPSModule
 
  
 
-        return $dataText;
+        return $text;
     }
 
     private function FetchData($Startdatum, $Enddatum, $MieterID)
