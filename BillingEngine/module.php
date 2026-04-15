@@ -386,11 +386,7 @@ class BillingEngine extends IPSModule
 			Total
 		  </th>
 		</tr>
-	   </thead>';
-		
-		
-		$text .= '
-		
+	   </thead>
 		<tr border-bottom: 1px solid black;>
 		<td style="text-align: left; border-bottom: 1px solid black; padding: 8px;"></td>
 		<td style="text-align: right; border-bottom: 1px solid black; padding: 8px;">kWh</td>
