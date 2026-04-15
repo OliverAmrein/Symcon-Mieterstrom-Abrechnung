@@ -9,6 +9,7 @@ class Tenant extends IPSModule
 
         $this->RegisterPropertyString("Adresse","(Adresse erfassen)");
         $this->RegisterPropertyString("Mietername","(hier Mieter Kurzname erfassen)");
+        $this->RegisterPropertyString("Objektname","(hier Objektname erfassen)");
 
        
         $this->RegisterPropertyString("Zählerliste", "[]");
@@ -22,6 +23,8 @@ class Tenant extends IPSModule
         // Diese Zeile nicht löschen
         parent::ApplyChanges();
 
+        $Objekt = IPS_GetProperty ($this->InstanceID, "Objektname");
+        IPS_SetName($this->InstanceID, "Mieter ".Objekt);
     
     }
 

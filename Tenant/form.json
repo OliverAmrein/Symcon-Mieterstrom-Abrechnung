@@ -17,6 +17,13 @@
             "caption": "Adresse"
         },
         {
+            "type": "ValidationTextBox",
+            "name": "Objektname",
+            "width": "400px",
+            "multiline": "false",
+            "caption": "Objektname"
+        },
+        {
             "type": "NumberSpinner",
             "caption": "Rabatt",
             "digits": 0,
