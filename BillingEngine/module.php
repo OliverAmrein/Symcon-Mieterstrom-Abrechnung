@@ -307,7 +307,7 @@ class BillingEngine extends IPSModule
             $consumptioncalc = ($consumption * $percentage) / 100;
             $total += $consumptioncalc;
    		}
-		$totalMitRabatt = ($total * $Rabatt) / 100;
+		$totalMitRabatt = ($total * (100 - $Rabatt)) / 100;
 
 		$text = '
         <style>
@@ -390,7 +390,6 @@ class BillingEngine extends IPSModule
 		<td style="width: 15%;text-align: right; border-bottom: 1px solid black; padding: 8px;">kWh</td>
 	    </tr>';
 
-        $total = 0;
         foreach ($data as $key  => $variable) 
 		{
             $name = $variable['Zählername'];
@@ -422,7 +421,7 @@ class BillingEngine extends IPSModule
         $totaltext = number_format($total, 2);
 
 
-         $text .= '<div style="width: 100%;text-align: right;">'.$totaltext.'</div>';
+         $text .= '<p style="width: 100%;text-align: right;">'.$totaltext.'</p>';
 
         return $text;
     }
