@@ -302,19 +302,16 @@ class BillingEngine extends IPSModule
         $total = 0;
         foreach ($data as $key  => $variable) 
 		{
-            $consumption = strval($variable['kWh']);
-            $percentage = strval($variable['AnteilProzent']);
-            $consumptioncalc = strval($variable['kWh']);
-            
-			$net = round($variable['kWh'] * $tariff, 2);
-            $total += $net;
+            $consumption = $variable['kWh'];
+            $percentage = $variable['AnteilProzent'];
+            $consumptioncalc = ($consumption * $percentage) / 100;
+            $total += $consumptioncalc;
    		}
 		$totalMitRabatt = ($total * $Rabatt) / 100;
 
 		$text = '
         <style>
-          font-weight: normal; font-size: 10px;
-		  .ganze-breite {
+          .ganze-breite {
 			border: 0;
 			height: 2px; /* Höhe der Linie */
 			background-color: #333; /* Farbe der Linie */
@@ -417,12 +414,15 @@ class BillingEngine extends IPSModule
                 <td style="width: 15%;text-align: right; padding: 8px;">'.$netstr.'</td>
             </tr>';
         
-            $total += $net;
    		}
 
         $text .= '</table>';
         $text .= '<hr class="ganze-breite">';
 
+        $totaltext = number_format($total, 2);
+
+
+         $text .= '<div style="width: 100%;text-align: right;">'.$totaltext.'</div>';
 
         return $text;
     }
