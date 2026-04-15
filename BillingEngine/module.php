@@ -196,10 +196,10 @@ class BillingEngine extends IPSModule
 
         $pdf->AddPage('P', 'A4');
        
-        $pdf->AddPage('P', 'A4');
-       
+        
         $pdf->setPage(1, true);
-       
+         $pdf->SetY(10);
+
         //PDF Content
         //Header
         $logo = $this->ReadPropertyString('LogoData');
@@ -217,6 +217,8 @@ class BillingEngine extends IPSModule
         $pdf->writeHTML($this->GenerateHTMLText($Startdatum, $Enddatum, $MieterID));
 
 
+        $pdf->AddPage('P', 'A4');
+         $pdf->SetY(10);
         $pdf->setPage(2, true);
         $pdf->writeHTML($this->GenerateHTMLHeader($logo, $Startdatum, $Enddatum, $MieterID), true, false, true, false, '');
         $pdf->setY($pdf->getY() + 10);
