@@ -386,10 +386,10 @@ class BillingEngine extends IPSModule
 		</tr>
 	   </thead>
 		<tr border-bottom: 1px solid black;>
-		<td style="text-align: left; border-bottom: 1px solid black; padding: 8px;"></td>
-		<td style="text-align: right; border-bottom: 1px solid black; padding: 8px;">kWh</td>
-		<td style="text-align: right; border-bottom: 1px solid black; padding: 8px;">%</td>
-		<td style="text-align: right; border-bottom: 1px solid black; padding: 8px;">kWh</td>
+		<td style="width: 70%; text-align: left; border-bottom: 1px solid black; padding: 8px;"></td>
+		<td style="width: 10%; text-align: right; border-bottom: 1px solid black; padding: 8px;">kWh</td>
+		<td style="width: 10%;text-align: right; border-bottom: 1px solid black; padding: 8px;">%</td>
+		<td style="width: 10%;text-align: right; border-bottom: 1px solid black; padding: 8px;">kWh</td>
 	    </tr>';
 
        $total = 0;
@@ -412,10 +412,10 @@ class BillingEngine extends IPSModule
  
             $text .= '
                 <tr>
-                    <td style="text-align: left; padding: 8px;">'.$name.'</td>
-                    <td style="text-align: right; padding: 8px;">'.$consumption.'</td>
-                    <td style="text-align: right; padding: 8px;">'.$percentage.' %</td>
-                    <td style="text-align: right; padding: 8px;">'.$netstr.'</td>
+                    <td style="width: 70%;text-align: left; padding: 8px;">'.$name.'</td>
+                    <td style="width: 10%;text-align: right; padding: 8px;">'.$consumption.'</td>
+                    <td style="width: 10%;text-align: right; padding: 8px;">'.$percentage.' %</td>
+                    <td style="width: 10%;text-align: right; padding: 8px;">'.$netstr.'</td>
                 </tr>';
             
            // $text .= <<EOT
