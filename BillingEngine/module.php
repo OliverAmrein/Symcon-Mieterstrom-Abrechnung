@@ -320,16 +320,16 @@ class BillingEngine extends IPSModule
 		<table border-collapse: collapse; width="100%">
 		<thead>
 		<tr>
-		  <th style="width: 25%; text-align: left; padding: 8px;">
+		  <th style="width: 25%; text-align: left; padding: 8px;font-weight: bold; ">
 			Bezug
 		  </th>
-		  <th style="width: 25%; text-align: right; padding: 8px;">
+		  <th style="width: 25%; text-align: right; padding: 8px;font-weight: bold; ">
 			Tarif
 		  </th>
-		  <th style="width: 25%; text-align: right; padding: 8px;">
+		  <th style="width: 25%; text-align: right; padding: 8px;font-weight: bold; ">
 			Rabatt
 		  </th>
-		  <th style="width: 25%; text-align: right; padding: 8px;">
+		  <th style="width: 25%; text-align: right; padding: 8px;font-weight: bold; ">
 			Total
 		  </th>
 		</tr>
@@ -364,19 +364,16 @@ class BillingEngine extends IPSModule
 		<table border-collapse: collapse; width="100%">
 		<thead>
 		<tr>
-		  <!-- Linksbündig, 40% Breite -->
-		  <th style="width: 40%; text-align: left; padding: 8px;">
+		  <th style="width: 70%; text-align: left; padding: 8px;font-weight: bold; ">
 			Zähler
 		  </th>
-		  <!-- Rechtsbündig, 20% Breite -->
-		  <th style="width: 20%; text-align: right; padding: 8px;">
+		  <th style="width: 10%; text-align: right; padding: 8px;font-weight: bold; ">
 			Bezug
 		  </th>
-		  <!-- Rechtsbündig, 20% Breite -->
-		  <th style="width: 20%; text-align: right; padding: 8px;">
+		  <th style="width: 10%; text-align: right; padding: 8px;font-weight: bold; ">
 			Anteil
 		  </th>
-		  <th style="width: 20%; text-align: right; padding: 8px;">
+		  <th style="width: 10%; text-align: right; padding: 8px;font-weight: bold; ">
 			Total
 		  </th>
 		</tr>
