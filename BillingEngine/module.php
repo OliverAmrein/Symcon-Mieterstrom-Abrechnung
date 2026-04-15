@@ -194,7 +194,13 @@ class BillingEngine extends IPSModule
 
         $pdf->SetFont('dejavusans');
 
-        $pdf->AddPage();
+        $pdf->AddPage('P', 'A4');
+        $pdf->Cell(0, 0, 'Seite 1', 1, 1, 'C');
+
+        $pdf->AddPage('P', 'A4');
+        $pdf->Cell(0, 0, 'Seite 2', 1, 1, 'C');
+
+        $pdf->setPage(1, true);
 
         //PDF Content
         //Header
@@ -210,17 +216,12 @@ class BillingEngine extends IPSModule
 
         $pdf->writeHTML($this->GenerateHTMLHeader($logo, $Startdatum, $Enddatum, $MieterID), true, false, true, false, '');
 
+
+         $pdf->setPage(2, true);
+        $pdf->writeHTML($this->GenerateHTMLHeader($logo, $Startdatum, $Enddatum, $MieterID), true, false, true, false, '');
+
         //reset Y
         $pdf->setY($pdf->getY() + 62);
-
-        //text
-        $pdf->writeHTML($this->GenerateHTMLText($Startdatum, $Enddatum, $MieterID), true, false, true, false, '');
-
-         $pdf->AddPage();
-         $pdf->setY($pdf->getY() + 300);
-        //text
-        $pdf->writeHTML($this->GenerateHTMLText($Startdatum, $Enddatum, $MieterID), true, false, true, false, '');
- 
 
         //Save the pdf
         return $pdf->Output($filename, 'S');
