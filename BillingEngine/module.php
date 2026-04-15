@@ -292,74 +292,194 @@ class BillingEngine extends IPSModule
             return;
         }
 
-        // $title = strtoupper($this->Translate('Behave'));
-        // $consumption = sprintf($this->Translate('In %s you used up %s.'), $data['month'], $data['consumption']) . ' ';
-        // if ($data['consumptionLastYear'] !== false) {
-        //     $consumption .= $data['consumptionLastYear'];
-        // }
 
-        // if ($data['prediction'] != '') {
-        //     $predictionText = $this->Translate('Expected usage based on your behavior') . ': ' . $data['prediction'] . ' <br> ';
-        // } else {
-        //     $predictionText = '';
-        // }
-
-        // $valueText = $this->Translate('Actual usage') . ': ' . $data['consumption'] . ' <br><br> ';
-
-        // if ($data['percent']) {
-        //     $consumptionText = $this->Translate("You could $data[percentText] your consumption by %s in the period");
-        //     $consumptionText2 = sprintf($consumptionText, $data['percent']);
-        // } else {
-        //     $consumptionText = '';
-        //     $consumptionText2 = '';
-        // }
+		$Rabatt = IPS_GetProperty($MieterID, "Rabatt");
+		 
+		$tariff = $this->ReadPropertyFloat("Tariff");
+		
         $text = '';
-        
-        //print_r ($data);
-
-        //echo 'xxxxxx'.$data[0]['Zählername'].'yyyyyy'.PHP_EOL;
 
         $total = 0;
-        foreach ($data as $key => $variable) {
+        foreach ($data as $key  => $variable) 
+		{
+            $consumption = strval($variable['kWh']);
+            $percentage = strval($variable['AnteilProzent']);
+            $consumptioncalc = strval($variable['kWh']);
+            
+			$net = round($variable['kWh'] * $tariff, 2);
+            $total += $net;
+   		}
+		$totalMitRabatt = ($total * $Rabatt) / 100;
+
+		$text = '
+
+		<div  style="font-weight: bold; font-size: 25px">
+			Übersicht
+		</div>
+		
+		<table border-collapse: collapse; width="100%">
+		<thead>
+		<tr>
+		  <th style="width: 25%; text-align: left; padding: 8px;">
+			Bezug
+		  </th>
+		  <th style="width: 25%; text-align: right; padding: 8px;">
+			Tarif
+		  </th>
+		  <th style="width: 25%; text-align: right; padding: 8px;">
+			Rabatt
+		  </th>
+		  <th style="width: 25%; text-align: right; padding: 8px;">
+			Total
+		  </th>
+		</tr>
+	  </thead>';
+
+		$text .= '<tr>
+			<td style="text-align: left; padding: 8px;border-bottom: 1px solid black; ">kWh</td>
+			<td style="text-align: right; padding: 8px;border-bottom: 1px solid black; ">CHF/kWh</td>
+			<td style="text-align: right; padding: 8px;border-bottom: 1px solid black; ">%</td>
+			<td style="text-align: right; padding: 8px;border-bottom: 1px solid black; ">CHF</td>
+		</tr>';
+
+
+		$text .= '<tr>
+			<td style="text-align: left; padding: 8px; ">'.number_format($total, 2).'</td>
+			<td style="text-align: right; padding: 8px; ">'.strval($tariff).'</td>
+			<td style="text-align: right; padding: 8px; ">'.strval($Rabatt).'</td>
+			<td style="text-align: right; padding: 8px; ">'.number_format($totalMitRabatt, 2).'</td>
+		</tr>';
+
+		
+		$text .= '<style>
+		  .ganze-breite {
+			border: 0;
+			height: 2px; /* Höhe der Linie */
+			background-color: #333; /* Farbe der Linie */
+			width: 100%; /* Breite */
+			margin: 20px 0; /* Abstand oben/unten */
+		  }
+		</style>
+
+		<table border-collapse: collapse; width="100%">
+		<thead>
+		<tr>
+		  <!-- Linksbündig, 40% Breite -->
+		  <th style="width: 40%; text-align: left; padding: 8px;">
+			Zähler
+		  </th>
+		  <!-- Rechtsbündig, 20% Breite -->
+		  <th style="width: 20%; text-align: right; padding: 8px;">
+			Bezug
+		  </th>
+		  <!-- Rechtsbündig, 20% Breite -->
+		  <th style="width: 20%; text-align: right; padding: 8px;">
+			Anteil
+		  </th>
+		  <th style="width: 20%; text-align: right; padding: 8px;">
+			Total
+		  </th>
+		</tr>
+	  </thead>';
+		
+
+		
+		$text .= '
+		<br/>
+		<br/>
+		<br/>
+		<div  style="font-weight: bold; font-size: 25px">
+			Details
+		</div>
+		
+		<tr border-bottom: 1px solid black;>
+		<td style="text-align: left; border-bottom: 1px solid black; padding: 8px;"></td>
+		<td style="text-align: right; border-bottom: 1px solid black; padding: 8px;">kWh</td>
+		<td style="text-align: right; border-bottom: 1px solid black; padding: 8px;">%</td>
+		<td style="text-align: right; border-bottom: 1px solid black; padding: 8px;">kWh</td>
+	</tr>';
+
+       $total = 0;
+        foreach ($data as $key  => $variable) 
+		{
             $name = $variable['Zählername'];
             $consumption = strval($variable['kWh']);
             $percentage = strval($variable['AnteilProzent']);
-
-            //replace the decimal separator
+           //replace the decimal separator
             $consumption = str_replace('.', ',', strval($consumption));
             $percentage = str_replace('.', ',', strval($percentage));
 
-            $net = round($variable['kWh'] * $this->ReadPropertyFloat("Tariff"), 2);
+			// faked ===== $tariff = $this->ReadPropertyFloat("Tariff"), 2);
+            $tariff = 0.31;
+            
+			$net = round(($variable['kWh'] * $percentage) / 100, 2);
             $netstr = strval($net);
             //$this->SendDebug('Consumption', $consumption, 0);
             //$this->SendDebug('percentage', $percentage, 0);
  
-            // $dataText .= <<<EOT
-            // <br> </br>
-            //     <tr>
-            //         <td><p>$name</p></td>
-            //         <td><p>$consumption kWh</p></td>
-            //         <td><p>$percentage %</p></td>
-            //     </tr>
+            $text .= '<tr>
+                    <td style="text-align: left; padding: 8px;">'.$name.'</td>
+                    <td style="text-align: right; padding: 8px;">'.$consumption.'</td>
+                    <td style="text-align: right; padding: 8px;">'.$percentage.' %</td>
+                    <td style="text-align: right; padding: 8px;">'.$netstr.'</td>
+                </tr>';
+            
+           // $text .= <<EOT
+            // <p>
+            // Zähler: $name ($percentage%)  $consumption kWh  $netstr CHF <br>
+            // </p>
             // EOT;
-            $text .= <<<EOT
-            <p>
-            Zähler: $name ($percentage%)  $consumption kWh  $netstr CHF <br>
-            </p>
-            EOT;
 
             $total += $net;
-            
-        }
+   		}
 
-        $totalstr = strval($total);
-        $text .= <<<EOT
-            <p>
-            <br>
-            Total: $totalstr CHF<br>
+        $text .= '</table>';
+        $text .= '<hr class="ganze-breite">';
+
+        // alte implementation
+        // $text = '';
+
+        // $total = 0;
+        // foreach ($data as $key => $variable) {
+        //     $name = $variable['Zählername'];
+        //     $consumption = strval($variable['kWh']);
+        //     $percentage = strval($variable['AnteilProzent']);
+
+        //     //replace the decimal separator
+        //     $consumption = str_replace('.', ',', strval($consumption));
+        //     $percentage = str_replace('.', ',', strval($percentage));
+
+        //     $net = round($variable['kWh'] * $this->ReadPropertyFloat("Tariff"), 2);
+        //     $netstr = strval($net);
+        //     //$this->SendDebug('Consumption', $consumption, 0);
+        //     //$this->SendDebug('percentage', $percentage, 0);
+ 
+        //     // $dataText .= <<<EOT
+        //     // <br> </br>
+        //     //     <tr>
+        //     //         <td><p>$name</p></td>
+        //     //         <td><p>$consumption kWh</p></td>
+        //     //         <td><p>$percentage %</p></td>
+        //     //     </tr>
+        //     // EOT;
+        //     $text .= <<<EOT
+        //     <p>
+        //     Zähler: $name ($percentage%)  $consumption kWh  $netstr CHF <br>
+        //     </p>
+        //     EOT;
+
+        //     $total += $net;
             
-            </p>
-            EOT;
+        // }
+
+        // $totalstr = strval($total);
+        // $text .= <<<EOT
+        //     <p>
+        //     <br>
+        //     Total: $totalstr CHF<br>
+            
+        //     </p>
+        //     EOT;
 
         return $text;
     }
