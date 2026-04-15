@@ -392,37 +392,30 @@ class BillingEngine extends IPSModule
 		<td style="width: 10%;text-align: right; border-bottom: 1px solid black; padding: 8px;">kWh</td>
 	    </tr>';
 
-       $total = 0;
+        $total = 0;
         foreach ($data as $key  => $variable) 
 		{
             $name = $variable['Zählername'];
-            $consumption = strval($variable['kWh']);
-            $percentage = strval($variable['AnteilProzent']);
+            $consumption = $variable['kWh'];
+            $percentage = $variable['AnteilProzent'];
            //replace the decimal separator
-            $consumption = str_replace('.', ',', strval(number_format($consumption, 2)));
-            $percentage = str_replace('.', ',', strval(number_format($percentage, 2)));
+            $consumption = str_replace('.', ',', number_format($consumption, 2));
+            $percentageString = str_replace('.', ',', number_format($percentage, 2));
 
-			// faked ===== $tariff = $this->ReadPropertyFloat("Tariff"), 2);
-            $tariff = 0.31;
+			$tariff = $this->ReadPropertyFloat("Tariff");
             
 			$net = round(($variable['kWh'] * $percentage) / 100, 2);
             $netstr = strval($net);
            
  
             $text .= '
-                <tr>
-                    <td style="width: 70%;text-align: left; padding: 8px;">'.$name.'</td>
-                    <td style="width: 10%;text-align: right; padding: 8px;">'.$consumption.'</td>
-                    <td style="width: 10%;text-align: right; padding: 8px;">'.$percentage.' %</td>
-                    <td style="width: 10%;text-align: right; padding: 8px;">'.$netstr.'</td>
-                </tr>';
-            
-           // $text .= <<EOT
-            // <p>
-            // Zähler: $name ($percentage%)  $consumption kWh  $netstr CHF <br>
-            // </p>
-            // EOT;
-
+            <tr>
+                <td style="width: 70%;text-align: left; padding: 8px;">'.$name.'</td>
+                <td style="width: 10%;text-align: right; padding: 8px;">'.$consumption.'</td>
+                <td style="width: 10%;text-align: right; padding: 8px;">'.$percentageString.' %</td>
+                <td style="width: 10%;text-align: right; padding: 8px;">'.$netstr.'</td>
+            </tr>';
+        
             $total += $net;
    		}
 
