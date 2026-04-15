@@ -313,6 +313,7 @@ class BillingEngine extends IPSModule
 
 		$text = '
         <style>
+          font-weight: normal; font-size: 10px
 		  .ganze-breite {
 			border: 0;
 			height: 2px; /* Höhe der Linie */
@@ -371,16 +372,16 @@ class BillingEngine extends IPSModule
 		<table border-collapse: collapse; width="100%">
 		<thead>
 		<tr>
-		  <th style="width: 70%; text-align: left; padding: 8px;font-weight: bold; ">
+		  <th style="width: 55%; text-align: left; padding: 8px;font-weight: bold; ">
 			Zähler
 		  </th>
-		  <th style="width: 10%; text-align: right; padding: 8px;font-weight: bold; ">
+		  <th style="width: 15%; text-align: right; padding: 8px;font-weight: bold; ">
 			Bezug
 		  </th>
-		  <th style="width: 10%; text-align: right; padding: 8px;font-weight: bold; ">
+		  <th style="width: 15%; text-align: right; padding: 8px;font-weight: bold; ">
 			Anteil
 		  </th>
-		  <th style="width: 10%; text-align: right; padding: 8px;font-weight: bold; ">
+		  <th style="width: 15%; text-align: right; padding: 8px;font-weight: bold; ">
 			Total
 		  </th>
 		</tr>
@@ -412,7 +413,7 @@ class BillingEngine extends IPSModule
             <tr>
                 <td style="width: 70%;text-align: left; padding: 8px;">'.$name.'</td>
                 <td style="width: 10%;text-align: right; padding: 8px;">'.$consumption.'</td>
-                <td style="width: 10%;text-align: right; padding: 8px;">'.$percentageString.' %</td>
+                <td style="width: 10%;text-align: right; padding: 8px;">'.$percentageString.'</td>
                 <td style="width: 10%;text-align: right; padding: 8px;">'.$netstr.'</td>
             </tr>';
         
