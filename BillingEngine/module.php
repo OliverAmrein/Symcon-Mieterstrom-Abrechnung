@@ -201,6 +201,7 @@ class BillingEngine extends IPSModule
         $pdf->Cell(0, 0, 'Seite 2', 1, 1, 'C');
 
         $pdf->setPage(1, true);
+        $pdf->SetY(150);
 
         //PDF Content
         //Header
@@ -218,6 +219,7 @@ class BillingEngine extends IPSModule
 
 
          $pdf->setPage(2, true);
+         $pdf->SetY(150);
         $pdf->writeHTML($this->GenerateHTMLHeader($logo, $Startdatum, $Enddatum, $MieterID), true, false, true, false, '');
 
         //reset Y
