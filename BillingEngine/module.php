@@ -312,8 +312,7 @@ class BillingEngine extends IPSModule
 		$totalMitRabatt = ($total * $Rabatt) / 100;
 
 		$text = '
-
-		<style>
+        <style>
 		  .ganze-breite {
 			border: 0;
 			height: 2px; /* Höhe der Linie */
@@ -359,7 +358,7 @@ class BillingEngine extends IPSModule
 			<td style="text-align: right; padding: 8px; ">'.strval($Rabatt).'</td>
 			<td style="text-align: right; padding: 8px; ">'.number_format($totalMitRabatt, 2).'</td>
 		</tr>
-        </table>';
+        </table>
 
         <br/>
 		<br/>
