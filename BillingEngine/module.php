@@ -217,6 +217,7 @@ class BillingEngine extends IPSModule
         $pdf->writeHTML($this->GenerateHTMLText($Startdatum, $Enddatum, $MieterID), true, false, true, false, '');
 
          $pdf->AddPage();
+         $pdf->setY($pdf->getY() + 300);
         //text
         $pdf->writeHTML($this->GenerateHTMLText($Startdatum, $Enddatum, $MieterID), true, false, true, false, '');
  
