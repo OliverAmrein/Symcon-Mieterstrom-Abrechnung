@@ -23,8 +23,8 @@ class Tenant extends IPSModule
         // Diese Zeile nicht löschen
         parent::ApplyChanges();
 
-        $Objekt = IPS_GetProperty ($this->InstanceID, "Objektname");
-        IPS_SetName($this->InstanceID, "Mieter ".$Objekt);
+        $Mieter = IPS_GetProperty ($this->InstanceID, "Mietername");
+        IPS_SetName($this->InstanceID, "Mieter ".$Mieter);
     
     }
 
