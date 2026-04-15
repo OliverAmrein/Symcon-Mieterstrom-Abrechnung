@@ -213,18 +213,14 @@ class BillingEngine extends IPSModule
         }
 
         $pdf->writeHTML($this->GenerateHTMLHeader($logo, $Startdatum, $Enddatum, $MieterID), true, false, true, false, '');
-        $pdf->setY($pdf->getY() + 62);
+        $pdf->setY($pdf->getY() + 10);
         $pdf->writeHTML($this->GenerateHTMLText($Startdatum, $Enddatum, $MieterID));
 
 
-         $pdf->setPage(2, true);
+        $pdf->setPage(2, true);
         $pdf->writeHTML($this->GenerateHTMLHeader($logo, $Startdatum, $Enddatum, $MieterID), true, false, true, false, '');
-
-        $pdf->setY($pdf->getY() + 62);
+        $pdf->setY($pdf->getY() + 10);
         $pdf->writeHTML($this->GenerateHTMLText($Startdatum, $Enddatum, $MieterID));
-
-        //reset Y
-        $pdf->setY($pdf->getY() + 62);
 
         //Save the pdf
         return $pdf->Output($filename, 'S');
