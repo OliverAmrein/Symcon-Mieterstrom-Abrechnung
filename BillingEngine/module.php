@@ -210,19 +210,16 @@ class BillingEngine extends IPSModule
 
         $pdf->writeHTML($this->GenerateHTMLHeader($logo, $Startdatum, $Enddatum, $MieterID), true, false, true, false, '');
 
-        //Charts
-        //if (IPS_VariableExists($this->ReadPropertyInteger('TemperatureID'))) {
-        //    $svg = $this->GenerateCharts($this->ReadPropertyInteger('TemperatureID'));
-        //    $pdf->ImageSVG('@' . $svg, $x = 105, $y = '', $w = 90, $h = '', $link = '', $align = 5, $palign = 5, $border = 0, $fitonpage = true);
-        //}
-        //$svg = $this->GenerateCharts($this->ReadPropertyInteger('CounterID'));
-        //$pdf->ImageSVG('@' . $svg, $x = 10, $pdf->GetY(), $w = 90, $h = '', $link = '', $align = '', $palign = '', $border = 0, $fitonpage = true);
-
         //reset Y
         $pdf->setY($pdf->getY() + 62);
 
         //text
         $pdf->writeHTML($this->GenerateHTMLText($Startdatum, $Enddatum, $MieterID), true, false, true, false, '');
+
+         $pdf->AddPage();
+        //text
+        $pdf->writeHTML($this->GenerateHTMLText($Startdatum, $Enddatum, $MieterID), true, false, true, false, '');
+ 
 
         //Save the pdf
         return $pdf->Output($filename, 'S');
