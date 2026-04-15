@@ -399,16 +399,15 @@ class BillingEngine extends IPSModule
             $consumption = strval($variable['kWh']);
             $percentage = strval($variable['AnteilProzent']);
            //replace the decimal separator
-            $consumption = str_replace('.', ',', strval($consumption));
-            $percentage = str_replace('.', ',', strval($percentage));
+            $consumption = str_replace('.', ',', strval(number_format($consumption, 2)));
+            $percentage = str_replace('.', ',', strval(number_format($percentage, 2));
 
 			// faked ===== $tariff = $this->ReadPropertyFloat("Tariff"), 2);
             $tariff = 0.31;
             
 			$net = round(($variable['kWh'] * $percentage) / 100, 2);
             $netstr = strval($net);
-            //$this->SendDebug('Consumption', $consumption, 0);
-            //$this->SendDebug('percentage', $percentage, 0);
+           
  
             $text .= '
                 <tr>
@@ -430,50 +429,6 @@ class BillingEngine extends IPSModule
         $text .= '</table>';
         $text .= '<hr class="ganze-breite">';
 
-        // alte implementation
-        // $text = '';
-
-        // $total = 0;
-        // foreach ($data as $key => $variable) {
-        //     $name = $variable['Zählername'];
-        //     $consumption = strval($variable['kWh']);
-        //     $percentage = strval($variable['AnteilProzent']);
-
-        //     //replace the decimal separator
-        //     $consumption = str_replace('.', ',', strval($consumption));
-        //     $percentage = str_replace('.', ',', strval($percentage));
-
-        //     $net = round($variable['kWh'] * $this->ReadPropertyFloat("Tariff"), 2);
-        //     $netstr = strval($net);
-        //     //$this->SendDebug('Consumption', $consumption, 0);
-        //     //$this->SendDebug('percentage', $percentage, 0);
- 
-        //     // $dataText .= <<<EOT
-        //     // <br> </br>
-        //     //     <tr>
-        //     //         <td><p>$name</p></td>
-        //     //         <td><p>$consumption kWh</p></td>
-        //     //         <td><p>$percentage %</p></td>
-        //     //     </tr>
-        //     // EOT;
-        //     $text .= <<<EOT
-        //     <p>
-        //     Zähler: $name ($percentage%)  $consumption kWh  $netstr CHF <br>
-        //     </p>
-        //     EOT;
-
-        //     $total += $net;
-            
-        // }
-
-        // $totalstr = strval($total);
-        // $text .= <<<EOT
-        //     <p>
-        //     <br>
-        //     Total: $totalstr CHF<br>
-            
-        //     </p>
-        //     EOT;
 
         return $text;
     }

@@ -59,6 +59,7 @@
                     "caption": "Anteil %",
                     "name": "AnteilProzent",
                     "width": "150px",
+                    "digits": 2,
                     "add": "100",
                     "edit": {
                         "type": "NumberSpinner",
