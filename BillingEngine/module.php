@@ -361,6 +361,14 @@ class BillingEngine extends IPSModule
 		  }
 		</style>
 
+        <br/>
+		<br/>
+		<br/>
+		<div  style="font-weight: bold; font-size: 25px">
+			Details
+		</div>
+		
+
 		<table border-collapse: collapse; width="100%">
 		<thead>
 		<tr>
@@ -377,17 +385,10 @@ class BillingEngine extends IPSModule
 			Total
 		  </th>
 		</tr>
-	  </thead>';
+	   </thead>';
 		
-
 		
 		$text .= '
-		<br/>
-		<br/>
-		<br/>
-		<div  style="font-weight: bold; font-size: 25px">
-			Details
-		</div>
 		
 		<tr border-bottom: 1px solid black;>
 		<td style="text-align: left; border-bottom: 1px solid black; padding: 8px;"></td>
