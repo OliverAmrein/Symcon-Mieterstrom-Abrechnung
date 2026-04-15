@@ -313,6 +313,16 @@ class BillingEngine extends IPSModule
 
 		$text = '
 
+		<style>
+		  .ganze-breite {
+			border: 0;
+			height: 2px; /* Höhe der Linie */
+			background-color: #333; /* Farbe der Linie */
+			width: 100%; /* Breite */
+			margin: 20px 0; /* Abstand oben/unten */
+		  }
+		</style>
+
 		<div  style="font-weight: bold; font-size: 25px">
 			Übersicht
 		</div>
@@ -333,7 +343,7 @@ class BillingEngine extends IPSModule
 			Total
 		  </th>
 		</tr>
-	  </thead>';
+	   </thead>';
 
 		$text .= '<tr>
 			<td style="text-align: left; padding: 8px;border-bottom: 1px solid black; ">kWh</td>
@@ -350,17 +360,6 @@ class BillingEngine extends IPSModule
 			<td style="text-align: right; padding: 8px; ">'.number_format($totalMitRabatt, 2).'</td>
 		</tr>
         </table>';
-
-		
-		$text .= '<style>
-		  .ganze-breite {
-			border: 0;
-			height: 2px; /* Höhe der Linie */
-			background-color: #333; /* Farbe der Linie */
-			width: 100%; /* Breite */
-			margin: 20px 0; /* Abstand oben/unten */
-		  }
-		</style>
 
         <br/>
 		<br/>
