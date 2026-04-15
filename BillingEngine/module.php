@@ -313,7 +313,7 @@ class BillingEngine extends IPSModule
 
 		$text = '
         <style>
-          font-weight: normal; font-size: 10px
+          font-weight: normal; font-size: 10px;
 		  .ganze-breite {
 			border: 0;
 			height: 2px; /* Höhe der Linie */
@@ -387,10 +387,10 @@ class BillingEngine extends IPSModule
 		</tr>
 	   </thead>
 		<tr border-bottom: 1px solid black;>
-		<td style="width: 70%; text-align: left; border-bottom: 1px solid black; padding: 8px;"></td>
-		<td style="width: 10%; text-align: right; border-bottom: 1px solid black; padding: 8px;">kWh</td>
-		<td style="width: 10%;text-align: right; border-bottom: 1px solid black; padding: 8px;">%</td>
-		<td style="width: 10%;text-align: right; border-bottom: 1px solid black; padding: 8px;">kWh</td>
+		<td style="width: 55%; text-align: left; border-bottom: 1px solid black; padding: 8px;"></td>
+		<td style="width: 15%; text-align: right; border-bottom: 1px solid black; padding: 8px;">kWh</td>
+		<td style="width: 15%;text-align: right; border-bottom: 1px solid black; padding: 8px;">%</td>
+		<td style="width: 15%;text-align: right; border-bottom: 1px solid black; padding: 8px;">kWh</td>
 	    </tr>';
 
         $total = 0;
@@ -411,10 +411,10 @@ class BillingEngine extends IPSModule
  
             $text .= '
             <tr>
-                <td style="width: 70%;text-align: left; padding: 8px;">'.$name.'</td>
-                <td style="width: 10%;text-align: right; padding: 8px;">'.$consumption.'</td>
-                <td style="width: 10%;text-align: right; padding: 8px;">'.$percentageString.'</td>
-                <td style="width: 10%;text-align: right; padding: 8px;">'.$netstr.'</td>
+                <td style="width: 55%;text-align: left; padding: 8px;">'.$name.'</td>
+                <td style="width: 15%;text-align: right; padding: 8px;">'.$consumption.'</td>
+                <td style="width: 15%;text-align: right; padding: 8px;">'.$percentageString.'</td>
+                <td style="width: 15%;text-align: right; padding: 8px;">'.$netstr.'</td>
             </tr>';
         
             $total += $net;
