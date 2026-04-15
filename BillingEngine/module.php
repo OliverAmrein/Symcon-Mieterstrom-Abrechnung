@@ -400,7 +400,7 @@ class BillingEngine extends IPSModule
             $percentage = strval($variable['AnteilProzent']);
            //replace the decimal separator
             $consumption = str_replace('.', ',', strval(number_format($consumption, 2)));
-            $percentage = str_replace('.', ',', strval(number_format($percentage, 2));
+            $percentage = str_replace('.', ',', strval(number_format($percentage, 2)));
 
 			// faked ===== $tariff = $this->ReadPropertyFloat("Tariff"), 2);
             $tariff = 0.31;
