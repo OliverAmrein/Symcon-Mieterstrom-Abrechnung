@@ -348,7 +348,8 @@ class BillingEngine extends IPSModule
 			<td style="text-align: right; padding: 8px; ">'.strval($tariff).'</td>
 			<td style="text-align: right; padding: 8px; ">'.strval($Rabatt).'</td>
 			<td style="text-align: right; padding: 8px; ">'.number_format($totalMitRabatt, 2).'</td>
-		</tr>';
+		</tr>
+        </table>';
 
 		
 		$text .= '<style>
@@ -395,7 +396,7 @@ class BillingEngine extends IPSModule
 		<td style="text-align: right; border-bottom: 1px solid black; padding: 8px;">kWh</td>
 		<td style="text-align: right; border-bottom: 1px solid black; padding: 8px;">%</td>
 		<td style="text-align: right; border-bottom: 1px solid black; padding: 8px;">kWh</td>
-	</tr>';
+	    </tr>';
 
        $total = 0;
         foreach ($data as $key  => $variable) 
@@ -415,7 +416,8 @@ class BillingEngine extends IPSModule
             //$this->SendDebug('Consumption', $consumption, 0);
             //$this->SendDebug('percentage', $percentage, 0);
  
-            $text .= '<tr>
+            $text .= '
+                <tr>
                     <td style="text-align: left; padding: 8px;">'.$name.'</td>
                     <td style="text-align: right; padding: 8px;">'.$consumption.'</td>
                     <td style="text-align: right; padding: 8px;">'.$percentage.' %</td>
