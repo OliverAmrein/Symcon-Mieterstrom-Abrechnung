@@ -766,10 +766,17 @@ class BillingEngine extends IPSModule
 		
 		$text .= '<hr class="linie-dick-ganze-breite">';
 
-		$text .= '<br/><div style="width: 100%; text-align: right;font-size: 10pt;">
-			'.$this->removeKomma(number_format($Bezug,2)).'
-		    </div>';
-			
+		$text .= '
+            <br/>
+            <table border-collapse: collapse; width="100%">
+                <tr>
+ 					<td style="width: 55%; text-align: left; padding: 4px;font-size: 10pt;"></td>
+					<td style="width: 15%; text-align: right; padding: 4px;font-size: 10pt;"></td>
+					<td style="width: 15%; text-align: right; padding: 4px;font-size: 10pt;"></td>
+					<td style="width: 15%; text-align: right; padding: 4px;font-size: 10pt;">'.$this->removeKomma(number_format($Bezug,2)).'</td>
+               
+                </tr>
+            </table>';
 
         return $text;
     }
