@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 include_once __DIR__ . '/../libs/vendor/autoload.php';
 
+$Bezug = 0;
+$Betrag = 0;
+
 class BillingEngine extends IPSModule
 {
     public function Create()
@@ -129,6 +132,7 @@ class BillingEngine extends IPSModule
         return true;
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function RunBilling()
     {
         $tenants = IPS_GetInstanceListByModuleID("{8EF9FC78-699F-9FDF-4DE5-BECD724F5CE9}");
@@ -171,8 +175,21 @@ class BillingEngine extends IPSModule
         }
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private function GeneratePDF($author, $filename, $Startdatum, $Enddatum, $MieterID)
     {
+        
+        $logo = $this->ReadPropertyString('LogoData');
+        //echo($logo);
+        if (strpos(base64_decode($logo), '<svg') !== false) {
+            $logo = base64_decode($logo);
+            $pdf->ImageSVG('@' . $logo, $x = 150, $y = 0, $w = 50, $h = 50, $border = 1);
+            $logo = '';
+        } elseif ($logo != '') {
+            $logo = '<img src="@' . $logo . '">';
+        }
+
+    
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor($author);
@@ -194,42 +211,39 @@ class BillingEngine extends IPSModule
 
         $pdf->SetFont('dejavusans');
 
+        // add page 1
         $pdf->AddPage('P', 'A4');
        
-        
-        $pdf->setPage(1, true);
-         $pdf->SetY(10);
+        // add page 2
+        $pdf->AddPage('P', 'A4');
 
         //PDF Content
         //Header
-        $logo = $this->ReadPropertyString('LogoData');
-        //echo($logo);
-        if (strpos(base64_decode($logo), '<svg') !== false) {
-            $logo = base64_decode($logo);
-            $pdf->ImageSVG('@' . $logo, $x = 150, $y = 0, $w = 50, $h = 50, $border = 1);
-            $logo = '';
-        } elseif ($logo != '') {
-            $logo = '<img src="@' . $logo . '">';
-        }
-
-        $pdf->writeHTML($this->GenerateHTMLHeader($logo, $Startdatum, $Enddatum, $MieterID), true, false, true, false, '');
-        $pdf->setY($pdf->getY() + 10);
-        $pdf->writeHTML($this->GenerateHTMLText($Startdatum, $Enddatum, $MieterID));
-
-
-        $pdf->AddPage('P', 'A4');
-         $pdf->SetY(10);
+        
+        
         $pdf->setPage(2, true);
-        $pdf->writeHTML($this->GenerateHTMLHeader($logo, $Startdatum, $Enddatum, $MieterID), true, false, true, false, '');
+        $pdf->SetY(5);
+
+
+        $pdf->writeHTML($this->GenerateHTMLHeaderSeite2($logo, $MieterID), true, false, true, false, '');
         $pdf->setY($pdf->getY() + 10);
-        $pdf->writeHTML($this->GenerateHTMLText($Startdatum, $Enddatum, $MieterID));
+        $pdf->writeHTML($this->GenerateHTMLTextSeite2($Startdatum, $Enddatum, $MieterID));
+
+
+        
+        $pdf->setPage(2, true);
+        $pdf->SetY(5);
+        $pdf->writeHTML($this->GenerateHTMLHeaderSeite1($logo), true, false, true, false, '');
+        $pdf->setY($pdf->getY() + 10);
+        $pdf->writeHTML($this->GenerateHTMLTextSeite1($Startdatum, $Enddatum, $MieterID));
 
         //Save the pdf
         return $pdf->Output($filename, 'S');
     }
 
 
-    private function getDeutscherMonat(int $monatsNummer, bool $kurz = false) {
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        private function getDeutscherMonat(int $monatsNummer, bool $kurz = false) {
         $monate = [
             1 => ['Januar', 'Jan'],
             2 => ['Februar', 'Feb'],
@@ -254,6 +268,14 @@ class BillingEngine extends IPSModule
         return $kurz ? $monate[$monatsNummer][1] : $monate[$monatsNummer][0];
     }
 
+    
+   	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private function removeKomma($str) {
+		return str_replace(",", "", $str);
+	}
+
+/* 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private function GenerateHTMLHeader(string $logo, $Startdatum, $Enddatum, $MieterID)
     {
 
@@ -282,36 +304,375 @@ class BillingEngine extends IPSModule
         </table>
         EOT;
     }
+ */
 
 
-    private function GenerateHTMLText($Startdatum, $Enddatum, $MieterID)
+    
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+    function GenerateHTMLHeaderSeite1($logo)
+    {
+		$logoh = '<img src="' . $logo . '">';
+        return '
+		<style>
+		*{font-size: 14px;}
+		</style>
+	
+		<div>
+			<img style="width: 300px" src="./mobimo.png">
+		</div>
+		<br/>
+	    <br/>
+		<br/>';
+    }
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+	function GenerateHTMLHeaderSeite2($logo, $MieterID)
+	{
+		$logoh = '<img src="' . $logo . '">';
+
+		$Mietername = IPS_GetProperty($MieterID, "Mietername");
+
+		$actdate = date('d.m.Y'); 
+
+
+		$text = '
+			<div  style="width: 100%">
+				<style>
+				  table {
+					width: 100%;
+						border-collapse: collapse; /* Verhindert doppelte Linien */
+					}
+					th, td {
+						vertical-align: top; /* Zwingt den Inhalt nach oben */
+						text-align: left;
+					}
+				</style>
+				<table>
+					<tr>
+						<td width="66%" style="text-align: left; font-weight: bold;" >
+							<div>
+								<img style="width: 300px" src="./mobimo.png">
+							</div>
+						</td>
+						<td width="33%" style="text-align: left; font-weight: bold;" >
+						
+							<table width="100%">
+								<tr>
+									<td width="50%" style="text-align: left; font-weight: bold;">
+										Kunde
+									</td>
+									<td width="50%" style="text-align: left; font-weight: normal;">
+										'.$Mietername.'
+									</td>
+								</tr>
+								<tr>
+									<td width="50%" style="text-align: left; font-weight: bold;">
+										Rechnungsdatum
+									</td>
+									<td width="50%" style="text-align: left; font-weight: normal;">
+										'.$actdate.'
+									</td>
+								</tr>
+						  </table>
+						</td>
+					</tr>
+			  </table>
+				<br/>
+				<br/>
+		</div>
+		
+		<br/>';
+		
+		return $text;
+	}
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+	function GenerateHTMLTextSeite1($Startdatum, $Enddatum, $MieterID)
+	{
+
+		$Objektname = IPS_GetProperty($MieterID, "Objektname");
+
+		global $Bezug; // berechnet auf Seite 2
+		global $Betrag; // berechnet auf Seite 2
+		
+		$MwSt = 8.1;
+		$MwstBetrag = ($Betrag * $MwSt) / 100;
+		$BetragInclMwst = $Betrag + $MwstBetrag;
+		$gerundet = round($BetragInclMwst * 20) / 20; 
+		$RundungsDifferenz = -($BetragInclMwst - $gerundet);
+		$BetragInclMwstGerundet = $gerundet;
+
+		$ersterTag = date('01.m.Y', strtotime($Startdatum));
+		$letzterTag = date('t.m.Y', strtotime($Enddatum));
+		
+        //$start = date_modify($start, '-1 month');
+		
+        //$mon = intval($start->format('m'));
+        
+        //$monstr = getDeutscherMonat($mon);
+
+		$logoh = '<img src="' . $logo . '">';
+        
+        $actdate = date('d.m.Y'); 
+
+		
+		$MieterAdresse = IPS_GetProperty($MieterID, "Adresse");
+		
+		$MieterAdresse = str_replace("\n", "<br>", $MieterAdresse);
+
+		$Mobimoadresse = "Mobimo AG\nSeestrasse 59\n8700 Küsnacht ZH\ninfo@mobimo.ch\nTel +41 44 397 11 11";
+
+		$Mobimoadresse = str_replace("\n", "<br>", $Mobimoadresse);
+
+
+		// Addressblöcke nebeneinander
+		
+		$text = '
+		<style>
+		  .linie-dünn-ganze-breite {
+			border: 0;
+			height: 1px;
+			background-color: black; 
+			width: 100%;
+			margin: 10px 0; /*Abstand oben/unten */
+		  }
+		</style>
+
+		<div  style="width: 100%">
+			<style>
+			  table {
+				width: 100%;
+					border-collapse: collapse; /* Verhindert doppelte Linien */
+				}
+				th, td {
+					vertical-align: top; /* Zwingt den Inhalt nach oben */
+					text-align: left;
+				}
+			</style>
+			<table>
+				<tr>
+					<td width="66%" style="text-align: left; font-weight: bold;" >
+						Abrechnungssteller
+					</td>
+					<td width="33%" style="text-align: left; font-weight: bold;" >
+					</td>
+				</tr>
+				<tr>
+					<td width="66%" style="text-align: left;vertical-align: top;" >
+						 <div style="
+							vertical-align: top;
+							display: inline-block; /* Passt sich an Inhalt an */
+							min-width: 100px;     /* Optional: Mindestbreite */
+							background: transparent; /* Kein Hintergrund */
+							word-wrap: break-word; /* Umbruch bei langem Text */
+							padding: 0;
+							margin: 0;">'.$Mobimoadresse.'
+						</div>
+					</td>
+					<td width="33%" style="text-align: left;vertical-align: top;">
+						 <div style="
+							vertical-align: top;
+							display: inline-block; /* Passt sich an Inhalt an */
+							min-width: 100px;     /* Optional: Mindestbreite */
+							background: transparent; /* Kein Hintergrund */
+							word-wrap: break-word; /* Umbruch bei langem Text */
+							padding: 0;
+							margin: 0;">'.$MieterAdresse.'
+						</div>
+					</td>
+				</tr>
+		  </table>
+			<br/>
+			<br/>
+		</div>
+		<div  style="width: 45%">
+		<table width="100%">
+			<tr>
+				<td width="50%" style="text-align: left; font-weight: bold;">
+					Rechnungsdatum
+				</td>
+				<td width="50%" style="text-align: left;">
+					'.$actdate.'
+				</td>
+			</tr>
+			<tr>
+				<td width="50%" style="text-align: left; font-weight: bold;">
+					Abrechnungsperiode
+				</td>
+				<td width="50%" style="text-align: left;">
+					'.$ersterTag.' bis '.$letzterTag.'
+				</td>
+			</tr>
+      </table>
+	  </div>
+	  <br/>
+	  <br/>';
+		
+		// Titel Stromabrechnung
+		
+		$text .= '
+			<div  style="font-weight: bold; font-size: 20px; padding: 4px;">
+				Stromabrechnung '. $Objektname .'
+			</div>
+		
+		';
+
+		$text .= '<hr class="linie-dünn-ganze-breite">';
+
+		//  Tabelle Abrechnung Zusammenfassung
+
+		$text .= '
+		<div  style="width: 100%">
+		<table width="100%">
+			<tr>
+				<td width="50%" style="text-align: left;padding: 4px;">
+					Betrag excl. MwSt.
+				</td>
+				<td width="50%" style="text-align: right;padding: 4px;">
+					'.$this->removeKomma(number_format($Betrag, 2)).'
+				</td>
+			</tr>
+			<tr>
+				<td width="50%" style="text-align: left;padding: 4px;">
+					MwSt. 8.1%
+				</td>
+				<td width="50%" style="text-align: right;padding: 4px;">
+					'.$this->removeKomma(number_format($MwstBetrag, 2)).'
+				</td>
+			</tr>
+			<tr>
+				<td width="50%" style="text-align: left;padding: 4px;">
+					Betrag incl. MwSt.
+				</td>
+				<td width="50%" style="text-align: right;padding: 4px;">
+					'.$this->removeKomma(number_format($BetragInclMwst, 2)).'
+				</td>
+			</tr>';
+			
+			if ($RundungsDifferenz != 0) {
+				$text .= '
+			<tr>
+				<td width="50%" style="text-align: left;padding: 4px;">
+					Rundungsdifferenz
+				</td>
+				<td width="50%" style="text-align: right;padding: 4px;">
+					'.$this->removeKomma(number_format($RundungsDifferenz, 2)).'
+				</td>
+			</tr>';
+			}
+			
+		$text .= '
+		</table>
+		</div>';
+
+		$text .= '<hr class="linie-dünn-ganze-breite">';
+
+		
+		//  Tabelle Abrechnung Total Zeile
+		
+		$text .= '
+		<div  style="width: 100%">
+		<table width="100%">
+			<tr>
+				<td width="50%" style="text-align: left;font-weight: bold; ">
+					Total CHF
+				</td>
+				<td width="50%" style="text-align: right;font-weight: bold; ">
+					'.$this->removeKomma(number_format($BetragInclMwstGerundet, 2)).'
+				</td>
+			</tr>
+		</table>
+		</div>
+		<br/>
+		<br/>';
+		
+		return $text;
+	}
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private function GenerateHTMLTextSeite2($Startdatum, $Enddatum, $MieterID)
     {
         $data = $this->FetchData($Startdatum, $Enddatum, $MieterID);
         if ($data == []) {
             echo 'xxxxxxxxxxxxx empty data xxxxxxxxxxxxxx';
             return;
         }
+        global $Bezug; // berechne hier für Seite 1
+        global $Betrag; // berechne hier für Seite 1
 
 
 		$Rabatt = IPS_GetProperty($MieterID, "Rabatt");
 		 
 		$tariff = $this->ReadPropertyFloat("Tariff");
 		
+        $Bezug = 0;
         $text = '';
-
-        $total = 0;
-        foreach ($data as $key  => $variable) 
+    	foreach ($data as $key  => $variable) 
 		{
-            $consumption = $variable['kWh'];
-            $percentage = $variable['AnteilProzent'];
-            $consumptioncalc = ($consumption * $percentage) / 100;
-            $total += $consumptioncalc;
-   		}
-		$totalMitRabatt = ($total * (100 - $Rabatt)) / 100;
+			$consumption = strval($variable['kWh']);
+			$percentage = strval($variable['AnteilProzent']);
+			$consumptioncalc = strval(($variable['kWh'] * $percentage) / 100);
+			$Bezug += $consumptioncalc;
+		}
+
+		$Bezug = round($Bezug, 2);  // gerundeter Bezug
+
+		$TotalCHFOhneRabatt = round($Bezug * $tariff, 2);
+
+		$Betrag = ($TotalCHFOhneRabatt * $Rabatt) / 100;
+
+		$Betrag = round($Betrag, 2);  // gerundeter Betrag
 
 		$text = '
-        <style>
-          .ganze-breite {
+ 		<div  style="font-weight: bold; font-size: 20px; padding: 4px;">
+			Übersicht
+		</div>
+		
+		<table border-collapse: collapse; width="100%">
+		<thead>
+		<tr>
+		  <th style="width: 25%; text-align: left; padding: 4px;">
+			Bezug
+		  </th>
+		  <th style="width: 25%; text-align: right; padding: 4px;">
+			Tarif
+		  </th>
+		  <th style="width: 25%; text-align: right; padding: 4px;">
+			Rabatt
+		  </th>
+		  <th style="width: 25%; text-align: right; padding: 4px;">
+			Total
+		  </th>
+		</tr>
+	  </thead>';
+
+		$text .= '<tr>
+			<td style="text-align: left; padding: 4px;border-bottom: 1px solid black; ">kWh</td>
+			<td style="text-align: right; padding: 4px;border-bottom: 1px solid black; ">CHF/kWh</td>
+			<td style="text-align: right; padding: 4px;border-bottom: 1px solid black; ">%</td>
+			<td style="text-align: right; padding: 4px;border-bottom: 1px solid black; ">CHF</td>
+		</tr>';
+
+
+		$text .= '<tr>
+			<td style="text-align: left; padding: 4px; ">'.$this->removeKomma(strval($Bezug)).'</td>
+			<td style="text-align: right; padding: 4px; ">'.strval($tariff).'</td>
+			<td style="text-align: right; padding: 4px; ">'.$this->removeKomma(number_format($Rabatt, 2)).'</td>
+			<td style="text-align: right; padding: 4px; ">'.$this->removeKomma(number_format($Betrag, 2)).'</td>
+		</tr>';
+
+		
+		$text .= '
+		<style>
+		  .linie-dick-ganze-breite {
 			border: 0;
 			height: 2px; /* Höhe der Linie */
 			background-color: #333; /* Farbe der Linie */
@@ -320,112 +681,75 @@ class BillingEngine extends IPSModule
 		  }
 		</style>
 
-		<div  style="font-weight: bold; font-size: 25px">
-			Übersicht
-		</div>
-		
+		</table>
 		<table border-collapse: collapse; width="100%">
 		<thead>
 		<tr>
-		  <th style="width: 25%; text-align: left; padding: 8px;font-weight: bold; ">
+		  <!-- Linksbündig, 55% Breite -->
+		  <th style="width: 55%; text-align: left; padding: 4px;">
+			Zähler
+		  </th>
+		  <!-- Rechtsbündig, 15% Breite -->
+		  <th style="width: 15%; text-align: right; padding: 4px;">
 			Bezug
 		  </th>
-		  <th style="width: 25%; text-align: right; padding: 8px;font-weight: bold; ">
-			Tarif
+		  <!-- Rechtsbündig, 15% Breite -->
+		  <th style="width: 15%; text-align: right; padding: 4px;">
+			Anteil
 		  </th>
-		  <th style="width: 25%; text-align: right; padding: 8px;font-weight: bold; ">
-			Rabatt
-		  </th>
-		  <th style="width: 25%; text-align: right; padding: 8px;font-weight: bold; ">
+		  <th style="width: 15%; text-align: right; padding: 4px;">
 			Total
 		  </th>
 		</tr>
-	   </thead>';
+	  </thead>';
+		
 
-		$text .= '<tr>
-			<td style="text-align: left; padding: 8px;border-bottom: 1px solid black; ">kWh</td>
-			<td style="text-align: right; padding: 8px;border-bottom: 1px solid black; ">CHF/kWh</td>
-			<td style="text-align: right; padding: 8px;border-bottom: 1px solid black; ">%</td>
-			<td style="text-align: right; padding: 8px;border-bottom: 1px solid black; ">CHF</td>
-		</tr>';
-
-
-		$text .= '<tr>
-			<td style="text-align: left; padding: 8px; ">'.number_format($total, 2).'</td>
-			<td style="text-align: right; padding: 8px; ">'.strval($tariff).'</td>
-			<td style="text-align: right; padding: 8px; ">'.strval($Rabatt).'</td>
-			<td style="text-align: right; padding: 8px; ">'.number_format($totalMitRabatt, 2).'</td>
-		</tr>
-        </table>
-
-        <br/>
+		
+		$text .= '
 		<br/>
 		<br/>
-		<div  style="font-weight: bold; font-size: 25px">
+		<br/>
+		<div  style="font-weight: bold; font-size: 20px; padding: 4px;">
 			Details
 		</div>
 		
-
-		<table border-collapse: collapse; width="100%">
-		<thead>
-		<tr>
-		  <th style="width: 55%; text-align: left; padding: 8px;font-weight: bold; ">
-			Zähler
-		  </th>
-		  <th style="width: 15%; text-align: right; padding: 8px;font-weight: bold; ">
-			Bezug
-		  </th>
-		  <th style="width: 15%; text-align: right; padding: 8px;font-weight: bold; ">
-			Anteil
-		  </th>
-		  <th style="width: 15%; text-align: right; padding: 8px;font-weight: bold; ">
-			Total
-		  </th>
-		</tr>
-	   </thead>
 		<tr border-bottom: 1px solid black;>
-		<td style="width: 55%; text-align: left; border-bottom: 1px solid black; padding: 8px;"></td>
-		<td style="width: 15%; text-align: right; border-bottom: 1px solid black; padding: 8px;">kWh</td>
-		<td style="width: 15%;text-align: right; border-bottom: 1px solid black; padding: 8px;">%</td>
-		<td style="width: 15%;text-align: right; border-bottom: 1px solid black; padding: 8px;">kWh</td>
-	    </tr>';
+		<td style="text-align: left; border-bottom: 1px solid black; padding: 4px;"></td>
+		<td style="text-align: right; border-bottom: 1px solid black; padding: 4px;">kWh</td>
+		<td style="text-align: right; border-bottom: 1px solid black; padding: 4px;">%</td>
+		<td style="text-align: right; border-bottom: 1px solid black; padding: 4px;">kWh</td>
+	</tr>';
 
-        foreach ($data as $key  => $variable) 
+		foreach ($data as $key  => $variable) 
 		{
-            $name = $variable['Zählername'];
-            $consumption = $variable['kWh'];
-            $percentage = $variable['AnteilProzent'];
-           //replace the decimal separator
-            $consumption = str_replace('.', ',', number_format($consumption, 2));
-            $percentageString = str_replace('.', ',', number_format($percentage, 2));
-
-			$tariff = $this->ReadPropertyFloat("Tariff");
-            
-			$net = round(($variable['kWh'] * $percentage) / 100, 2);
-            $netstr = strval($net);
-           
+			$name = $variable['Zählername'];
+			$consumption = strval($variable['kWh']);
+			$percentage = strval($variable['AnteilProzent']);
+			$consumptioncalc = strval(($variable['kWh'] * $percentage) / 100);
  
-            $text .= '
-            <tr>
-                <td style="width: 55%;text-align: left; padding: 8px;">'.$name.'</td>
-                <td style="width: 15%;text-align: right; padding: 8px;">'.$consumption.'</td>
-                <td style="width: 15%;text-align: right; padding: 8px;">'.$percentageString.'</td>
-                <td style="width: 15%;text-align: right; padding: 8px;">'.$netstr.'</td>
-            </tr>';
-        
-   		}
+			$text .= '<tr>
+					<td style="text-align: left; padding: 4px;">'.$name.'</td>
+					<td style="text-align: right; padding: 4px;">'.$this->removeKomma(number_format($consumption,2)).'</td>
+					<td style="text-align: right; padding: 4px;">'.$this->removeKomma(number_format($percentage,2)).'</td>
+					<td style="text-align: right; padding: 4px;">'.$this->removeKomma(number_format($consumptioncalc,2)).'</td>
+				</tr>';
+				
+		}
 
-        $text .= '</table>';
-        $text .= '<hr class="ganze-breite">';
+		$text .= '</table>';
+		
+		$text .= '<hr class="linie-dick-ganze-breite">';
 
-        $totaltext = number_format($total, 2);
-
-
-         $text .= '<p style="width: 100%;text-align: right;">'.$totaltext.'</p>';
+		$text .= '<div style="width: 100%; text-align: right;">
+			'.$this->removeKomma(number_format($Bezug,2)).'
+		    </div>';
+			
 
         return $text;
     }
 
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private function FetchData($Startdatum, $Enddatum, $MieterID)
     {
         // alle zähler für diesen mieter
@@ -451,6 +775,7 @@ class BillingEngine extends IPSModule
         return $data;
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private function ReadZähler($IPAdr, $Startdatum, $Enddatum)
     {
 
