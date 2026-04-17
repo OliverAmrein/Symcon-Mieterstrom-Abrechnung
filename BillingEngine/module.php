@@ -814,12 +814,6 @@ class BillingEngine extends IPSModule
             array_push($data, ['Zählername' =>  $Name, 'kWh' => $sum, 'AnteilProzent' => $zähler->AnteilProzent] );
         }
 
-        // simulation 50 Zähler
-        for ($x = 0; $x < 30; $x++) {
-             array_push($data, ['Zählername' =>  'Zähler faked '.strval($x), 'kWh' => 20, 'AnteilProzent' => 100] );
- 
-        }
-
         return $data;
     }
 
