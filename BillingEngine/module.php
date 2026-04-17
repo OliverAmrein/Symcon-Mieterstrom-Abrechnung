@@ -695,7 +695,7 @@ class BillingEngine extends IPSModule
 		$text .= '<tr>
 			<td style="width: 32%; text-align: left; padding: 8px; font-size: 10pt;">'.$this->removeKomma(strval($Bezug)).'</td>
 			<td style="width: 22%; text-align: left; padding: 8px; font-size: 10pt;">'.strval($tariff).'</td>
-			<td style="width: 16; text-align: right; padding: 8px; font-size: 10pt;">'.$this->removeKomma(number_format($Rabatt, 2)).'</td>
+			<td style="width: 16%; text-align: right; padding: 8px; font-size: 10pt;">'.$this->removeKomma(number_format($Rabatt, 2)).'</td>
 			<td style="width: 30%; text-align: right; padding: 8px; font-size: 10pt;font-weight: bold;">'.$this->removeKomma(number_format($Betrag, 2)).'</td>
 		</tr>
          </table>';
@@ -738,7 +738,7 @@ class BillingEngine extends IPSModule
 			Anteil
 		  </th>
 		  <th style="width: 15%; text-align: right; padding: 8px;font-size: 10pt; font-weight: bold; ">
-			Total
+			Summe
 		  </th>
 		</tr>
 	  </thead>';
@@ -778,7 +778,7 @@ class BillingEngine extends IPSModule
             <br/>
             <table border-collapse: collapse; width="100%">
                 <tr>
- 					<td style="width: 55%; text-align: left; padding: 8px;font-size: 10pt; font-weight: bold; ">Summe</td>
+ 					<td style="width: 55%; text-align: left; padding: 8px;font-size: 10pt; font-weight: bold; ">Total kWh</td>
 					<td style="width: 15%; text-align: right; padding: 8px;font-size: 10pt;"></td>
 					<td style="width: 15%; text-align: right; padding: 8px;font-size: 10pt;"></td>
 					<td style="width: 15%; text-align: right; padding: 8px;font-size: 10pt;font-weight: bold;">'.$this->removeKomma(number_format($Bezug,2)).'</td>
