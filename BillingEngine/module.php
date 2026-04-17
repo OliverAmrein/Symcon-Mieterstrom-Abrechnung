@@ -429,7 +429,7 @@ class BillingEngine extends IPSModule
 		
 		$MieterAdresse = str_replace("\n", "<br>", $MieterAdresse);
 
-		$Mobimoadresse = "Mobimo AG\nSeestrasse 59\n8700 Küsnacht ZH\ninfo@mobimo.ch\nTel +41 44 397 11 11";
+		$Mobimoadresse = "Mobimo AG\nSeestrasse 59\n8700 Küsnacht ZH\n\ninfo@mobimo.ch\nTel +41 44 397 11 11";
 
 		$Mobimoadresse = str_replace("\n", "<br>", $Mobimoadresse);
 
@@ -497,18 +497,18 @@ class BillingEngine extends IPSModule
 		<div  style="width: 45%">
 		<table width="100%">
 			<tr>
-				<td width="50%" style="text-align: left; font-weight: bold;font-size: 10pt;">
+				<td width="200%" style="text-align: left; font-weight: bold;font-size: 10pt;">
 					Rechnungsdatum
 				</td>
-				<td width="50%" style="text-align: left;font-size: 10pt;">
+				<td width="80%" style="text-align: left;font-size: 10pt;">
 					'.$actdate.'
 				</td>
 			</tr>
 			<tr>
-				<td width="50%" style="text-align: left; font-weight: bold;font-size: 10pt;">
+				<td width="20%" style="text-align: left; font-weight: bold;font-size: 10pt;">
 					Abrechnungsperiode
 				</td>
-				<td width="50%" style="text-align: left;font-size: 10pt;">
+				<td width="80%" style="text-align: left;font-size: 10pt;">
 					'.$ersterTag.' bis '.$letzterTag.'
 				</td>
 			</tr>
