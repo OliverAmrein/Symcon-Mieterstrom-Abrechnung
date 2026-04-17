@@ -58,8 +58,11 @@ class BillingEngine extends IPSModule
 
         //echo $Mietername.'_'.$Startdatum.'_'.$Enddatum.PHP_EOL;
 
-        
-        $filename = $Mietername.'_'.$Startdatum.'_'.$Enddatum.'.pdf';
+        $vormonat = date("Y-m-d", strtotime("-1 month", Startdatum($datum)));
+        $erstertag = strtotime(date('Y-m-01', $vormonat));
+        $letztertag = strtotime(date('Y-m-t', $vormonat));
+
+        $filename = $Mietername.' '.$erstertag.'_'.$letztertag.'.pdf';
         $filepath = 'media/'.$filename;
 
         error_reporting(0);
@@ -86,8 +89,6 @@ class BillingEngine extends IPSModule
        // $mediaID = @IPS_GetObjectIDByIdent('ReportPDF', $this->InstanceID);
          $mediaID = @IPS_GetObjectIDByName($filename, $this->InstanceID);
 
-        $filename = $Mietername.'_'.$Startdatum.'_'.$Enddatum.'.pdf';
-        $filepath = 'media/'.$filename;
         IPS_SetMediaFile($mediaID, $filepath, false);
 
         $pdfContent = $this->GeneratePDF('Amrein-Projekt ' . IPS_GetKernelVersion(), 'report.pdf', $Startdatum, $Enddatum, $MieterID);
