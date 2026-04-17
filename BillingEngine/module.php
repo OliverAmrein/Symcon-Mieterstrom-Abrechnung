@@ -186,7 +186,7 @@ class BillingEngine extends IPSModule
             $pdf->ImageSVG('@' . $logo, $x = 150, $y = 0, $w = 50, $h = 50, $border = 1);
             $logo = '';
         } elseif ($logo != '') {
-            $logo = '<img src="@' . $logo . '">';
+            $logo = '<img src="@' . $logo . '" style="width: 300px">';
         }
 
     
@@ -312,14 +312,13 @@ class BillingEngine extends IPSModule
 ////////////////////////////////////////////////////////////////////////////////////////////////////
     function GenerateHTMLHeaderSeite1($logo)
     {
-		$logoh = '<img src="' . $logo . '">';
-        return '
+		return '
 		<style>
 		*{font-size: 14px;}
 		</style>
 	
-		<div>
-			<img style="width: 300px" src="./mobimo.png">
+		<div width= >
+			'.$logo.'
 		</div>
 		<br/>
 	    <br/>
@@ -332,7 +331,7 @@ class BillingEngine extends IPSModule
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 	function GenerateHTMLHeaderSeite2($logo, $MieterID)
 	{
-		$logoh = '<img src="' . $logo . '">';
+		
 
 		$Mietername = IPS_GetProperty($MieterID, "Mietername");
 
@@ -355,7 +354,7 @@ class BillingEngine extends IPSModule
 					<tr>
 						<td width="66%" style="text-align: left; font-weight: bold;" >
 							<div>
-								<img style="width: 300px" src="./mobimo.png">
+								'.$logo.'
 							</div>
 						</td>
 						<td width="33%" style="text-align: left; font-weight: bold;" >
@@ -418,8 +417,7 @@ class BillingEngine extends IPSModule
         
         //$monstr = getDeutscherMonat($mon);
 
-		$logoh = '<img src="' . $logo . '">';
-        
+		
         $actdate = date('d.m.Y'); 
 
 		
