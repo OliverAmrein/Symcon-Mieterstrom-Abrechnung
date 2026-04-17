@@ -371,21 +371,17 @@ class BillingEngine extends IPSModule
 							<table width="100%">
 								<tr>
 									<td width="50%" style="text-align: left; font-weight: bold;">
-                                        <br/>
-										Kunde
+                                        <div> <div/><br/><div>Kunde<div/>
 									</td>
 									<td width="50%" style="text-align: left; font-weight: normal;">
-										<br/>
-										'.$Mietername.'
+										<div> <div/><br/><div>'.$Mietername.'<div/>
 									</td>
 								</tr>
 								<tr>
 									<td width="50%" style="text-align: left; font-weight: bold;">
-										<br/>
 										Rechnungsdatum
 									</td>
 									<td width="50%" style="text-align: left; font-weight: normal;">
-										<br/>
 										'.$actdate.'
 									</td>
 								</tr>
@@ -689,18 +685,18 @@ class BillingEngine extends IPSModule
 	    </thead>';
 
 		$text .= '<tr>
-			<td style="text-align: left; padding: 8px;border-bottom: 1px solid black; font-size: 10pt;">kWh</td>
-			<td style="text-align: left; padding: 8px;border-bottom: 1px solid black; font-size: 10pt;">CHF/kWh</td>
-			<td style="text-align: right; padding: 8px;border-bottom: 1px solid black; font-size: 10pt;">%</td>
-			<td style="text-align: right; padding: 8px;border-bottom: 1px solid black;font-size: 10pt; ">CHF</td>
+			<td style="width: 32%; text-align: left; padding: 8px;border-bottom: 1px solid black; font-size: 10pt;">kWh</td>
+			<td style="width: 22%; text-align: left; padding: 8px;border-bottom: 1px solid black; font-size: 10pt;">CHF/kWh</td>
+			<td style="width: 18%; text-align: right; padding: 8px;border-bottom: 1px solid black; font-size: 10pt;">%</td>
+			<td style="width: 28%; text-align: right; padding: 8px;border-bottom: 1px solid black;font-size: 10pt; ">CHF</td>
 		</tr>';
 
 
 		$text .= '<tr>
-			<td style="text-align: left; padding: 8px; font-size: 10pt;">'.$this->removeKomma(strval($Bezug)).'</td>
-			<td style="text-align: left; padding: 8px; font-size: 10pt;">'.strval($tariff).'</td>
-			<td style="text-align: right; padding: 8px; font-size: 10pt;">'.$this->removeKomma(number_format($Rabatt, 2)).'</td>
-			<td style="text-align: right; padding: 8px; font-size: 10pt;font-weight: bold;">'.$this->removeKomma(number_format($Betrag, 2)).'</td>
+			<td style="width: 32%; text-align: left; padding: 8px; font-size: 10pt;">'.$this->removeKomma(strval($Bezug)).'</td>
+			<td style="width: 22%; text-align: left; padding: 8px; font-size: 10pt;">'.strval($tariff).'</td>
+			<td style="width: 18%; text-align: right; padding: 8px; font-size: 10pt;">'.$this->removeKomma(number_format($Rabatt, 2)).'</td>
+			<td style="width: 28%; text-align: right; padding: 8px; font-size: 10pt;font-weight: bold;">'.$this->removeKomma(number_format($Betrag, 2)).'</td>
 		</tr>
          </table>';
 	   
