@@ -209,7 +209,7 @@ class BillingEngine extends IPSModule
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
         $pdf->setPrintFooter(false);
 
-        $pdf->SetFont('verdana', 10);
+        $pdf->SetFont('DejaVu Sans', 10);
 
         // add page 1
         $pdf->AddPage('P', 'A4');
@@ -312,7 +312,7 @@ class BillingEngine extends IPSModule
 	    	*{font-size: 10pt;}
 		
             body {
-            font-family: verdana;
+            font-family: "DejaVu Sans", "DejaVu Sans", sans-serif;
             font-size: 10pt;
         }
         </style>
