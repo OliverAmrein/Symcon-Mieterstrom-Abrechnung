@@ -356,12 +356,12 @@ class BillingEngine extends IPSModule
 				</style>
 				<table>
 					<tr>
-						<td width="66%" style="text-align: left; font-weight: bold;" >
+						<td width="55%" style="text-align: left; font-weight: bold;" >
 							<div>
 								'.$logo.'
 							</div>
 						</td>
-						<td width="33%" style="text-align: left; font-weight: bold;" >
+						<td width="45%" style="text-align: left; font-weight: bold;" >
 						
 							<table width="100%">
 								<tr>
@@ -460,14 +460,14 @@ class BillingEngine extends IPSModule
 			</style>
 			<table>
 				<tr>
-					<td width="66%" style="text-align: left; font-weight: bold;" >
+					<td width="60%" style="text-align: left; font-weight: bold;" >
 						Abrechnungssteller
 					</td>
-					<td width="33%" style="text-align: left; font-weight: bold;" >
+					<td width="40%" style="text-align: left; font-weight: bold;" >
 					</td>
 				</tr>
 				<tr>
-					<td width="66%" style="text-align: left;vertical-align: top;" >
+					<td width="60%" style="text-align: left;vertical-align: top;" >
 						 <div style="
 							vertical-align: top;
 							display: inline-block; /* Passt sich an Inhalt an */
@@ -478,7 +478,7 @@ class BillingEngine extends IPSModule
 							margin: 0;">'.$Mobimoadresse.'
 						</div>
 					</td>
-					<td width="33%" style="text-align: left;vertical-align: top;">
+					<td width="40%" style="text-align: left;vertical-align: top;">
 						 <div style="
 							vertical-align: top;
 							display: inline-block; /* Passt sich an Inhalt an */
@@ -766,7 +766,7 @@ class BillingEngine extends IPSModule
 		
 		$text .= '<hr class="linie-dick-ganze-breite">';
 
-		$text .= '<div style="width: 100%; text-align: right;font-size: 10pt;">
+		$text .= '<br/><div style="width: 100%; text-align: right;font-size: 10pt;">
 			'.$this->removeKomma(number_format($Bezug,2)).'
 		    </div>';
 			
