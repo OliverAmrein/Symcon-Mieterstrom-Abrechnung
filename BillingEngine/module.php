@@ -213,29 +213,22 @@ class BillingEngine extends IPSModule
 
         // add page 1
         $pdf->AddPage('P', 'A4');
+        $pdf->setPage(1, true);
        
+        $pdf->SetY(5);
+        $pdf->writeHTML($this->GenerateHTMLHeaderSeite1($logo), true, false, true, false, '');
+        $pdf->setY($pdf->getY() + 10);
+        $this->BerechneBezugUndBetrag($Startdatum, $Enddatum, $MieterID);
+        $pdf->writeHTML($this->GenerateHTMLTextSeite1($Startdatum, $Enddatum, $MieterID));
+
         // add page 2
         $pdf->AddPage('P', 'A4');
-
-        //PDF Content
-        //Header
-        
-        
         $pdf->setPage(2, true);
         $pdf->SetY(5);
-
 
         $pdf->writeHTML($this->GenerateHTMLHeaderSeite2($logo, $MieterID), true, false, true, false, '');
         $pdf->setY($pdf->getY() + 10);
         $pdf->writeHTML($this->GenerateHTMLTextSeite2($Startdatum, $Enddatum, $MieterID));
-
-
-        
-        $pdf->setPage(2, true);
-        $pdf->SetY(5);
-        $pdf->writeHTML($this->GenerateHTMLHeaderSeite1($logo), true, false, true, false, '');
-        $pdf->setY($pdf->getY() + 10);
-        $pdf->writeHTML($this->GenerateHTMLTextSeite1($Startdatum, $Enddatum, $MieterID));
 
         //Save the pdf
         return $pdf->Output($filename, 'S');
@@ -596,7 +589,7 @@ class BillingEngine extends IPSModule
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    private function GenerateHTMLTextSeite2($Startdatum, $Enddatum, $MieterID)
+    private function BerechneBezugUndBetrag($Startdatum, $Enddatum, $MieterID)
     {
         $data = $this->FetchData($Startdatum, $Enddatum, $MieterID);
         if ($data == []) {
@@ -629,7 +622,26 @@ class BillingEngine extends IPSModule
 
 		$Betrag = round($Betrag, 2);  // gerundeter Betrag
 
-		$text = '
+    }
+
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private function GenerateHTMLTextSeite2($Startdatum, $Enddatum, $MieterID)
+    {
+        $data = $this->FetchData($Startdatum, $Enddatum, $MieterID);
+        if ($data == []) {
+            echo 'xxxxxxxxxxxxx empty data xxxxxxxxxxxxxx';
+            return;
+        }
+        global $Bezug; // berechne hier für Seite 1
+        global $Betrag; // berechne hier für Seite 1
+
+
+		$Rabatt = IPS_GetProperty($MieterID, "Rabatt");
+		 
+		$tariff = $this->ReadPropertyFloat("Tariff");
+		
+        $text = '
  		<div  style="font-weight: bold; font-size: 20px; padding: 4px;">
 			Übersicht
 		</div>
@@ -745,6 +757,7 @@ class BillingEngine extends IPSModule
 
         return $text;
     }
+
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
