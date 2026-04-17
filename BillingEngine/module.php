@@ -317,7 +317,7 @@ class BillingEngine extends IPSModule
 		*{font-size: 14px;}
 		</style>
 	
-		<div width= >
+		<div>
 			'.$logo.'
 		</div>
 		<br/>
@@ -625,7 +625,7 @@ class BillingEngine extends IPSModule
 
 		$TotalCHFOhneRabatt = round($Bezug * $tariff, 2);
 
-		$Betrag = ($TotalCHFOhneRabatt * $Rabatt) / 100;
+		$Betrag = ($TotalCHFOhneRabatt * (100-$Rabatt)) / 100;
 
 		$Betrag = round($Betrag, 2);  // gerundeter Betrag
 
