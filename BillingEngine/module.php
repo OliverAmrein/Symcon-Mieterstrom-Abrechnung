@@ -292,7 +292,7 @@ class BillingEngine extends IPSModule
             <td>
                 <br/><br/><br/>
                 Abrechnungsperiode $date<br/>
-                <h1 style="font-weight: normal; font-size: 15px">$title </h1>
+                <h1 style="font-weight: normal; font-size: 15pt">$title </h1>
             </td>
             <td width="50%" align="right"><br>$logo</td>
         </tr>
@@ -516,7 +516,7 @@ class BillingEngine extends IPSModule
 		// Titel Stromabrechnung
 		
 		$text .= '
-			<div  style="font-weight: bold; font-size: 15px; padding: 4px;">
+			<div  style="font-weight: bold; font-size: 15pt; padding: 4px;">
 				Stromabrechnung '. $Objektname .'
 			</div>
 		
@@ -649,23 +649,24 @@ class BillingEngine extends IPSModule
 		$tariff = $this->ReadPropertyFloat("Tariff");
 		
         $text = '
- 		<div  style="font-weight: bold; font-size: 15px; padding: 4px;">
+ 		<div  style="font-weight: bold; font-size: 15pt; padding: 4px;">
 			Übersicht
 		</div>
-		
+		<br/>
+
 		<table border-collapse: collapse; width="100%">
 		<thead>
 		<tr>
-		  <th style="width: 25%; text-align: left; padding: 4px;">
+		  <th style="width: 25%; text-align: left; padding: 4px; font-size: 10pt;">
 			Bezug
 		  </th>
-		  <th style="width: 25%; text-align: right; padding: 4px;">
+		  <th style="width: 25%; text-align: right; padding: 4px; font-size: 10pt;">
 			Tarif
 		  </th>
-		  <th style="width: 25%; text-align: right; padding: 4px;">
+		  <th style="width: 25%; text-align: right; padding: 4px; font-size: 10pt;">
 			Rabatt
 		  </th>
-		  <th style="width: 25%; text-align: right; padding: 4px;">
+		  <th style="width: 25%; text-align: right; padding: 4px; font-size: 10pt;">
 			Total
 		  </th>
 		</tr>
@@ -703,10 +704,11 @@ class BillingEngine extends IPSModule
         <br/>
 		<br/>
 		<br/>
-		<div  style="font-weight: bold; font-size: 15px; padding: 4px;">
+		<div  style="font-weight: bold; font-size: 15pt; padding: 4px;">
 			Details
 		</div>
-		
+		<br/>
+        
 	
 		<table border-collapse: collapse; width="100%">
 		<thead>
@@ -734,10 +736,10 @@ class BillingEngine extends IPSModule
 		$text .= '
 		
 		<tr border-bottom: 1px solid black;>
-		<td style="text-align: left; border-bottom: 1px solid black; padding: 4px;"></td>
-		<td style="text-align: right; border-bottom: 1px solid black; padding: 4px;">kWh</td>
-		<td style="text-align: right; border-bottom: 1px solid black; padding: 4px;">%</td>
-		<td style="text-align: right; border-bottom: 1px solid black; padding: 4px;">kWh</td>
+		<td style="width: 55%; text-align: left; border-bottom: 1px solid black; padding: 4px;"></td>
+		<td style="width: 15%; text-align: right; border-bottom: 1px solid black; padding: 4px;">kWh</td>
+		<td style="width: 15%; text-align: right; border-bottom: 1px solid black; padding: 4px;">%</td>
+		<td style="width: 15%; text-align: right; border-bottom: 1px solid black; padding: 4px;">kWh</td>
 	    </tr>';
 
 		foreach ($data as $key  => $variable) 
@@ -748,10 +750,10 @@ class BillingEngine extends IPSModule
 			$consumptioncalc = ($variable['kWh'] * $percentage) / 100;
  
 			$text .= '<tr>
-					<td style="text-align: left; padding: 4px;">'.$name.'</td>
-					<td style="text-align: right; padding: 4px;">'.$this->removeKomma(number_format($consumption,2)).'</td>
-					<td style="text-align: right; padding: 4px;">'.$this->removeKomma(number_format($percentage,2)).'</td>
-					<td style="text-align: right; padding: 4px;">'.$this->removeKomma(number_format($consumptioncalc,2)).'</td>
+					<td style="width: 55%; text-align: left; padding: 4px;">'.$name.'</td>
+					<td style="width: 15%; text-align: right; padding: 4px;">'.$this->removeKomma(number_format($consumption,2)).'</td>
+					<td style="width: 15%; text-align: right; padding: 4px;">'.$this->removeKomma(number_format($percentage,2)).'</td>
+					<td style="width: 15%; text-align: right; padding: 4px;">'.$this->removeKomma(number_format($consumptioncalc,2)).'</td>
 				</tr>';
 				
 		}
