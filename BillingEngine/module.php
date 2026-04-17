@@ -62,6 +62,9 @@ class BillingEngine extends IPSModule
         $erstertag = date_create(date_format($date, "Y-m-01"))->modify("first day of last month");
         $letztertag = date_create(date_format($date, "Y-m-01"))->modify("last day of last month");
 
+        $erstertag = date_format($erstertag, "d.m.Y");
+        $letztertag = date_format($letztertag, "d.m.Y");
+
         $filename = $Mietername.' '.$erstertag.'_'.$letztertag.'.pdf';
         $filepath = 'media/'.$filename;
 
@@ -421,7 +424,8 @@ class BillingEngine extends IPSModule
         $date = date_create_from_format("Y-m-d", $Startdatum);
         $erstertag = date_create(date_format($date, "Y-m-01"))->modify("first day of last month");
         $letztertag = date_create(date_format($date, "Y-m-01"))->modify("last day of last month");
-
+        $erstertag = date_format($erstertag, "d.m.Y");
+        $letztertag = date_format($letztertag, "d.m.Y");
 		
         //$start = date_modify($start, '-1 month');
 		
