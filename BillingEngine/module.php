@@ -216,6 +216,8 @@ class BillingEngine extends IPSModule
         $pdf->setPage(1, true);
        
         $pdf->SetY(5);
+
+        $pfd->setFontSize(14);
         $pdf->writeHTML($this->GenerateHTMLHeaderSeite1($logo), true, false, true, false, '');
         $pdf->setY($pdf->getY() + 10);
         $this->BerechneBezugUndBetrag($Startdatum, $Enddatum, $MieterID);
