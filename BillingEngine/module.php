@@ -58,6 +58,7 @@ class BillingEngine extends IPSModule
 
         //echo $Mietername.'_'.$Startdatum.'_'.$Enddatum.PHP_EOL;
 
+        
         $filename = $Mietername.'_'.$Startdatum.'_'.$Enddatum.'.pdf';
         $filepath = 'media/'.$filename;
 
@@ -106,7 +107,7 @@ class BillingEngine extends IPSModule
     public function AlleMieterLetztenMonatAbrechnen()
     {
 
-        $datestart = strtotime("-0 month");
+        $datestart = strtotime("-1 month");
         $datestart = strtotime(date('Y-m-01', $datestart));
         $dateend = strtotime(date('Y-m-t', $datestart));
 
@@ -416,8 +417,10 @@ class BillingEngine extends IPSModule
 		$RundungsDifferenz = -($BetragInclMwst - $gerundet);
 		$BetragInclMwstGerundet = $gerundet;
 
-		$ersterTag = date('01.m.Y', strtotime($Startdatum));
-		$letzterTag = date('t.m.Y', strtotime($Enddatum));
+
+        $vormonat = date("Y-m-d", strtotime("-1 month", strtotime($Startdatum)));
+		$ersterTag = date('01.m.Y', strtotime($vormonat));
+		$letzterTag = date('t.m.Y', strtotime($vormonat));
 		
         //$start = date_modify($start, '-1 month');
 		
@@ -806,7 +809,7 @@ class BillingEngine extends IPSModule
             $Name = IPS_GetName($zähler->Zähler);
 
             $sum = $this->ReadZähler($IPadr, $Startdatum, $Enddatum);
-            $sum = ($sum * $zähler->AnteilProzent) / 100;
+            //$sum = ($sum * $zähler->AnteilProzent) / 100;
             array_push($data, ['Zählername' =>  $Name, 'kWh' => $sum, 'AnteilProzent' => $zähler->AnteilProzent] );
         }
 
