@@ -209,7 +209,7 @@ class BillingEngine extends IPSModule
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
         $pdf->setPrintFooter(false);
 
-        $pdf->SetFont('dejavusans', 10);
+        $pdf->SetFont('Arial', 10);
 
         // add page 1
         $pdf->AddPage('P', 'A4');
@@ -309,8 +309,13 @@ class BillingEngine extends IPSModule
     {
 		return '
 		<style>
-		*{font-size: 10px;}
-		</style>
+	    	*{font-size: 10pt;}
+		
+            body {
+            font-family: arial;
+            font-size: 10pt;
+        }
+        </style>
 	
 		<div>
 			'.$logo.'
