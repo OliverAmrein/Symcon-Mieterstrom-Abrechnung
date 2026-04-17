@@ -723,9 +723,9 @@ class BillingEngine extends IPSModule
 		foreach ($data as $key  => $variable) 
 		{
 			$name = $variable['Zählername'];
-			$consumption = strval($variable['kWh']);
-			$percentage = strval($variable['AnteilProzent']);
-			$consumptioncalc = strval(($variable['kWh'] * $percentage) / 100);
+			$consumption = $variable['kWh'];
+			$percentage = $variable['AnteilProzent'];
+			$consumptioncalc = ($variable['kWh'] * $percentage) / 100;
  
 			$text .= '<tr>
 					<td style="text-align: left; padding: 4px;">'.$name.'</td>
