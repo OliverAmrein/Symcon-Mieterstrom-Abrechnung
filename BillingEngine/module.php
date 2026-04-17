@@ -57,10 +57,10 @@ class BillingEngine extends IPSModule
         $Mietername = IPS_GetProperty($MieterID, "Mietername");
 
         //echo $Mietername.'_'.$Startdatum.'_'.$Enddatum.PHP_EOL;
-
-        $vormonat = date("Y-m-d", strtotime("-1 month", $Startdatum));
-        $erstertag = strtotime(date('Y-m-01', $vormonat));
-        $letztertag = strtotime(date('Y-m-t', $vormonat));
+      
+        $date = date_create_from_format("d.m.Y", $Startdatum);
+        $ersterTag = date_create(date_format($date, "Y-m-01"))->modify("first day of last month");
+        $letzterTag = date_create(date_format($date, "Y-m-01"))->modify("last day of last month");
 
         $filename = $Mietername.' '.$erstertag.'_'.$letztertag.'.pdf';
         $filepath = 'media/'.$filename;
@@ -418,10 +418,10 @@ class BillingEngine extends IPSModule
 		$RundungsDifferenz = -($BetragInclMwst - $gerundet);
 		$BetragInclMwstGerundet = $gerundet;
 
+        $date = date_create_from_format("d.m.Y", $Startdatum);
+        $ersterTag = date_create(date_format($date, "Y-m-01"))->modify("first day of last month");
+        $letzterTag = date_create(date_format($date, "Y-m-01"))->modify("last day of last month");
 
-        $vormonat = date("Y-m-d", strtotime("-1 month", $Startdatum));
-		$ersterTag = date('01.m.Y', strtotime($vormonat));
-		$letzterTag = date('t.m.Y', strtotime($vormonat));
 		
         //$start = date_modify($start, '-1 month');
 		
