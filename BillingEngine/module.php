@@ -186,7 +186,7 @@ class BillingEngine extends IPSModule
             $pdf->ImageSVG('@' . $logo, $x = 150, $y = 0, $w = 50, $h = 50, $border = 1);
             $logo = '';
         } elseif ($logo != '') {
-            $logo = '<img src="@' . $logo . '" style="width: 300px">';
+            $logo = '<img src="@' . $logo . '" style="width: 200px">';
         }
 
     
@@ -209,7 +209,7 @@ class BillingEngine extends IPSModule
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
         $pdf->setPrintFooter(false);
 
-        $pdf->SetFont('dejavusans');
+        $pdf->SetFont('dejavusans', 10);
 
         // add page 1
         $pdf->AddPage('P', 'A4');
@@ -217,7 +217,7 @@ class BillingEngine extends IPSModule
        
         $pdf->SetY(5);
 
-        $pdf->setFontSize(14);
+        //$pdf->setFontSize(14);
         $pdf->writeHTML($this->GenerateHTMLHeaderSeite1($logo), true, false, true, false, '');
         $pdf->setY($pdf->getY() + 10);
         $this->BerechneBezugUndBetrag($Startdatum, $Enddatum, $MieterID);
