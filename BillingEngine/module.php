@@ -59,8 +59,8 @@ class BillingEngine extends IPSModule
         //echo $Mietername.'_'.$Startdatum.'_'.$Enddatum.PHP_EOL;
       
         $date = date_create_from_format("Y-m-d", $Startdatum);
-        $ersterTag = date_create(date_format($date, "Y-m-01"))->modify("first day of last month");
-        $letzterTag = date_create(date_format($date, "Y-m-01"))->modify("last day of last month");
+        $erstertag = date_create(date_format($date, "Y-m-01"))->modify("first day of last month");
+        $letztertag = date_create(date_format($date, "Y-m-01"))->modify("last day of last month");
 
         $filename = $Mietername.' '.$erstertag.'_'.$letztertag.'.pdf';
         $filepath = 'media/'.$filename;
@@ -419,8 +419,8 @@ class BillingEngine extends IPSModule
 		$BetragInclMwstGerundet = $gerundet;
 
         $date = date_create_from_format("Y-m-d", $Startdatum);
-        $ersterTag = date_create(date_format($date, "Y-m-01"))->modify("first day of last month");
-        $letzterTag = date_create(date_format($date, "Y-m-01"))->modify("last day of last month");
+        $erstertag = date_create(date_format($date, "Y-m-01"))->modify("first day of last month");
+        $letztertag = date_create(date_format($date, "Y-m-01"))->modify("last day of last month");
 
 		
         //$start = date_modify($start, '-1 month');
@@ -517,7 +517,7 @@ class BillingEngine extends IPSModule
 					Abrechnungsperiode
 				</td>
 				<td width="75%" style="text-align: left;font-size: 10pt;">
-					'.$ersterTag.' bis '.$letzterTag.'
+					'.$erstertag.' bis '.$letztertag.'
 				</td>
 			</tr>
       </table>
