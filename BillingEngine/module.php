@@ -671,13 +671,13 @@ class BillingEngine extends IPSModule
 		  <th style="width: 32%; text-align: left; padding: 8px; font-weight: bold; font-size: 10pt;">
 			Bezug
 		  </th>
-		  <th style="width: 33%; text-align: left; padding: 8px; font-weight: bold; font-size: 10pt;">
+		  <th style="width: 22%; text-align: left; padding: 8px; font-weight: bold; font-size: 10pt;">
 			Tarif
 		  </th>
-		  <th style="width: 16%; text-align: right; padding: 8px; font-weight: bold; font-size: 10pt;">
+		  <th style="width: 18%; text-align: right; padding: 8px; font-weight: bold; font-size: 10pt;">
 			Rabatt
 		  </th>
-		  <th style="width: 30%; text-align: right; padding: 8px; font-weight: bold; font-size: 10pt;">
+		  <th style="width: 28%; text-align: right; padding: 8px; font-weight: bold; font-size: 10pt;">
 			Total
 		  </th>
 		</tr>
