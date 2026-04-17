@@ -442,6 +442,7 @@ class BillingEngine extends IPSModule
 		$Mobimoadresse = str_replace("\n", "<br>", $Mobimoadresse);
 
 
+        
 		// Addressblöcke nebeneinander
 		
 		$text = '
