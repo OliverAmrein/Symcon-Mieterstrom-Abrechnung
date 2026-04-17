@@ -186,7 +186,7 @@ class BillingEngine extends IPSModule
             $pdf->ImageSVG('@' . $logo, $x = 150, $y = 0, $w = 50, $h = 50, $border = 1);
             $logo = '';
         } elseif ($logo != '') {
-            $logo = '<img src="@' . $logo . '" style="width: 200px">';
+            $logo = '<img src="@' . $logo . '" style="width: 150px">';
         }
 
     
@@ -497,18 +497,18 @@ class BillingEngine extends IPSModule
 		<div  style="width: 45%">
 		<table width="100%">
 			<tr>
-				<td width="200%" style="text-align: left; font-weight: bold;font-size: 10pt;">
+				<td width="25%" style="text-align: left; font-weight: bold;font-size: 10pt;">
 					Rechnungsdatum
 				</td>
-				<td width="80%" style="text-align: left;font-size: 10pt;">
+				<td width="75%" style="text-align: left;font-size: 10pt;">
 					'.$actdate.'
 				</td>
 			</tr>
 			<tr>
-				<td width="20%" style="text-align: left; font-weight: bold;font-size: 10pt;">
+				<td width="25%" style="text-align: left; font-weight: bold;font-size: 10pt;">
 					Abrechnungsperiode
 				</td>
-				<td width="80%" style="text-align: left;font-size: 10pt;">
+				<td width="75%" style="text-align: left;font-size: 10pt;">
 					'.$ersterTag.' bis '.$letzterTag.'
 				</td>
 			</tr>
