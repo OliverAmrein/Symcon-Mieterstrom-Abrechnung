@@ -58,7 +58,7 @@ class BillingEngine extends IPSModule
 
         //echo $Mietername.'_'.$Startdatum.'_'.$Enddatum.PHP_EOL;
 
-        $vormonat = date("Y-m-d", strtotime("-1 month", Startdatum($datum)));
+        $vormonat = date("Y-m-d", strtotime("-1 month", strtotime($Startdatum)));
         $erstertag = strtotime(date('Y-m-01', $vormonat));
         $letztertag = strtotime(date('Y-m-t', $vormonat));
 
