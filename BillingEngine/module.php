@@ -58,7 +58,7 @@ class BillingEngine extends IPSModule
 
         //echo $Mietername.'_'.$Startdatum.'_'.$Enddatum.PHP_EOL;
       
-        $date = date_create_from_format("d.m.Y", $Startdatum);
+        $date = date_create_from_format("Y-m-d", $Startdatum);
         $ersterTag = date_create(date_format($date, "Y-m-01"))->modify("first day of last month");
         $letzterTag = date_create(date_format($date, "Y-m-01"))->modify("last day of last month");
 
@@ -418,7 +418,7 @@ class BillingEngine extends IPSModule
 		$RundungsDifferenz = -($BetragInclMwst - $gerundet);
 		$BetragInclMwstGerundet = $gerundet;
 
-        $date = date_create_from_format("d.m.Y", $Startdatum);
+        $date = date_create_from_format("Y-m-d", $Startdatum);
         $ersterTag = date_create(date_format($date, "Y-m-01"))->modify("first day of last month");
         $letzterTag = date_create(date_format($date, "Y-m-01"))->modify("last day of last month");
 
