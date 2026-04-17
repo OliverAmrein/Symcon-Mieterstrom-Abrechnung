@@ -371,10 +371,10 @@ class BillingEngine extends IPSModule
 							<table width="100%">
 								<tr>
 									<td width="50%" style="text-align: left; font-weight: bold;">
-                                        <div> <div/><br/><div>Kunde<div/>
+                                        <td> <br>Kunde</td>
 									</td>
 									<td width="50%" style="text-align: left; font-weight: normal;">
-										<div> <div/><br/><div>'.$Mietername.'<div/>
+										<td> <br>'.$Mietername.'</td>
 									</td>
 								</tr>
 								<tr>
