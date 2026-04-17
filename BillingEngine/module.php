@@ -233,7 +233,7 @@ class BillingEngine extends IPSModule
         // add page 2
         $pdf->AddPage('P', 'A4');
         $pdf->setPage(2, true);
-        $pdf->SetY(5);
+        $pdf->SetY(10);
 
         $pdf->setFontSize(10);
         $pdf->writeHTML($this->GenerateHTMLHeaderSeite2($logo, $MieterID), true, false, true, false, '');
@@ -675,10 +675,10 @@ class BillingEngine extends IPSModule
 		  <th style="width: 22%; text-align: left; padding: 8px; font-weight: bold; font-size: 10pt;">
 			Tarif
 		  </th>
-		  <th style="width: 18%; text-align: right; padding: 8px; font-weight: bold; font-size: 10pt;">
+		  <th style="width: 16%; text-align: right; padding: 8px; font-weight: bold; font-size: 10pt;">
 			Rabatt
 		  </th>
-		  <th style="width: 28%; text-align: right; padding: 8px; font-weight: bold; font-size: 10pt;">
+		  <th style="width: 30%; text-align: right; padding: 8px; font-weight: bold; font-size: 10pt;">
 			Total
 		  </th>
 		</tr>
@@ -687,16 +687,16 @@ class BillingEngine extends IPSModule
 		$text .= '<tr>
 			<td style="width: 32%; text-align: left; padding: 8px;border-bottom: 1px solid black; font-size: 10pt;">kWh</td>
 			<td style="width: 22%; text-align: left; padding: 8px;border-bottom: 1px solid black; font-size: 10pt;">CHF/kWh</td>
-			<td style="width: 18%; text-align: right; padding: 8px;border-bottom: 1px solid black; font-size: 10pt;">%</td>
-			<td style="width: 28%; text-align: right; padding: 8px;border-bottom: 1px solid black;font-size: 10pt; ">CHF</td>
+			<td style="width: 16%; text-align: right; padding: 8px;border-bottom: 1px solid black; font-size: 10pt;">%</td>
+			<td style="width: 30%; text-align: right; padding: 8px;border-bottom: 1px solid black;font-size: 10pt; ">CHF</td>
 		</tr>';
 
 
 		$text .= '<tr>
 			<td style="width: 32%; text-align: left; padding: 8px; font-size: 10pt;">'.$this->removeKomma(strval($Bezug)).'</td>
 			<td style="width: 22%; text-align: left; padding: 8px; font-size: 10pt;">'.strval($tariff).'</td>
-			<td style="width: 18%; text-align: right; padding: 8px; font-size: 10pt;">'.$this->removeKomma(number_format($Rabatt, 2)).'</td>
-			<td style="width: 28%; text-align: right; padding: 8px; font-size: 10pt;font-weight: bold;">'.$this->removeKomma(number_format($Betrag, 2)).'</td>
+			<td style="width: 16; text-align: right; padding: 8px; font-size: 10pt;">'.$this->removeKomma(number_format($Rabatt, 2)).'</td>
+			<td style="width: 30%; text-align: right; padding: 8px; font-size: 10pt;font-weight: bold;">'.$this->removeKomma(number_format($Betrag, 2)).'</td>
 		</tr>
          </table>';
 	   
