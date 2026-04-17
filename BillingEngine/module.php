@@ -309,7 +309,7 @@ class BillingEngine extends IPSModule
     {
 		return '
 		<style>
-		*{font-size: 14px;}
+		*{font-size: 10px;}
 		</style>
 	
 		<div>
@@ -511,7 +511,7 @@ class BillingEngine extends IPSModule
 		// Titel Stromabrechnung
 		
 		$text .= '
-			<div  style="font-weight: bold; font-size: 20px; padding: 4px;">
+			<div  style="font-weight: bold; font-size: 15px; padding: 4px;">
 				Stromabrechnung '. $Objektname .'
 			</div>
 		
@@ -644,7 +644,7 @@ class BillingEngine extends IPSModule
 		$tariff = $this->ReadPropertyFloat("Tariff");
 		
         $text = '
- 		<div  style="font-weight: bold; font-size: 20px; padding: 4px;">
+ 		<div  style="font-weight: bold; font-size: 15px; padding: 4px;">
 			Übersicht
 		</div>
 		
@@ -664,7 +664,7 @@ class BillingEngine extends IPSModule
 			Total
 		  </th>
 		</tr>
-	  </thead>';
+	    </thead>';
 
 		$text .= '<tr>
 			<td style="text-align: left; padding: 4px;border-bottom: 1px solid black; ">kWh</td>
@@ -679,8 +679,9 @@ class BillingEngine extends IPSModule
 			<td style="text-align: right; padding: 4px; ">'.strval($tariff).'</td>
 			<td style="text-align: right; padding: 4px; ">'.$this->removeKomma(number_format($Rabatt, 2)).'</td>
 			<td style="text-align: right; padding: 4px; ">'.$this->removeKomma(number_format($Betrag, 2)).'</td>
-		</tr>';
-
+		</tr>
+         </table>';
+	   
 		
 		$text .= '
 		<style>
@@ -693,7 +694,15 @@ class BillingEngine extends IPSModule
 		  }
 		</style>
 
-		</table>
+
+        <br/>
+		<br/>
+		<br/>
+		<div  style="font-weight: bold; font-size: 15px; padding: 4px;">
+			Details
+		</div>
+		
+	
 		<table border-collapse: collapse; width="100%">
 		<thead>
 		<tr>
@@ -718,19 +727,13 @@ class BillingEngine extends IPSModule
 
 		
 		$text .= '
-		<br/>
-		<br/>
-		<br/>
-		<div  style="font-weight: bold; font-size: 20px; padding: 4px;">
-			Details
-		</div>
 		
 		<tr border-bottom: 1px solid black;>
 		<td style="text-align: left; border-bottom: 1px solid black; padding: 4px;"></td>
 		<td style="text-align: right; border-bottom: 1px solid black; padding: 4px;">kWh</td>
 		<td style="text-align: right; border-bottom: 1px solid black; padding: 4px;">%</td>
 		<td style="text-align: right; border-bottom: 1px solid black; padding: 4px;">kWh</td>
-	</tr>';
+	    </tr>';
 
 		foreach ($data as $key  => $variable) 
 		{
