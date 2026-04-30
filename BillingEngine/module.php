@@ -613,10 +613,10 @@ class BillingEngine extends IPSModule
     {
         $data = $this->FetchData($Startdatum, $Enddatum, $MieterID);
         if ($data == []) {
-            echo 'xxxxxxxxxxxxx empty data 1 xxxxxxxxxxxxxx '.$Startdatum.'  '.$Enddatum.'  '.$MieterID.PHP_EOL;
+            echo 'xxxxxxxxxxxxx empty data 1 xxxxxxxxxxxxxx '.$Startdatum.'  '.$Enddatum.'  '.strval($MieterID).PHP_EOL;
             return;
         }
-		$echo 'xxxxxxxxxxxxx valid data 1 xxxxxxxxxxxxxx '.$Startdatum.'  '.$Enddatum.'  '.$MieterID.PHP_EOL;
+		$echo 'xxxxxxxxxxxxx valid data 1 xxxxxxxxxxxxxx '.$Startdatum.'  '.$Enddatum.'  '.strval($MieterID).PHP_EOL;
         global $Bezug; // berechne hier für Seite 1
         global $Betrag; // berechne hier für Seite 1
 
@@ -651,10 +651,10 @@ class BillingEngine extends IPSModule
     {
         $data = $this->FetchData($Startdatum, $Enddatum, $MieterID);
         if ($data == []) {
-            echo 'xxxxxxxxxxxxx empty data 2 xxxxxxxxxxxxxx '.$Startdatum.'  '.$Enddatum.'  '.$MieterID.PHP_EOL;
+            echo 'xxxxxxxxxxxxx empty data 2 xxxxxxxxxxxxxx '.$Startdatum.'  '.$Enddatum.'  '.strval($MieterID).PHP_EOL;
             return;
         }
-        $echo 'xxxxxxxxxxxxx valid data 2 xxxxxxxxxxxxxx '.$Startdatum.'  '.$Enddatum.'  '.$MieterID.PHP_EOL;
+        $echo 'xxxxxxxxxxxxx valid data 2 xxxxxxxxxxxxxx '.$Startdatum.'  '.$Enddatum.'  '.strval($MieterID).PHP_EOL;
         global $Bezug; // berechne hier für Seite 1
         global $Betrag; // berechne hier für Seite 1
 
