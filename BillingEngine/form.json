@@ -11,7 +11,7 @@
         {
             "type": "NumberSpinner",
             "caption": "Tarif",
-            "digits": 3,
+            "digits": 4,
             "enabled": true,
             "hex": false,
             "maximum": 2,
