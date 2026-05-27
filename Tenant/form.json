@@ -61,10 +61,11 @@
                     "width": "150px",
                     "digits": 2,
                     "add": "100",
+                    "format": "%.2f",
                     "edit": {
                         "type": "NumberSpinner",
-                        "maximum": 100,
-                        "minimum": 1
+                        "maximum": 100.00,
+                        "minimum": 1.00
                     }
                 }
             ],
