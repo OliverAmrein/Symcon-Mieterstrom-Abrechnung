@@ -219,67 +219,114 @@ class BillingEngine extends IPSModule
             $logo = '<img src="@' . $logo . '" style="width: 150px">';
         }
 
+
+
+		$pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+		$pdf->SetCreator(PDF_CREATOR);
+		$pdf->SetAuthor($author);
+		$pdf->SetTitle('');
+		$pdf->SetSubject('');
+
+		$pdf->setPrintHeader(false);
+		$pdf->setPrintFooter(true); // Aktiviert Ihren Footer auf ALLEN Seiten
+
+		$pdf->SetMargins(PDF_MARGIN_LEFT, 20, PDF_MARGIN_RIGHT); // Genug Platz oben (20mm)
+		$pdf->SetFooterMargin(15);
+		$pdf->SetAutoPageBreak(true, 25); // WICHTIG: 25mm Platz nach unten lassen für die Liste
+
+		$pdf->SetFont('DejaVu Sans', '', 10);
+
+		// ==========================================
+		// SEITE 1: Festes A4-Blatt
+		// ==========================================
+		$pdf->AddPage('P', 'A4');
+		$pdf->SetY(20);
+
+		$pdf->writeHTML($this->GenerateHTMLHeaderSeite1($logo), true, false, true, false, '');
+		$pdf->setY($pdf->getY() + 10);
+
+		$this->BerechneBezugUndBetrag($Startdatum, $Enddatum, $MieterID);
+
+		$pdf->setFontSize(10);
+		$pdf->writeHTML($this->GenerateHTMLTextSeite1($Startdatum, $Enddatum, $MieterID), true, false, true, false, '');
+
+
+		// ==========================================
+		// SEITE 2 & FOLGENDE: Die dynamische Liste
+		// ==========================================
+		// Wir erstellen hier NUR den Start der zweiten Seite. 
+		$pdf->AddPage('P', 'A4');
+		$pdf->SetY(20);
+
+		// Header für die Folgeseiten ausgeben
+		$pdf->writeHTML($this->GenerateHTMLHeaderSeite2($logo, $MieterID), true, false, true, false, '');
+		$pdf->setY($pdf->getY() + 10);
+
+		$pdf->setFontSize(10);
+
+		// HIER PASSIERT DIE MAGIE: 
+		// Wenn dieser Text/Tabelle zu lang ist, erstellt TCPDF die Seiten 3, 4, etc. VOLLAUTOMATISCH.
+		// Rufen Sie danach NIEMALS wieder $pdf->AddPage() auf!
+		$pdf->writeHTML($this->GenerateHTMLTextSeite2($Startdatum, $Enddatum, $MieterID), true, false, true, false, '');
+
+
+		// ==========================================
+		// AUSGABE & SPEICHERN
+		// ==========================================
+		if (ob_get_contents()) ob_end_clean(); // Löscht den Speicherpuffer vor der Übergabe
+
+		return $pdf->Output($filename, 'S');
     
-        $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-        $pdf->SetCreator(PDF_CREATOR);
-        $pdf->SetAuthor($author);
-        $pdf->SetTitle('');
-        $pdf->SetSubject('');
+        // $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        // $pdf->SetCreator(PDF_CREATOR);
+        // $pdf->SetAuthor($author);
+        // $pdf->SetTitle('');
+        // $pdf->SetSubject('');
 
-        $pdf->setPrintHeader(false);
+        // $pdf->setPrintHeader(false);
 
-        $pdf->setFooterFont([PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA]);
-        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        // $pdf->setFooterFont([PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA]);
+        // $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
-        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP - 5, PDF_MARGIN_RIGHT);
-        $pdf->SetFooterMargin(15);
+        // $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP - 5, PDF_MARGIN_RIGHT);
+        // $pdf->SetFooterMargin(15);
 
-        $pdf->SetAutoPageBreak(true, 20);
+        // $pdf->SetAutoPageBreak(true, 20);
 
-        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-        $pdf->setPrintFooter(true);
+        // $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        // $pdf->setPrintFooter(true);
 
-        $pdf->SetFont('DejaVu Sans', 10);
+        // $pdf->SetFont('DejaVu Sans', 10);
 
-        // add page 1
-        $pdf->AddPage('P', 'A4');
-        //$pdf->setPage(1, true);
+        // // add page 1
+        // $pdf->AddPage('P', 'A4');
+        // //$pdf->setPage(1, true);
        
-        $pdf->SetY(20);
+        // $pdf->SetY(20);
 
-        $pdf->setFontSize(10);
+        // $pdf->setFontSize(10);
 
-        $pdf->writeHTML($this->GenerateHTMLHeaderSeite1($logo), true, false, true, false, '');
-        $pdf->setY($pdf->getY() + 10);
-        $this->BerechneBezugUndBetrag($Startdatum, $Enddatum, $MieterID);
-        $pdf->setFontSize(10);
-        $pdf->writeHTML($this->GenerateHTMLTextSeite1($Startdatum, $Enddatum, $MieterID));
+        // $pdf->writeHTML($this->GenerateHTMLHeaderSeite1($logo), true, false, true, false, '');
+        // $pdf->setY($pdf->getY() + 10);
+        // $this->BerechneBezugUndBetrag($Startdatum, $Enddatum, $MieterID);
+        // $pdf->setFontSize(10);
+        // $pdf->writeHTML($this->GenerateHTMLTextSeite1($Startdatum, $Enddatum, $MieterID));
 
 		
-        // add page 2
-        $pdf->AddPage('P', 'A4');
-        //$pdf->setPage(2, true);
-        $pdf->SetY(20);
+        // // add page 2
+        // $pdf->AddPage('P', 'A4');
+        // //$pdf->setPage(2, true);
+        // $pdf->SetY(20);
 
-        $pdf->setFontSize(10);
-        $pdf->writeHTML($this->GenerateHTMLHeaderSeite2($logo, $MieterID), true, false, true, false, '');
-        $pdf->setY($pdf->getY() + 10);
-        $pdf->setFontSize(10);
-        $pdf->writeHTML($this->GenerateHTMLTextSeite2($Startdatum, $Enddatum, $MieterID));
+        // $pdf->setFontSize(10);
+        // $pdf->writeHTML($this->GenerateHTMLHeaderSeite2($logo, $MieterID), true, false, true, false, '');
+        // $pdf->setY($pdf->getY() + 10);
+        // $pdf->setFontSize(10);
+        // $pdf->writeHTML($this->GenerateHTMLTextSeite2($Startdatum, $Enddatum, $MieterID));
 
-		// // Footer:
-		// $pages = $pdf->GetPageCount();
-		// IPS_LogMessage('Modul BillingEngine', '$pages='.$pages);
-		// for ($x = 1; $x <= $pages; $x++) {
-  		// 	$pdf->setPage($x, true);
-		// 	$pdf->SetY(-15);
-		// 	IPS_LogMessage('Modul BillingEngine', 'vor Cell $x='.$x);
-        // 	$pdf->Cell(0, 10, 'Seite '.$pdf->PageNo().'                 ImmoWatt360 powered by AMREIN Projekt GmbH', 0, 0, 'C');
-		// 	IPS_LogMessage('Modul BillingEngine', 'nach Cell $x='.$x);
-		// }
-
-		 //Save the pdf
-        return $pdf->Output($filename, 'S');
+		
+		//  //Save the pdf
+        // return $pdf->Output($filename, 'S');
     }
 
 
