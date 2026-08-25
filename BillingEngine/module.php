@@ -290,7 +290,7 @@ class BillingEngine extends IPSModule
 
 		$this->BerechneBezugUndBetrag($Startdatum, $Enddatum, $MieterID);
 
-		$pdf->writeHTML($this->GenerateHTMLTextSeite1($Startdatum, $Enddatum, $MieterID), true, false, true, false, '');
+		//$pdf->writeHTML($this->GenerateHTMLTextSeite1($Startdatum, $Enddatum, $MieterID), true, false, true, false, '');
 
 
 		// ==========================================
@@ -308,7 +308,7 @@ class BillingEngine extends IPSModule
 		// JETZT DIE DYNAMISCHE LISTE:
 		// Wenn dieser Text länger als 1 Seite ist, erstellt TCPDF die Seiten 3, 4 etc.
 		// automatisch UND ruft dabei jedes Mal die Header()-Funktion der Klasse auf!
-		$pdf->writeHTML($this->GenerateHTMLTextSeite2($Startdatum, $Enddatum, $MieterID), true, false, true, false, '');
+		//$pdf->writeHTML($this->GenerateHTMLTextSeite2($Startdatum, $Enddatum, $MieterID), true, false, true, false, '');
 
 
 		// ==========================================
