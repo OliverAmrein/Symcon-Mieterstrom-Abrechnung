@@ -10,7 +10,6 @@ class MYPDF extends TCPDF {
 
         // Positionieren (sehr nah am Rand, z.B. 10mm)
         $this->SetY(-10);
-        $this->SetFont('helvetica', 'I', 8);
         
         $text = 'Seite ' . $this->getAliasNumPage() . ' von ' . $this->getAliasNbPages().'            ImmoWatt360 powered by AMREIN Projekt GmbH';
         
@@ -244,9 +243,9 @@ class BillingEngine extends IPSModule
 
         // add page 1
         $pdf->AddPage('P', 'A4');
-        $pdf->setPage(1, true);
+        //$pdf->setPage(1, true);
        
-        $pdf->SetY(5);
+        $pdf->SetY(20);
 
         $pdf->setFontSize(10);
 
@@ -259,8 +258,8 @@ class BillingEngine extends IPSModule
 		
         // add page 2
         $pdf->AddPage('P', 'A4');
-        $pdf->setPage(2, true);
-        $pdf->SetY(10);
+        //$pdf->setPage(2, true);
+        $pdf->SetY(20);
 
         $pdf->setFontSize(10);
         $pdf->writeHTML($this->GenerateHTMLHeaderSeite2($logo, $MieterID), true, false, true, false, '');
@@ -279,8 +278,7 @@ class BillingEngine extends IPSModule
 		// 	IPS_LogMessage('Modul BillingEngine', 'nach Cell $x='.$x);
 		// }
 
-		if (ob_get_contents()) ob_end_clean(); 
-        //Save the pdf
+		 //Save the pdf
         return $pdf->Output($filename, 'S');
     }
 
