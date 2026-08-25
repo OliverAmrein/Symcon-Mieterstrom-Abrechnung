@@ -1,48 +1,22 @@
 <?php
 
-
-// class MYPDF extends TCPDF {
-//     // Variable, um zu prüfen, ob wir auf Seite 1 sind
-//     public $is_first_page = true;
-//     // Speicher für die Logodaten, damit wir in der Klasse darauf zugreifen können
-//     public $logo_data;
-//     public $mieter_id;
-
-//     // AUTOMATISCHER HEADER
-//     public function Header() {
-//         if ($this->page == 1) {
-//             // Header für Seite 1 (falls gewünscht, sonst leer lassen)
-//             // Wenn Sie den Header auf S1 manuell im Skript ausgeben, hier einfach nichts tun
-//         } else {
-//             // REPETIERENDER HEADER ab Seite 2, 3, 4...
-//             $this->SetY(10);
-//             $this->SetFont('DejaVu Sans', '', 10);
-            
-//             // Da wir uns in der Klasse befinden, rufen wir die Methode des Hauptskripts auf.
-//             // Alternativ kopieren Sie den HTML-Code des Headers direkt hierhin.
-//             // $this->writeHTML($html_header_seite2, true, false, true, false, '');
-//         }
-//     }
-
-//     // AUTOMATISCHER FOOTER (Jetzt absolut crash-sicher)
-//     public function Footer() {
-//         // Schaltet den Page-Break im Footer-Prozess strikt aus
-//         $this->SetAutoPageBreak(false, 0);
-
-//         // Positionieren
-//         $this->SetY(-15);
-//         $this->SetFont('helvetica', 'I', 8);
+class MYPDF extends TCPDF {
+    // Überschreiben der Footer-Methode
+    public function Footer() {
+        // 15 mm vom unteren Seitenrand positionieren
+        $this->SetY(-15);
         
-//         // Da 'getAliasNbPages()' manchmal den Absturz bei dynamischen Tabellen erzwingt,
-//         // nutzen wir hier die sicherere Variante von TCPDF für die Seitenzahlen:
-//         $text = 'Seite ' . $this->getAliasNumPage() . ' / ' . $this->getAliasNbPages();
+        // Schriftart festlegen
+        $this->SetFont('helvetica', 'I', 8);
         
-//         $this->Cell(0, 0, $text, 0, false, 'C');
+        // Eigenen Text und Seitennummer definieren
+        $footerText = 'Seite ' . $this->getAliasNumPage() . ' von ' . $this->getAliasNbPages().'           ImmoWatt360 powered by AMREIN Projekt GmbH';
+        
+        // Text ausgeben (Breite 0 = bis zum rechten Rand, Höhe 10, zentriert oder links/rechts)
+        $this->Cell(0, 10, $footerText, 0, false, 'C', 0, '', 0, false, 'T', 'M');
+    }
+}
 
-//         // Page-Break für den normalen Content wieder einschalten (wichtig!)
-//         $this->SetAutoPageBreak(true, 25);
-//     }
-// }
 
 
 declare(strict_types=1);
@@ -244,7 +218,7 @@ class BillingEngine extends IPSModule
 
 
     
-        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor($author);
         $pdf->SetTitle('');
