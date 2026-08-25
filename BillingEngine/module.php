@@ -233,16 +233,7 @@ class BillingEngine extends IPSModule
         $pdf->setFontSize(10);
         $pdf->writeHTML($this->GenerateHTMLTextSeite1($Startdatum, $Enddatum, $MieterID));
 
-		// Footer:
-		// Go to 1.5 cm from bottom
-        $pdf->SetY(-15);
-        // Select Arial italic 8
-        //$pdf->SetFont('Arial', 'I', 8);
-        // Print centered page number
-		IPS_LogMessage("Modul BillingEngine", "vor Cell");
-        $pdf->Cell(0, 10, 'Seite '.$pdf->PageNo().'                 ImmoWatt360 powered by AMREIN Projekt GmbH', 0, 0, 'C');
-		IPS_LogMessage("Modul BillingEngine", "vor Cell");
-
+		
         // add page 2
         $pdf->AddPage('P', 'A4');
         $pdf->setPage(2, true);
@@ -255,12 +246,14 @@ class BillingEngine extends IPSModule
         $pdf->writeHTML($this->GenerateHTMLTextSeite2($Startdatum, $Enddatum, $MieterID));
 
 		// Footer:
-		// Go to 1.5 cm from bottom
-        $pdf->SetY(-15);
-        // Select Arial italic 8
-        //$pdf->SetFont('Arial', 'I', 8);
-        // Print centered page number
-        $pdf->Cell(0, 10, 'Seite '.$pdf->PageNo().'                 ImmoWatt360 powered by AMREIN Projekt GmbH', 0, 0, 'C');
+		$pages = $pdf->GetPageCount();
+		for ($x = 1; $x <= $pages; $x++) {
+  			$pdf->setPage($x, true);
+			$pdf->SetY(-15);
+			$this->SendDebug('Modul BillingEngine', 'vor Cell $x='.$x);
+        	$pdf->Cell(0, 10, 'Seite '.$pdf->PageNo().'                 ImmoWatt360 powered by AMREIN Projekt GmbH', 0, 0, 'C');
+			$this->SendDebug('Modul BillingEngine', 'nach Cell $x='.$x);
+		}
 
         //Save the pdf
         return $pdf->Output($filename, 'S');
