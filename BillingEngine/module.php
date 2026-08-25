@@ -1,5 +1,19 @@
 <?php
 
+
+class PDF extends FPDF {
+    // Fusszeile für jede Seite
+    function Footer() {
+        // Position 1,5 cm vom Boden
+        $this->SetY(-15);
+        // Arial kursiv 8
+        //$this->SetFont('Arial', 'I', 8);
+        // Aktuelle Seitenzahl und Gesamtseitenzahl ({nb}) ausgeben
+        $pdf->Cell(0, 10, 'Seite '.$pdf->PageNo().'                 ImmoWatt360 powered by AMREIN Projekt GmbH', 0, 0, 'C');
+    }
+}
+
+
 declare(strict_types=1);
 
 include_once __DIR__ . '/../libs/vendor/autoload.php';
@@ -203,6 +217,7 @@ class BillingEngine extends IPSModule
         $pdf->SetAuthor($author);
         $pdf->SetTitle('');
         $pdf->SetSubject('');
+		$pdf->AliasNbPages(); 
 
         $pdf->setPrintHeader(false);
 
@@ -215,7 +230,7 @@ class BillingEngine extends IPSModule
         $pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
 
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-        $pdf->setPrintFooter(false);
+        $pdf->setPrintFooter(true);
 
         $pdf->SetFont('DejaVu Sans', 10);
 
@@ -245,16 +260,16 @@ class BillingEngine extends IPSModule
         $pdf->setFontSize(10);
         $pdf->writeHTML($this->GenerateHTMLTextSeite2($Startdatum, $Enddatum, $MieterID));
 
-		// Footer:
-		$pages = $pdf->GetPageCount();
-		IPS_LogMessage('Modul BillingEngine', '$pages='.$pages);
-		for ($x = 1; $x <= $pages; $x++) {
-  			$pdf->setPage($x, true);
-			$pdf->SetY(-15);
-			IPS_LogMessage('Modul BillingEngine', 'vor Cell $x='.$x);
-        	$pdf->Cell(0, 10, 'Seite '.$pdf->PageNo().'                 ImmoWatt360 powered by AMREIN Projekt GmbH', 0, 0, 'C');
-			IPS_LogMessage('Modul BillingEngine', 'nach Cell $x='.$x);
-		}
+		// // Footer:
+		// $pages = $pdf->GetPageCount();
+		// IPS_LogMessage('Modul BillingEngine', '$pages='.$pages);
+		// for ($x = 1; $x <= $pages; $x++) {
+  		// 	$pdf->setPage($x, true);
+		// 	$pdf->SetY(-15);
+		// 	IPS_LogMessage('Modul BillingEngine', 'vor Cell $x='.$x);
+        // 	$pdf->Cell(0, 10, 'Seite '.$pdf->PageNo().'                 ImmoWatt360 powered by AMREIN Projekt GmbH', 0, 0, 'C');
+		// 	IPS_LogMessage('Modul BillingEngine', 'nach Cell $x='.$x);
+		// }
 
         //Save the pdf
         return $pdf->Output($filename, 'S');
