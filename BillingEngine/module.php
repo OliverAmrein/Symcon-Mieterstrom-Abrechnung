@@ -10,7 +10,6 @@ class MYPDF extends TCPDF {
         //$this->SetFont('Arial', 'I', 8);
         // Aktuelle Seitenzahl und Gesamtseitenzahl ({nb}) ausgeben
 		
-		
 		$text = 'Seite '.$this->getAliasNumPage().'                 ImmoWatt360 powered by AMREIN Projekt GmbH';
 
 		$this->Cell(0, 5, $text, 0, false, 'C', 0, '', 0, false, 'T', 'M');
@@ -228,9 +227,9 @@ class BillingEngine extends IPSModule
         $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
         $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP - 5, PDF_MARGIN_RIGHT);
-        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetFooterMargin(15);
 
-        $pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $pdf->SetAutoPageBreak(true, 20);
 
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
         $pdf->setPrintFooter(true);
