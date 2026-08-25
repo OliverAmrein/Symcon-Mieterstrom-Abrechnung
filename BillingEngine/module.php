@@ -1,18 +1,24 @@
 <?php
 
 
-class MYPDF extends TCPDF {
-    // Fusszeile für jede Seite
-    public function Footer() {
-        // Position 1,5 cm vom Boden
-        $this->SetY(-15);
-        // Arial kursiv 8
-        //$this->SetFont('Arial', 'I', 8);
-        // Aktuelle Seitenzahl und Gesamtseitenzahl ({nb}) ausgeben
-		
-		$text = 'Seite '.$this->getAliasNumPage().'                 ImmoWatt360 powered by AMREIN Projekt GmbH';
 
-		$this->Cell(0, 5, $text, 0, false, 'C', 0, '', 0, false, 'T', 'M');
+class MYPDF extends TCPDF {
+    public function Footer() {
+        // Schaltet den Autopagebreak temporär aus, während der Footer gezeichnet wird
+        $auto_page_break = $this->AutoPageBreak;
+        $this->SetAutoPageBreak(false, 0);
+
+        // Positionieren (sehr nah am Rand, z.B. 10mm)
+        $this->SetY(-10);
+        $this->SetFont('helvetica', 'I', 8);
+        
+        $text = 'Seite ' . $this->getAliasNumPage() . ' von ' . $this->getAliasNbPages().'            ImmoWatt360 powered by AMREIN Projekt GmbH';
+        
+        // Wichtig: Höhe auf 0 oder maximal 5 setzen
+        $this->Cell(0, 0, $text, 0, false, 'C');
+
+        // Autopagebreak wieder in den Originalzustand versetzen
+        $this->SetAutoPageBreak($auto_page_break, $this->bMargin);
     }
 }
 
