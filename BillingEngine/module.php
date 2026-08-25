@@ -5,11 +5,11 @@ class MYPDF extends TCPDF {
     // Fusszeile für jede Seite
     public function Footer() {
         // Position 1,5 cm vom Boden
-        $this->SetY(-15);
+        //$this->SetY(-15);
         // Arial kursiv 8
         //$this->SetFont('Arial', 'I', 8);
         // Aktuelle Seitenzahl und Gesamtseitenzahl ({nb}) ausgeben
-		$this->Cell(0, 10, 'Seite '.$this->getAliasNumPage().'                 ImmoWatt360 powered by AMREIN Projekt GmbH', 0, 0, 'C');
+		//$this->Cell(0, 10, 'Seite '.$this->getAliasNumPage().'                 ImmoWatt360 powered by AMREIN Projekt GmbH', 0, 0, 'C');
     }
 }
 
