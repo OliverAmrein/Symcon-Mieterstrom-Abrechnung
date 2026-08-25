@@ -3,7 +3,7 @@
 
 class MYPDF extends TCPDF {
     // Fusszeile für jede Seite
-    function Footer() {
+    public function Footer() {
         // Position 1,5 cm vom Boden
         $this->SetY(-15);
         // Arial kursiv 8
@@ -212,7 +212,7 @@ class BillingEngine extends IPSModule
         }
 
     
-        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor($author);
         $pdf->SetTitle('');
