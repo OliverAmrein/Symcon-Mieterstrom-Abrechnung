@@ -247,13 +247,13 @@ class BillingEngine extends IPSModule
 
 		// Footer:
 		$pages = $pdf->GetPageCount();
-		$this->SendDebug('Modul BillingEngine', '$pages='.$pages);
+		IPS_LogMessage('Modul BillingEngine', '$pages='.$pages);
 		for ($x = 1; $x <= $pages; $x++) {
   			$pdf->setPage($x, true);
 			$pdf->SetY(-15);
-			$this->SendDebug('Modul BillingEngine', 'vor Cell $x='.$x);
+			IPS_LogMessage('Modul BillingEngine', 'vor Cell $x='.$x);
         	$pdf->Cell(0, 10, 'Seite '.$pdf->PageNo().'                 ImmoWatt360 powered by AMREIN Projekt GmbH', 0, 0, 'C');
-			$this->SendDebug('Modul BillingEngine', 'nach Cell $x='.$x);
+			IPS_LogMessage('Modul BillingEngine', 'nach Cell $x='.$x);
 		}
 
         //Save the pdf
