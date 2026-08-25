@@ -279,6 +279,7 @@ class BillingEngine extends IPSModule
 		// 	IPS_LogMessage('Modul BillingEngine', 'nach Cell $x='.$x);
 		// }
 
+		if (ob_get_contents()) ob_end_clean(); 
         //Save the pdf
         return $pdf->Output($filename, 'S');
     }
