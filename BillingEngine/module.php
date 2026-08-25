@@ -1,68 +1,48 @@
 <?php
 
 
-
 // class MYPDF extends TCPDF {
+//     // Variable, um zu prüfen, ob wir auf Seite 1 sind
+//     public $is_first_page = true;
+//     // Speicher für die Logodaten, damit wir in der Klasse darauf zugreifen können
+//     public $logo_data;
+//     public $mieter_id;
+
+//     // AUTOMATISCHER HEADER
+//     public function Header() {
+//         if ($this->page == 1) {
+//             // Header für Seite 1 (falls gewünscht, sonst leer lassen)
+//             // Wenn Sie den Header auf S1 manuell im Skript ausgeben, hier einfach nichts tun
+//         } else {
+//             // REPETIERENDER HEADER ab Seite 2, 3, 4...
+//             $this->SetY(10);
+//             $this->SetFont('DejaVu Sans', '', 10);
+            
+//             // Da wir uns in der Klasse befinden, rufen wir die Methode des Hauptskripts auf.
+//             // Alternativ kopieren Sie den HTML-Code des Headers direkt hierhin.
+//             // $this->writeHTML($html_header_seite2, true, false, true, false, '');
+//         }
+//     }
+
+//     // AUTOMATISCHER FOOTER (Jetzt absolut crash-sicher)
 //     public function Footer() {
-//         // Schaltet den Autopagebreak temporär aus, während der Footer gezeichnet wird
-//         $auto_page_break = $this->AutoPageBreak;
+//         // Schaltet den Page-Break im Footer-Prozess strikt aus
 //         $this->SetAutoPageBreak(false, 0);
 
-//         // Positionieren (sehr nah am Rand, z.B. 10mm)
-//         $this->SetY(-10);
+//         // Positionieren
+//         $this->SetY(-15);
+//         $this->SetFont('helvetica', 'I', 8);
         
-//         $text = 'Seite ' . $this->getAliasNumPage() . ' von ' . $this->getAliasNbPages().'            ImmoWatt360 powered by AMREIN Projekt GmbH';
+//         // Da 'getAliasNbPages()' manchmal den Absturz bei dynamischen Tabellen erzwingt,
+//         // nutzen wir hier die sicherere Variante von TCPDF für die Seitenzahlen:
+//         $text = 'Seite ' . $this->getAliasNumPage() . ' / ' . $this->getAliasNbPages();
         
-//         // Wichtig: Höhe auf 0 oder maximal 5 setzen
 //         $this->Cell(0, 0, $text, 0, false, 'C');
 
-//         // Autopagebreak wieder in den Originalzustand versetzen
-//         $this->SetAutoPageBreak($auto_page_break, $this->bMargin);
+//         // Page-Break für den normalen Content wieder einschalten (wichtig!)
+//         $this->SetAutoPageBreak(true, 25);
 //     }
 // }
-
-class MYPDF extends TCPDF {
-    // Variable, um zu prüfen, ob wir auf Seite 1 sind
-    public $is_first_page = true;
-    // Speicher für die Logodaten, damit wir in der Klasse darauf zugreifen können
-    public $logo_data;
-    public $mieter_id;
-
-    // AUTOMATISCHER HEADER
-    public function Header() {
-        if ($this->page == 1) {
-            // Header für Seite 1 (falls gewünscht, sonst leer lassen)
-            // Wenn Sie den Header auf S1 manuell im Skript ausgeben, hier einfach nichts tun
-        } else {
-            // REPETIERENDER HEADER ab Seite 2, 3, 4...
-            $this->SetY(10);
-            $this->SetFont('DejaVu Sans', '', 10);
-            
-            // Da wir uns in der Klasse befinden, rufen wir die Methode des Hauptskripts auf.
-            // Alternativ kopieren Sie den HTML-Code des Headers direkt hierhin.
-            // $this->writeHTML($html_header_seite2, true, false, true, false, '');
-        }
-    }
-
-    // AUTOMATISCHER FOOTER (Jetzt absolut crash-sicher)
-    public function Footer() {
-        // Schaltet den Page-Break im Footer-Prozess strikt aus
-        $this->SetAutoPageBreak(false, 0);
-
-        // Positionieren
-        $this->SetY(-15);
-        $this->SetFont('helvetica', 'I', 8);
-        
-        // Da 'getAliasNbPages()' manchmal den Absturz bei dynamischen Tabellen erzwingt,
-        // nutzen wir hier die sicherere Variante von TCPDF für die Seitenzahlen:
-        $text = 'Seite ' . $this->getAliasNumPage() . ' / ' . $this->getAliasNbPages();
-        
-        $this->Cell(0, 0, $text, 0, false, 'C');
-
-        // Page-Break für den normalen Content wieder einschalten (wichtig!)
-        $this->SetAutoPageBreak(true, 25);
-    }
-}
 
 
 declare(strict_types=1);
@@ -263,114 +243,57 @@ class BillingEngine extends IPSModule
         }
 
 
-		$pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-		$pdf->SetCreator(PDF_CREATOR);
-		$pdf->SetAuthor($author);
-
-		// WICHTIG: Header und Footer global aktivieren
-		$pdf->setPrintHeader(true);
-		$pdf->setPrintFooter(true);
-
-		// Standard-Ränder definieren (Wichtig: Oben 25mm Platz lassen, damit der Header Platz hat!)
-		$pdf->SetMargins(PDF_MARGIN_LEFT, 25, PDF_MARGIN_RIGHT);
-		$pdf->SetFooterMargin(15);
-		$pdf->SetAutoPageBreak(true, 25); // 25mm Sicherheitsabstand nach unten
-
-		$pdf->SetFont('DejaVu Sans', '', 10);
-
-		// ==========================================
-		// SEITE 1
-		// ==========================================
-		$pdf->AddPage('P', 'A4');
-		$pdf->SetY(20); // Startposition auf Seite 1
-
-		// Header für Seite 1 manuell reinladen
-		$pdf->writeHTML($this->GenerateHTMLHeaderSeite1($logo), true, false, true, false, '');
-		$pdf->setY($pdf->getY() + 5);
-
-		$this->BerechneBezugUndBetrag($Startdatum, $Enddatum, $MieterID);
-
-		//$pdf->writeHTML($this->GenerateHTMLTextSeite1($Startdatum, $Enddatum, $MieterID), true, false, true, false, '');
-
-
-		// ==========================================
-		// SEITE 2 (Und der automatische Fluss für Seite 3, 4...)
-		// ==========================================
-		$pdf->AddPage('P', 'A4');
-		$pdf->SetY(25); // Startposition für den Inhalt auf Seite 2
-
-		// Da ab hier der Header automatisch wiederholt werden soll, 
-		// definieren wir den Header-Inhalt für die Folgeseiten in einer Variable 
-		// oder geben ihn hier das erste Mal aus:
-		$pdf->writeHTML($this->GenerateHTMLHeaderSeite2($logo, $MieterID), true, false, true, false, '');
-		$pdf->setY($pdf->getY() + 5);
-
-		// JETZT DIE DYNAMISCHE LISTE:
-		// Wenn dieser Text länger als 1 Seite ist, erstellt TCPDF die Seiten 3, 4 etc.
-		// automatisch UND ruft dabei jedes Mal die Header()-Funktion der Klasse auf!
-		//$pdf->writeHTML($this->GenerateHTMLTextSeite2($Startdatum, $Enddatum, $MieterID), true, false, true, false, '');
-
-
-		// ==========================================
-		// PUFFER LEEREN & AUSGEBEN
-		// ==========================================
-		// Falls PHP durch die Tabellenberechnung Warnungen erzeugt hat, löschen wir sie hier
-		if (ob_get_length()) {
-			ob_end_clean();
-		}
-
-		return $pdf->Output($filename, 'S');
     
-        // $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-        // $pdf->SetCreator(PDF_CREATOR);
-        // $pdf->SetAuthor($author);
-        // $pdf->SetTitle('');
-        // $pdf->SetSubject('');
+        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor($author);
+        $pdf->SetTitle('');
+        $pdf->SetSubject('');
 
-        // $pdf->setPrintHeader(false);
+        $pdf->setPrintHeader(false);
 
-        // $pdf->setFooterFont([PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA]);
-        // $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->setFooterFont([PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA]);
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
-        // $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP - 5, PDF_MARGIN_RIGHT);
-        // $pdf->SetFooterMargin(15);
+        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP - 5, PDF_MARGIN_RIGHT);
+        $pdf->SetFooterMargin(15);
 
-        // $pdf->SetAutoPageBreak(true, 20);
+        $pdf->SetAutoPageBreak(true, 20);
 
-        // $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-        // $pdf->setPrintFooter(true);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf->setPrintFooter(true);
 
-        // $pdf->SetFont('DejaVu Sans', 10);
+        $pdf->SetFont('DejaVu Sans', 10);
 
-        // // add page 1
-        // $pdf->AddPage('P', 'A4');
-        // //$pdf->setPage(1, true);
+        // add page 1
+        $pdf->AddPage('P', 'A4');
+        //$pdf->setPage(1, true);
        
-        // $pdf->SetY(20);
+        $pdf->SetY(20);
 
-        // $pdf->setFontSize(10);
+        $pdf->setFontSize(10);
 
-        // $pdf->writeHTML($this->GenerateHTMLHeaderSeite1($logo), true, false, true, false, '');
-        // $pdf->setY($pdf->getY() + 10);
-        // $this->BerechneBezugUndBetrag($Startdatum, $Enddatum, $MieterID);
-        // $pdf->setFontSize(10);
-        // $pdf->writeHTML($this->GenerateHTMLTextSeite1($Startdatum, $Enddatum, $MieterID));
-
-		
-        // // add page 2
-        // $pdf->AddPage('P', 'A4');
-        // //$pdf->setPage(2, true);
-        // $pdf->SetY(20);
-
-        // $pdf->setFontSize(10);
-        // $pdf->writeHTML($this->GenerateHTMLHeaderSeite2($logo, $MieterID), true, false, true, false, '');
-        // $pdf->setY($pdf->getY() + 10);
-        // $pdf->setFontSize(10);
-        // $pdf->writeHTML($this->GenerateHTMLTextSeite2($Startdatum, $Enddatum, $MieterID));
+        $pdf->writeHTML($this->GenerateHTMLHeaderSeite1($logo), true, false, true, false, '');
+        $pdf->setY($pdf->getY() + 10);
+        $this->BerechneBezugUndBetrag($Startdatum, $Enddatum, $MieterID);
+        $pdf->setFontSize(10);
+        $pdf->writeHTML($this->GenerateHTMLTextSeite1($Startdatum, $Enddatum, $MieterID));
 
 		
-		//  //Save the pdf
-        // return $pdf->Output($filename, 'S');
+        // add page 2
+        $pdf->AddPage('P', 'A4');
+        //$pdf->setPage(2, true);
+        $pdf->SetY(20);
+
+        $pdf->setFontSize(10);
+        $pdf->writeHTML($this->GenerateHTMLHeaderSeite2($logo, $MieterID), true, false, true, false, '');
+        $pdf->setY($pdf->getY() + 10);
+        $pdf->setFontSize(10);
+        $pdf->writeHTML($this->GenerateHTMLTextSeite2($Startdatum, $Enddatum, $MieterID));
+
+		
+		 //Save the pdf
+        return $pdf->Output($filename, 'S');
     }
 
 
