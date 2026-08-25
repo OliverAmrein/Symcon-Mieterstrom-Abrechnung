@@ -3527,7 +3527,8 @@ class TCPDF {
 			$this->Cell(0, 0, $pagenumtxt, 'T', 0, 'L');
 		} else {
 			$this->SetX($this->original_lMargin);
-			$this->Cell(0, 0, 'Seite '.$this->getAliasRightShift().$pagenumtxt.'                            ImmoWatt360 powered by AMREIN Projekt GmbH', 'T', 0, 'L');
+			$this->Cell(0, 0, 'Seite '.$pagenumtxt, 'T', 0, 'L');
+			$this->Cell(0, 0, 'ImmoWatt360 powered by AMREIN Projekt GmbH', 'T', 0, 'R');
 			
 		}
 	}
