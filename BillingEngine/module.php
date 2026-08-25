@@ -247,6 +247,7 @@ class BillingEngine extends IPSModule
 
 		// Footer:
 		$pages = $pdf->GetPageCount();
+		$this->SendDebug('Modul BillingEngine', '$pages='.$pages);
 		for ($x = 1; $x <= $pages; $x++) {
   			$pdf->setPage($x, true);
 			$pdf->SetY(-15);
